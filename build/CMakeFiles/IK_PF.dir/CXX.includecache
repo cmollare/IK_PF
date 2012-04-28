@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/christophe/Documents/Laas/git/IK_PF/src/test/test.cpp
+iostream
+-
+Joint
+/home/christophe/Documents/Laas/git/IK_PF/src/test/Joint
+

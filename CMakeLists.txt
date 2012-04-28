@@ -19,6 +19,7 @@ file(
     source_files
     src/*
     src/joint/*
+    src/test/*
 )
 
 # Déclaration de l'exécutable

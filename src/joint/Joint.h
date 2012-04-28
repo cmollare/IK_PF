@@ -13,6 +13,10 @@ class Joint
 		~Joint();
 		
 		void setDof(vector<bool> dof);
+		
+	private:
+		Joint *mParentJoint;
+		vector<Joint*> mChildrenJoint;
 };
 
 #endif

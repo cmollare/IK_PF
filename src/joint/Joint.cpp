@@ -1,5 +1,5 @@
-#include "Joint.cpp"
+#include "Joint.h"
 
-Joint::Joint(string name, Joint *parent=NULL)
+Joint::Joint(string name, Joint *parent)
 {
 }
