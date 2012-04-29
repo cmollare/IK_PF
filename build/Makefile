@@ -111,29 +111,53 @@ IK_PF/fast:
 	$(MAKE) -f CMakeFiles/IK_PF.dir/build.make CMakeFiles/IK_PF.dir/build
 .PHONY : IK_PF/fast
 
-src/joint/Joint.o: src/joint/Joint.cpp.o
-.PHONY : src/joint/Joint.o
+src/3DModel/Joint.o: src/3DModel/Joint.cpp.o
+.PHONY : src/3DModel/Joint.o
 
 # target to build an object file
-src/joint/Joint.cpp.o:
-	$(MAKE) -f CMakeFiles/IK_PF.dir/build.make CMakeFiles/IK_PF.dir/src/joint/Joint.cpp.o
-.PHONY : src/joint/Joint.cpp.o
+src/3DModel/Joint.cpp.o:
+	$(MAKE) -f CMakeFiles/IK_PF.dir/build.make CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o
+.PHONY : src/3DModel/Joint.cpp.o
 
-src/joint/Joint.i: src/joint/Joint.cpp.i
-.PHONY : src/joint/Joint.i
+src/3DModel/Joint.i: src/3DModel/Joint.cpp.i
+.PHONY : src/3DModel/Joint.i
 
 # target to preprocess a source file
-src/joint/Joint.cpp.i:
-	$(MAKE) -f CMakeFiles/IK_PF.dir/build.make CMakeFiles/IK_PF.dir/src/joint/Joint.cpp.i
-.PHONY : src/joint/Joint.cpp.i
+src/3DModel/Joint.cpp.i:
+	$(MAKE) -f CMakeFiles/IK_PF.dir/build.make CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.i
+.PHONY : src/3DModel/Joint.cpp.i
 
-src/joint/Joint.s: src/joint/Joint.cpp.s
-.PHONY : src/joint/Joint.s
+src/3DModel/Joint.s: src/3DModel/Joint.cpp.s
+.PHONY : src/3DModel/Joint.s
 
 # target to generate assembly for a file
-src/joint/Joint.cpp.s:
-	$(MAKE) -f CMakeFiles/IK_PF.dir/build.make CMakeFiles/IK_PF.dir/src/joint/Joint.cpp.s
-.PHONY : src/joint/Joint.cpp.s
+src/3DModel/Joint.cpp.s:
+	$(MAKE) -f CMakeFiles/IK_PF.dir/build.make CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.s
+.PHONY : src/3DModel/Joint.cpp.s
+
+src/3DModel/S3DModel.o: src/3DModel/S3DModel.cpp.o
+.PHONY : src/3DModel/S3DModel.o
+
+# target to build an object file
+src/3DModel/S3DModel.cpp.o:
+	$(MAKE) -f CMakeFiles/IK_PF.dir/build.make CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o
+.PHONY : src/3DModel/S3DModel.cpp.o
+
+src/3DModel/S3DModel.i: src/3DModel/S3DModel.cpp.i
+.PHONY : src/3DModel/S3DModel.i
+
+# target to preprocess a source file
+src/3DModel/S3DModel.cpp.i:
+	$(MAKE) -f CMakeFiles/IK_PF.dir/build.make CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.i
+.PHONY : src/3DModel/S3DModel.cpp.i
+
+src/3DModel/S3DModel.s: src/3DModel/S3DModel.cpp.s
+.PHONY : src/3DModel/S3DModel.s
+
+# target to generate assembly for a file
+src/3DModel/S3DModel.cpp.s:
+	$(MAKE) -f CMakeFiles/IK_PF.dir/build.make CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.s
+.PHONY : src/3DModel/S3DModel.cpp.s
 
 src/test/test.o: src/test/test.cpp.o
 .PHONY : src/test/test.o
@@ -168,9 +192,12 @@ help:
 	@echo "... IK_PF"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... src/joint/Joint.o"
-	@echo "... src/joint/Joint.i"
-	@echo "... src/joint/Joint.s"
+	@echo "... src/3DModel/Joint.o"
+	@echo "... src/3DModel/Joint.i"
+	@echo "... src/3DModel/Joint.s"
+	@echo "... src/3DModel/S3DModel.o"
+	@echo "... src/3DModel/S3DModel.i"
+	@echo "... src/3DModel/S3DModel.s"
 	@echo "... src/test/test.o"
 	@echo "... src/test/test.i"
 	@echo "... src/test/test.s"

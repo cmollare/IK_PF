@@ -5,6 +5,7 @@ project(IK_PF)
 
 include_directories(
 	/usr/include/OGRE/
+	/usr/include/eigen3/
 )
 
 link_directories(

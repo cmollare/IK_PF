@@ -6,9 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/christophe/Documents/Laas/git/IK_PF/src/test/test.cpp
+/home/christophe/Documents/Laas/git/IK_PF/src/3DModel/S3DModel.cpp
+S3DModel.h
+/home/christophe/Documents/Laas/git/IK_PF/src/3DModel/S3DModel.h
+
+/home/christophe/Documents/Laas/git/IK_PF/src/3DModel/S3DModel.h
 iostream
 -
-Joint
-/home/christophe/Documents/Laas/git/IK_PF/src/test/Joint
 

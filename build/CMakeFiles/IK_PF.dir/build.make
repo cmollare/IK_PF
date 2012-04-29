@@ -49,32 +49,9 @@ include CMakeFiles/IK_PF.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/IK_PF.dir/flags.make
 
-CMakeFiles/IK_PF.dir/src/joint/Joint.cpp.o: CMakeFiles/IK_PF.dir/flags.make
-CMakeFiles/IK_PF.dir/src/joint/Joint.cpp.o: ../src/joint/Joint.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/christophe/Documents/Laas/git/IK_PF/build/CMakeFiles $(CMAKE_PROGRESS_1)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/IK_PF.dir/src/joint/Joint.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/IK_PF.dir/src/joint/Joint.cpp.o -c /home/christophe/Documents/Laas/git/IK_PF/src/joint/Joint.cpp
-
-CMakeFiles/IK_PF.dir/src/joint/Joint.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/IK_PF.dir/src/joint/Joint.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/christophe/Documents/Laas/git/IK_PF/src/joint/Joint.cpp > CMakeFiles/IK_PF.dir/src/joint/Joint.cpp.i
-
-CMakeFiles/IK_PF.dir/src/joint/Joint.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/IK_PF.dir/src/joint/Joint.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/christophe/Documents/Laas/git/IK_PF/src/joint/Joint.cpp -o CMakeFiles/IK_PF.dir/src/joint/Joint.cpp.s
-
-CMakeFiles/IK_PF.dir/src/joint/Joint.cpp.o.requires:
-.PHONY : CMakeFiles/IK_PF.dir/src/joint/Joint.cpp.o.requires
-
-CMakeFiles/IK_PF.dir/src/joint/Joint.cpp.o.provides: CMakeFiles/IK_PF.dir/src/joint/Joint.cpp.o.requires
-	$(MAKE) -f CMakeFiles/IK_PF.dir/build.make CMakeFiles/IK_PF.dir/src/joint/Joint.cpp.o.provides.build
-.PHONY : CMakeFiles/IK_PF.dir/src/joint/Joint.cpp.o.provides
-
-CMakeFiles/IK_PF.dir/src/joint/Joint.cpp.o.provides.build: CMakeFiles/IK_PF.dir/src/joint/Joint.cpp.o
-
 CMakeFiles/IK_PF.dir/src/test/test.cpp.o: CMakeFiles/IK_PF.dir/flags.make
 CMakeFiles/IK_PF.dir/src/test/test.cpp.o: ../src/test/test.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/christophe/Documents/Laas/git/IK_PF/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/christophe/Documents/Laas/git/IK_PF/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/IK_PF.dir/src/test/test.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/IK_PF.dir/src/test/test.cpp.o -c /home/christophe/Documents/Laas/git/IK_PF/src/test/test.cpp
 
@@ -95,16 +72,64 @@ CMakeFiles/IK_PF.dir/src/test/test.cpp.o.provides: CMakeFiles/IK_PF.dir/src/test
 
 CMakeFiles/IK_PF.dir/src/test/test.cpp.o.provides.build: CMakeFiles/IK_PF.dir/src/test/test.cpp.o
 
+CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o: CMakeFiles/IK_PF.dir/flags.make
+CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o: ../src/3DModel/Joint.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/christophe/Documents/Laas/git/IK_PF/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o -c /home/christophe/Documents/Laas/git/IK_PF/src/3DModel/Joint.cpp
+
+CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/christophe/Documents/Laas/git/IK_PF/src/3DModel/Joint.cpp > CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.i
+
+CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/christophe/Documents/Laas/git/IK_PF/src/3DModel/Joint.cpp -o CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.s
+
+CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o.requires:
+.PHONY : CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o.requires
+
+CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o.provides: CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o.requires
+	$(MAKE) -f CMakeFiles/IK_PF.dir/build.make CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o.provides.build
+.PHONY : CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o.provides
+
+CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o.provides.build: CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o
+
+CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o: CMakeFiles/IK_PF.dir/flags.make
+CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o: ../src/3DModel/S3DModel.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/christophe/Documents/Laas/git/IK_PF/build/CMakeFiles $(CMAKE_PROGRESS_3)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o -c /home/christophe/Documents/Laas/git/IK_PF/src/3DModel/S3DModel.cpp
+
+CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/christophe/Documents/Laas/git/IK_PF/src/3DModel/S3DModel.cpp > CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.i
+
+CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/christophe/Documents/Laas/git/IK_PF/src/3DModel/S3DModel.cpp -o CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.s
+
+CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o.requires:
+.PHONY : CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o.requires
+
+CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o.provides: CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o.requires
+	$(MAKE) -f CMakeFiles/IK_PF.dir/build.make CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o.provides.build
+.PHONY : CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o.provides
+
+CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o.provides.build: CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o
+
 # Object files for target IK_PF
 IK_PF_OBJECTS = \
-"CMakeFiles/IK_PF.dir/src/joint/Joint.cpp.o" \
-"CMakeFiles/IK_PF.dir/src/test/test.cpp.o"
+"CMakeFiles/IK_PF.dir/src/test/test.cpp.o" \
+"CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o" \
+"CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o"
 
 # External object files for target IK_PF
 IK_PF_EXTERNAL_OBJECTS =
 
-../bin/IK_PF: CMakeFiles/IK_PF.dir/src/joint/Joint.cpp.o
 ../bin/IK_PF: CMakeFiles/IK_PF.dir/src/test/test.cpp.o
+../bin/IK_PF: CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o
+../bin/IK_PF: CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o
 ../bin/IK_PF: CMakeFiles/IK_PF.dir/build.make
 ../bin/IK_PF: CMakeFiles/IK_PF.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable ../bin/IK_PF"
@@ -114,8 +139,9 @@ IK_PF_EXTERNAL_OBJECTS =
 CMakeFiles/IK_PF.dir/build: ../bin/IK_PF
 .PHONY : CMakeFiles/IK_PF.dir/build
 
-CMakeFiles/IK_PF.dir/requires: CMakeFiles/IK_PF.dir/src/joint/Joint.cpp.o.requires
 CMakeFiles/IK_PF.dir/requires: CMakeFiles/IK_PF.dir/src/test/test.cpp.o.requires
+CMakeFiles/IK_PF.dir/requires: CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o.requires
+CMakeFiles/IK_PF.dir/requires: CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o.requires
 .PHONY : CMakeFiles/IK_PF.dir/requires
 
 CMakeFiles/IK_PF.dir/clean:
