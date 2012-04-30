@@ -6,10 +6,12 @@ project(IK_PF)
 include_directories(
 	/usr/include/OGRE/
 	/usr/include/eigen3/
+	/usr/local/include/yaml-cpp/
 )
 
 link_directories(
 	/usr/lib
+	/usr/local/lib/
 )
 
 SET(EXECUTABLE_OUTPUT_PATH ../bin/)
@@ -33,6 +35,7 @@ target_link_libraries(
     IK_PF
 	OgreMain
 	OIS
+	yaml-cpp
 )
 
 

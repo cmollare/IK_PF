@@ -14,7 +14,7 @@ class Joint
 		~Joint();
 		
 		void setDof(vector<bool> dof);
-		Eigen::Matrix4f getOrientation();
+		Eigen::Matrix2f getCurrOrientation();
 		
 	private:
 		string mName;
@@ -22,11 +22,13 @@ class Joint
 		vector<Joint*> mChildrenJoint;
 		Eigen::Vector3i mColors;
 		Eigen::Matrix2f mOrientation;
-		int mOffset;
 		
-		Eigen::Matrix4f mCurrent;
-		Eigen::Matrix4f mParent;
-		Eigen::Matrix4f mWorld;
+		Eigen::Matrix2f mQDefault;
+		Eigen::Matrix2f mQLocal;
+		Eigen::Matrix2f mQCurrent;
+		int mDefaultOffset;
+		int mLocalOffset;
+		int mCurrentOffset;
 };
 
 #endif

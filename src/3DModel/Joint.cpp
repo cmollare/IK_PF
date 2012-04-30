@@ -4,27 +4,18 @@ Joint::Joint(string name, Joint *parent)
 {
 	mParentJoint = parent;
 	mName = name;
-	
-	mCurrent << 0,0,0,0,
-				0,0,0,0,
-				0,0,0,0,
-				0,0,0,0;
-				
-	if (mParentJoint == NULL)
-	{
-		mParent << 0,0,0,0,
-					0,0,0,0,
-					0,0,0,0,
-					0,0,0,0;
-	}
-	
+
+	mQDefault << 1,0,
+				0,1;
+	if (mParentJoint != NULL)
+		mQDefault = mParentJoint->getCurrOrientation()*mQDefault;
 }
 
 Joint::~Joint()
 {
 }
 
-Eigen::Matrix4f Joint::getOrientation()
+Eigen::Matrix2f Joint::getCurrOrientation()
 {
-	return mCurrent;
+	return mQCurrent;
 }
