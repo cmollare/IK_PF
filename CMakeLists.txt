@@ -6,7 +6,7 @@ project(IK_PF)
 include_directories(
 	/usr/include/OGRE/
 	/usr/include/eigen3/
-	/usr/local/include/yaml-cpp/
+	/usr/local/include/
 )
 
 link_directories(
@@ -21,8 +21,6 @@ file(
     GLOB_RECURSE
     source_files
     src/*
-    src/joint/*
-    src/test/*
 )
 
 # Déclaration de l'exécutable

@@ -159,6 +159,30 @@ src/3DModel/S3DModel.cpp.s:
 	$(MAKE) -f CMakeFiles/IK_PF.dir/build.make CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.s
 .PHONY : src/3DModel/S3DModel.cpp.s
 
+src/FileParsers/YamlBodyJoint.o: src/FileParsers/YamlBodyJoint.cpp.o
+.PHONY : src/FileParsers/YamlBodyJoint.o
+
+# target to build an object file
+src/FileParsers/YamlBodyJoint.cpp.o:
+	$(MAKE) -f CMakeFiles/IK_PF.dir/build.make CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o
+.PHONY : src/FileParsers/YamlBodyJoint.cpp.o
+
+src/FileParsers/YamlBodyJoint.i: src/FileParsers/YamlBodyJoint.cpp.i
+.PHONY : src/FileParsers/YamlBodyJoint.i
+
+# target to preprocess a source file
+src/FileParsers/YamlBodyJoint.cpp.i:
+	$(MAKE) -f CMakeFiles/IK_PF.dir/build.make CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.i
+.PHONY : src/FileParsers/YamlBodyJoint.cpp.i
+
+src/FileParsers/YamlBodyJoint.s: src/FileParsers/YamlBodyJoint.cpp.s
+.PHONY : src/FileParsers/YamlBodyJoint.s
+
+# target to generate assembly for a file
+src/FileParsers/YamlBodyJoint.cpp.s:
+	$(MAKE) -f CMakeFiles/IK_PF.dir/build.make CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.s
+.PHONY : src/FileParsers/YamlBodyJoint.cpp.s
+
 src/test/test.o: src/test/test.cpp.o
 .PHONY : src/test/test.o
 
@@ -198,6 +222,9 @@ help:
 	@echo "... src/3DModel/S3DModel.o"
 	@echo "... src/3DModel/S3DModel.i"
 	@echo "... src/3DModel/S3DModel.s"
+	@echo "... src/FileParsers/YamlBodyJoint.o"
+	@echo "... src/FileParsers/YamlBodyJoint.i"
+	@echo "... src/FileParsers/YamlBodyJoint.s"
 	@echo "... src/test/test.o"
 	@echo "... src/test/test.i"
 	@echo "... src/test/test.s"

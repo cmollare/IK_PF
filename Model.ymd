@@ -1,0 +1,66 @@
+
+NbPoses: 0
+NbJoints: 19
+FirstIndex: 1
+BJoints:
+  - Joint: Spine
+    Parent: _Root
+  - Joint: ShoulderCenter
+    Parent: Spine
+  - Joint: Head
+    Parent: ShoulderCenter
+  - Joint: ShoulderLeft
+    Parent: ShoulderCenter
+  - Joint: ElbowLeft
+    Parent: ShoulderLeft
+  - Joint: WristleLeft
+    Parent: ElbowLeft
+  - Joint: HandLeft
+    Parent: WristleLeft
+  - Joint: ShoulderRight
+    Parent: ShoulderCenter
+  - Joint: ElbowRight
+    Parent: ShoulderRight
+  - Joint: WristleRight
+    Parent: ElbowRight
+  - Joint: HandRight
+    Parent: WristleRight
+  - Joint: HipCenter
+    Parent: Spine
+  - Joint: HipLeft
+    Parent: HipCenter
+  - Joint: KneeLeft
+    Parent: HipLeft
+  - Joint: AnkleLeft
+    Parent: KneeLeft
+  - Joint: FootLeft
+    Parent: AnkleLeft
+  - Joint: HipRight
+    Parent: HipCenter
+  - Joint: KneeRight
+    Parent: HipRight
+  - Joint: AnkleRight
+    Parent: KneeRight
+  - Joint: FootRight
+    Parent: FootRight
+BPartsColors:
+  - {b: 0, g: 0, r: 0}
+  - {b: 0, g: 0, r: 0}
+  - {b: 0, g: 0, r: 0}
+  - {b: 0, g: 0, r: 0}
+  - {b: 0, g: 0, r: 0}
+  - {b: 0, g: 0, r: 0}
+  - {b: 0, g: 0, r: 0}
+  - {b: 0, g: 0, r: 0}
+  - {b: 0, g: 0, r: 0}
+  - {b: 0, g: 0, r: 0}
+  - {b: 0, g: 0, r: 0}
+  - {b: 0, g: 0, r: 0}
+  - {b: 0, g: 0, r: 0}
+  - {b: 0, g: 0, r: 0}
+  - {b: 0, g: 0, r: 0}
+  - {b: 0, g: 0, r: 0}
+  - {b: 0, g: 0, r: 255}
+  - {b: 0, g: 255, r: 0}
+  - {b: 255, g: 0, r: 0}
+

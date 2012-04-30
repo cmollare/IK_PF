@@ -368,9 +368,34 @@ CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o
  /usr/include/eigen3/Eigen/src/misc/Image.h
  /usr/include/eigen3/Eigen/src/misc/Kernel.h
  /usr/include/eigen3/Eigen/src/misc/Solve.h
+CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o
+ /home/christophe/Documents/Laas/git/IK_PF/src/FileParsers/YamlBodyJoint.cpp
+ /home/christophe/Documents/Laas/git/IK_PF/src/FileParsers/YamlBodyJoint.h
+ /usr/local/include/yaml-cpp/binary.h
+ /usr/local/include/yaml-cpp/conversion.h
+ /usr/local/include/yaml-cpp/dll.h
+ /usr/local/include/yaml-cpp/emitter.h
+ /usr/local/include/yaml-cpp/emittermanip.h
+ /usr/local/include/yaml-cpp/exceptions.h
+ /usr/local/include/yaml-cpp/iterator.h
+ /usr/local/include/yaml-cpp/ltnode.h
+ /usr/local/include/yaml-cpp/mark.h
+ /usr/local/include/yaml-cpp/node.h
+ /usr/local/include/yaml-cpp/nodeimpl.h
+ /usr/local/include/yaml-cpp/nodereadimpl.h
+ /usr/local/include/yaml-cpp/nodeutil.h
+ /usr/local/include/yaml-cpp/noncopyable.h
+ /usr/local/include/yaml-cpp/null.h
+ /usr/local/include/yaml-cpp/ostream.h
+ /usr/local/include/yaml-cpp/parser.h
+ /usr/local/include/yaml-cpp/stlemitter.h
+ /usr/local/include/yaml-cpp/stlnode.h
+ /usr/local/include/yaml-cpp/traits.h
+ /usr/local/include/yaml-cpp/yaml.h
 CMakeFiles/IK_PF.dir/src/test/test.cpp.o
  /home/christophe/Documents/Laas/git/IK_PF/src/test/../3DModel/Joint.h
  /home/christophe/Documents/Laas/git/IK_PF/src/test/../3DModel/S3DModel.h
+ /home/christophe/Documents/Laas/git/IK_PF/src/test/../FileParsers/YamlBodyJoint.h
  /home/christophe/Documents/Laas/git/IK_PF/src/test/test.cpp
  /usr/include/eigen3/Eigen/Cholesky
  /usr/include/eigen3/Eigen/Core
@@ -552,3 +577,24 @@ CMakeFiles/IK_PF.dir/src/test/test.cpp.o
  /usr/include/eigen3/Eigen/src/misc/Image.h
  /usr/include/eigen3/Eigen/src/misc/Kernel.h
  /usr/include/eigen3/Eigen/src/misc/Solve.h
+ /usr/local/include/yaml-cpp/binary.h
+ /usr/local/include/yaml-cpp/conversion.h
+ /usr/local/include/yaml-cpp/dll.h
+ /usr/local/include/yaml-cpp/emitter.h
+ /usr/local/include/yaml-cpp/emittermanip.h
+ /usr/local/include/yaml-cpp/exceptions.h
+ /usr/local/include/yaml-cpp/iterator.h
+ /usr/local/include/yaml-cpp/ltnode.h
+ /usr/local/include/yaml-cpp/mark.h
+ /usr/local/include/yaml-cpp/node.h
+ /usr/local/include/yaml-cpp/nodeimpl.h
+ /usr/local/include/yaml-cpp/nodereadimpl.h
+ /usr/local/include/yaml-cpp/nodeutil.h
+ /usr/local/include/yaml-cpp/noncopyable.h
+ /usr/local/include/yaml-cpp/null.h
+ /usr/local/include/yaml-cpp/ostream.h
+ /usr/local/include/yaml-cpp/parser.h
+ /usr/local/include/yaml-cpp/stlemitter.h
+ /usr/local/include/yaml-cpp/stlnode.h
+ /usr/local/include/yaml-cpp/traits.h
+ /usr/local/include/yaml-cpp/yaml.h

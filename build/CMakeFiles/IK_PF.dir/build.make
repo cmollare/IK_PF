@@ -118,11 +118,35 @@ CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o.provides: CMakeFiles/IK_PF.dir/s
 
 CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o.provides.build: CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o
 
+CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o: CMakeFiles/IK_PF.dir/flags.make
+CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o: ../src/FileParsers/YamlBodyJoint.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/christophe/Documents/Laas/git/IK_PF/build/CMakeFiles $(CMAKE_PROGRESS_4)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o -c /home/christophe/Documents/Laas/git/IK_PF/src/FileParsers/YamlBodyJoint.cpp
+
+CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/christophe/Documents/Laas/git/IK_PF/src/FileParsers/YamlBodyJoint.cpp > CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.i
+
+CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/christophe/Documents/Laas/git/IK_PF/src/FileParsers/YamlBodyJoint.cpp -o CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.s
+
+CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o.requires:
+.PHONY : CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o.requires
+
+CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o.provides: CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o.requires
+	$(MAKE) -f CMakeFiles/IK_PF.dir/build.make CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o.provides.build
+.PHONY : CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o.provides
+
+CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o.provides.build: CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o
+
 # Object files for target IK_PF
 IK_PF_OBJECTS = \
 "CMakeFiles/IK_PF.dir/src/test/test.cpp.o" \
 "CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o" \
-"CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o"
+"CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o" \
+"CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o"
 
 # External object files for target IK_PF
 IK_PF_EXTERNAL_OBJECTS =
@@ -130,6 +154,7 @@ IK_PF_EXTERNAL_OBJECTS =
 ../bin/IK_PF: CMakeFiles/IK_PF.dir/src/test/test.cpp.o
 ../bin/IK_PF: CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o
 ../bin/IK_PF: CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o
+../bin/IK_PF: CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o
 ../bin/IK_PF: CMakeFiles/IK_PF.dir/build.make
 ../bin/IK_PF: CMakeFiles/IK_PF.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable ../bin/IK_PF"
@@ -142,6 +167,7 @@ CMakeFiles/IK_PF.dir/build: ../bin/IK_PF
 CMakeFiles/IK_PF.dir/requires: CMakeFiles/IK_PF.dir/src/test/test.cpp.o.requires
 CMakeFiles/IK_PF.dir/requires: CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o.requires
 CMakeFiles/IK_PF.dir/requires: CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o.requires
+CMakeFiles/IK_PF.dir/requires: CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o.requires
 .PHONY : CMakeFiles/IK_PF.dir/requires
 
 CMakeFiles/IK_PF.dir/clean:
