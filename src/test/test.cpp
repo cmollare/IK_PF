@@ -7,6 +7,7 @@ using namespace std;
 int main()
 {
 	YamlBodyJoint ymlBJ("../Model.ymd");
+	ymlBJ.parseModel();
 	S3DModel princMod(0);
 	
 	cout << "Hello world !!!" << endl;

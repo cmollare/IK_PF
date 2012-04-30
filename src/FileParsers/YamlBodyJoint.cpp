@@ -35,6 +35,27 @@ void YamlBodyJoint::parseModel()
 	YAML::Node node;
 	parser.GetNextDocument(node);
 	
+	node >> mParsedFile;
+	
 	file.close();
+}
+
+void operator >> (const YAML::Node& node, SYmdFile &YmdFile)
+{
+	node["NbPoses"] >> YmdFile.NbPoses;
+	node["NbJoints"] >> YmdFile.NbJoints;
+	node["FirstIndex"] >> YmdFile.FirstIndex;
+	node["BJoints"] >> YmdFile.BJoints;
+}
+
+void operator >> (const YAML::Node& node, vector<SBJoints> &BJoints)
+{
+	BJoints.resize(node.size());
+	for (int i=0 ; i<node.size() ; i++)
+	{
+		const YAML::Node& joint = node[i];
+		joint["Joint"] >> BJoints[i].Joint;
+		joint["Parent"] >> BJoints[i].Parent;
+	}
 }
 
