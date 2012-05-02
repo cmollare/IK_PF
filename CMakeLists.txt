@@ -7,13 +7,14 @@ include_directories(
 	/usr/include/OGRE/
 	/usr/include/eigen3/
 	/usr/local/include/
-	/dep/include/
+	./dep/include/
+	./dep/include/eigen3/
 )
 
 link_directories(
-	/usr/lib
+	../dep/lib/
+	/usr/lib/
 	/usr/local/lib/
-	/dep/lib/
 )
 
 SET(EXECUTABLE_OUTPUT_PATH ../bin/)

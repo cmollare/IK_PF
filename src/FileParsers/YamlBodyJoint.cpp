@@ -5,23 +5,7 @@ using namespace std;
 YamlBodyJoint::YamlBodyJoint(std::string fileName)
 {
 	mFileName = fileName;
-	
-	/*std::ifstream file(fileName.c_str());
-	
-	YAML::Parser parser(file);
-	YAML::Node doc;
-	
-	parser.GetNextDocument(doc);
-	
-	const YAML::Node& node = doc["BJoints"];
-	const YAML::Node& node2 = node[0];
-	
-	string tempo;
-	node2["Parent"] >> tempo;
-	cout <<  tempo << endl;
-	std::cout << doc.size() << endl;
-	
-	file.close();*/
+	mModel = NULL;
 }
 
 YamlBodyJoint::~YamlBodyJoint()
@@ -40,6 +24,20 @@ void YamlBodyJoint::parseModel()
 	file.close();
 }
 
+void YamlBodyJoint::createModel()
+{
+	this->parseModel();
+	
+	if (mParsedFile.BJoints[0].Parent == "_Root")
+	{
+		Joint model(mParsedFile.BJoints[0].Joint);
+	}
+	else
+	{
+		std::cout << "Error : The first joint is not root" << std::endl;
+	}
+}
+
 void operator >> (const YAML::Node& node, SYmdFile &YmdFile)
 {
 	node["NbPoses"] >> YmdFile.NbPoses;
@@ -56,6 +54,13 @@ void operator >> (const YAML::Node& node, vector<SBJoints> &BJoints)
 		const YAML::Node& joint = node[i];
 		joint["Joint"] >> BJoints[i].Joint;
 		joint["Parent"] >> BJoints[i].Parent;
+		
+		if (i=0 && (BJoints[i].Parent != "_Root"))
+		{
+			std::cout << "Error : The first joint of the Yaml file have to be root" << std::endl;
+			BJoints[i].Joint = "_Root";
+			std::cout << "The joint : " << BJoints[i].Joint << "have been setted to _Root by default" << std::endl;
+		}
 	}
 }
 
