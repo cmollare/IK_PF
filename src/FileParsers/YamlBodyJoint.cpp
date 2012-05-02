@@ -55,7 +55,7 @@ void operator >> (const YAML::Node& node, vector<SBJoints> &BJoints)
 		joint["Joint"] >> BJoints[i].Joint;
 		joint["Parent"] >> BJoints[i].Parent;
 		
-		if (i=0 && (BJoints[i].Parent != "_Root"))
+		if (i==0 && (BJoints[i].Parent != "_Root"))
 		{
 			std::cout << "Error : The first joint of the Yaml file have to be root" << std::endl;
 			BJoints[i].Joint = "_Root";
