@@ -42,7 +42,7 @@ BJoints:
    - Joint: AnkleRight
      Parent: KneeRight
    - Joint: FootRight
-     Parent: FootRight
+     Parent: AnkleRight
 BPartsColors:
    - {b: 0, g: 0, r: 0}
    - {b: 0, g: 0, r: 0}

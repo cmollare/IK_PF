@@ -10,16 +10,25 @@ using namespace std;
 class Joint
 {
 	public:
+		EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 		Joint(string name, Joint *parent=NULL);
 		~Joint();
 		
-		void setDof(vector<bool> dof);
+		//void setDof(vector<bool> dof);
 		Eigen::Matrix2f getCurrOrientation();
+		Joint *getRoot();
+		Joint *getParent();
+		Joint *getJointFromName(std::string name);
+		Joint *getJointFromName(Joint *jt, std::string name);
+		std::string getName();
+		bool hasChildren();
+		std::vector<Joint*>& getChildren();
+		void addChild(std::string name);
 		
 	private:
-		string mName;
+		std::string mName;
 		Joint *mParentJoint;
-		vector<Joint*> mChildrenJoint;
+		std::vector<Joint*> mChildrenJoint;
 		Eigen::Vector3i mColors;
 		Eigen::Matrix2f mOrientation;
 		

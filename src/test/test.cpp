@@ -8,6 +8,7 @@ int main()
 {
 	YamlBodyJoint ymlBJ("../Model.ymd");
 	ymlBJ.parseModel();
+	ymlBJ.createModel();
 	S3DModel princMod(0);
 	
 	cout << "Hello world !!!" << endl;

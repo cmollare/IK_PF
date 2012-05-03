@@ -31,6 +31,21 @@ void YamlBodyJoint::createModel()
 	if (mParsedFile.BJoints[0].Parent == "_Root")
 	{
 		Joint model(mParsedFile.BJoints[0].Joint);
+		mModel = &model;
+		
+		for (int i=1 ; i<mParsedFile.BJoints.size() ; i++)
+		{
+			cout << "Searching " << mParsedFile.BJoints[i].Parent << " ..." << endl;
+			Joint* parent = mModel->getJointFromName(mParsedFile.BJoints[i].Parent);
+			if (parent != NULL)
+			{
+				parent->addChild(mParsedFile.BJoints[i].Joint);
+				cout << mParsedFile.BJoints[i].Joint << " added to " << parent->getName() << endl;
+			}
+			else
+				cout << "Error to retrieve parent" << endl;
+		}
+		cout << "*******Skeleton constructed*******" << endl;
 	}
 	else
 	{
