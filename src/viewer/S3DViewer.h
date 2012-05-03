@@ -2,6 +2,7 @@
 #define S3DVIEWER_H
 
 #include <Ogre.h>
+#include <vector>
 #include "InputListener.h"
 #include "../3DModel/S3DModel.h"
 
@@ -15,7 +16,7 @@ public:
     bool start();
     
     void setOptions(bool displayJoint=true, bool displayAxis=true, bool displayBone=false);
-    void initModels();
+    void initModels(vector<S3DModel*> models);
 
 private:
     Ogre::Root *mRoot;

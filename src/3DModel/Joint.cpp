@@ -1,9 +1,11 @@
 #include "Joint.h"
 
-Joint::Joint(string name, Joint *parent)
+Joint::Joint(string name, Joint *parent, Quaternion quat)
 {
 	mParentJoint = parent;
 	mName = name;
+	
+	mQLocal = quat;
 
 	mQDefault << 1,0,
 				0,1;
@@ -163,9 +165,14 @@ void Joint::addChild(Joint* jt)
 	mChildrenJoint.push_back(jt);
 }
 
-Eigen::Matrix2f Joint::getOrientation()
+void Joint::setOrientation(Quaternion quat)
 {
-	return mQLocal;
+	mQLocal = quat;
+}
+
+Eigen::Vector4f Joint::getOrientation()
+{
+	return mQLocal.getVector4f();
 }
 
 float Joint::getOffset()

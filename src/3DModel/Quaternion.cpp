@@ -34,3 +34,8 @@ void Quaternion::normalize()
 	mY /= nor;
 	mZ /= nor;
 }
+
+Eigen::Vector4f Quaternion::getVector4f()
+{
+	return Eigen::Vector4f(mW, mX, mY, mZ);
+}

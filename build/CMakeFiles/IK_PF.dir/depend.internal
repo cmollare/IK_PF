@@ -4,6 +4,7 @@
 CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o
  /home/cmollare/Documents/filtrage_postures/IK_PF/src/3DModel/Joint.cpp
  /home/cmollare/Documents/filtrage_postures/IK_PF/src/3DModel/Joint.h
+ /home/cmollare/Documents/filtrage_postures/IK_PF/src/3DModel/Quaternion.h
  /usr/include/eigen3/Eigen/Cholesky
  /usr/include/eigen3/Eigen/Core
  /usr/include/eigen3/Eigen/Dense
@@ -121,7 +122,6 @@ CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o
  /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/AngleAxis.h
  /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Hyperplane.h
  /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/ParametrizedLine.h
- /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Quaternion.h
  /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Rotation2D.h
  /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/RotationBase.h
  /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Scaling.h
@@ -368,6 +368,7 @@ CMakeFiles/IK_PF.dir/src/3DModel/Quaternion.cpp.o
  /usr/include/eigen3/Eigen/src/misc/Solve.h
 CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o
  /home/cmollare/Documents/filtrage_postures/IK_PF/src/3DModel/Joint.h
+ /home/cmollare/Documents/filtrage_postures/IK_PF/src/3DModel/Quaternion.h
  /home/cmollare/Documents/filtrage_postures/IK_PF/src/3DModel/S3DModel.cpp
  /home/cmollare/Documents/filtrage_postures/IK_PF/src/3DModel/S3DModel.h
  /usr/include/eigen3/Eigen/Cholesky
@@ -487,7 +488,6 @@ CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o
  /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/AngleAxis.h
  /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Hyperplane.h
  /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/ParametrizedLine.h
- /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Quaternion.h
  /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Rotation2D.h
  /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/RotationBase.h
  /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Scaling.h
@@ -573,6 +573,7 @@ CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o
  .././dep/include/yaml-cpp/traits.h
  .././dep/include/yaml-cpp/yaml.h
  /home/cmollare/Documents/filtrage_postures/IK_PF/src/FileParsers/../3DModel/Joint.h
+ /home/cmollare/Documents/filtrage_postures/IK_PF/src/FileParsers/../3DModel/Quaternion.h
  /home/cmollare/Documents/filtrage_postures/IK_PF/src/FileParsers/YamlBodyJoint.cpp
  /home/cmollare/Documents/filtrage_postures/IK_PF/src/FileParsers/YamlBodyJoint.h
  /usr/include/eigen3/Eigen/Cholesky
@@ -692,7 +693,6 @@ CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o
  /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/AngleAxis.h
  /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Hyperplane.h
  /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/ParametrizedLine.h
- /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Quaternion.h
  /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Rotation2D.h
  /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/RotationBase.h
  /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Scaling.h
@@ -778,6 +778,7 @@ CMakeFiles/IK_PF.dir/src/test/test.cpp.o
  .././dep/include/yaml-cpp/traits.h
  .././dep/include/yaml-cpp/yaml.h
  /home/cmollare/Documents/filtrage_postures/IK_PF/src/test/../3DModel/Joint.h
+ /home/cmollare/Documents/filtrage_postures/IK_PF/src/test/../3DModel/Quaternion.h
  /home/cmollare/Documents/filtrage_postures/IK_PF/src/test/../3DModel/S3DModel.h
  /home/cmollare/Documents/filtrage_postures/IK_PF/src/test/../FileParsers/../3DModel/Joint.h
  /home/cmollare/Documents/filtrage_postures/IK_PF/src/test/../FileParsers/YamlBodyJoint.h
@@ -1075,7 +1076,6 @@ CMakeFiles/IK_PF.dir/src/test/test.cpp.o
  /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/AngleAxis.h
  /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Hyperplane.h
  /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/ParametrizedLine.h
- /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Quaternion.h
  /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Rotation2D.h
  /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/RotationBase.h
  /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Scaling.h
@@ -1317,6 +1317,7 @@ CMakeFiles/IK_PF.dir/src/viewer/InputListener.cpp.o
  /usr/include/OGRE/OgreWindowEventUtilities.h
 CMakeFiles/IK_PF.dir/src/viewer/S3DViewer.cpp.o
  /home/cmollare/Documents/filtrage_postures/IK_PF/src/viewer/../3DModel/Joint.h
+ /home/cmollare/Documents/filtrage_postures/IK_PF/src/viewer/../3DModel/Quaternion.h
  /home/cmollare/Documents/filtrage_postures/IK_PF/src/viewer/../3DModel/S3DModel.h
  /home/cmollare/Documents/filtrage_postures/IK_PF/src/viewer/InputListener.h
  /home/cmollare/Documents/filtrage_postures/IK_PF/src/viewer/S3DViewer.cpp
@@ -1612,7 +1613,6 @@ CMakeFiles/IK_PF.dir/src/viewer/S3DViewer.cpp.o
  /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/AngleAxis.h
  /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Hyperplane.h
  /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/ParametrizedLine.h
- /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Quaternion.h
  /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Rotation2D.h
  /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/RotationBase.h
  /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Scaling.h

@@ -91,3 +91,7 @@ void S3DViewer::setOptions(bool displayJoint, bool displayAxis, bool displayBone
 	mDisplayAxis = displayAxis;
 }
 
+void initModels(vector<S3DModel*> models)
+{
+}
+

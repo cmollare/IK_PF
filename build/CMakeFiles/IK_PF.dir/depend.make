@@ -3,6 +3,7 @@
 
 CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o: ../src/3DModel/Joint.cpp
 CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o: ../src/3DModel/Joint.h
+CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o: ../src/3DModel/Quaternion.h
 CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o: /usr/include/eigen3/Eigen/Cholesky
 CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o: /usr/include/eigen3/Eigen/Core
 CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o: /usr/include/eigen3/Eigen/Dense
@@ -120,7 +121,6 @@ CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o: /usr/include/eigen3/Eigen/src/Eige
 CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/AngleAxis.h
 CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Hyperplane.h
 CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/ParametrizedLine.h
-CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Quaternion.h
 CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Rotation2D.h
 CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/RotationBase.h
 CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Scaling.h
@@ -367,6 +367,7 @@ CMakeFiles/IK_PF.dir/src/3DModel/Quaternion.cpp.o: /usr/include/eigen3/Eigen/src
 CMakeFiles/IK_PF.dir/src/3DModel/Quaternion.cpp.o: /usr/include/eigen3/Eigen/src/misc/Solve.h
 
 CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o: ../src/3DModel/Joint.h
+CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o: ../src/3DModel/Quaternion.h
 CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o: ../src/3DModel/S3DModel.cpp
 CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o: ../src/3DModel/S3DModel.h
 CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o: /usr/include/eigen3/Eigen/Cholesky
@@ -486,7 +487,6 @@ CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o: /usr/include/eigen3/Eigen/src/E
 CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/AngleAxis.h
 CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Hyperplane.h
 CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/ParametrizedLine.h
-CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Quaternion.h
 CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Rotation2D.h
 CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/RotationBase.h
 CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Scaling.h
@@ -572,6 +572,7 @@ CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o: .././dep/include/yaml-
 CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o: .././dep/include/yaml-cpp/traits.h
 CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o: .././dep/include/yaml-cpp/yaml.h
 CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o: ../src/FileParsers/../3DModel/Joint.h
+CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o: ../src/FileParsers/../3DModel/Quaternion.h
 CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o: ../src/FileParsers/YamlBodyJoint.cpp
 CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o: ../src/FileParsers/YamlBodyJoint.h
 CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o: /usr/include/eigen3/Eigen/Cholesky
@@ -691,7 +692,6 @@ CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o: /usr/include/eigen3/Ei
 CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/AngleAxis.h
 CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Hyperplane.h
 CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/ParametrizedLine.h
-CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Quaternion.h
 CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Rotation2D.h
 CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/RotationBase.h
 CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Scaling.h
@@ -777,6 +777,7 @@ CMakeFiles/IK_PF.dir/src/test/test.cpp.o: .././dep/include/yaml-cpp/stlnode.h
 CMakeFiles/IK_PF.dir/src/test/test.cpp.o: .././dep/include/yaml-cpp/traits.h
 CMakeFiles/IK_PF.dir/src/test/test.cpp.o: .././dep/include/yaml-cpp/yaml.h
 CMakeFiles/IK_PF.dir/src/test/test.cpp.o: ../src/test/../3DModel/Joint.h
+CMakeFiles/IK_PF.dir/src/test/test.cpp.o: ../src/test/../3DModel/Quaternion.h
 CMakeFiles/IK_PF.dir/src/test/test.cpp.o: ../src/test/../3DModel/S3DModel.h
 CMakeFiles/IK_PF.dir/src/test/test.cpp.o: ../src/test/../FileParsers/../3DModel/Joint.h
 CMakeFiles/IK_PF.dir/src/test/test.cpp.o: ../src/test/../FileParsers/YamlBodyJoint.h
@@ -1074,7 +1075,6 @@ CMakeFiles/IK_PF.dir/src/test/test.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Su
 CMakeFiles/IK_PF.dir/src/test/test.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/AngleAxis.h
 CMakeFiles/IK_PF.dir/src/test/test.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Hyperplane.h
 CMakeFiles/IK_PF.dir/src/test/test.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/ParametrizedLine.h
-CMakeFiles/IK_PF.dir/src/test/test.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Quaternion.h
 CMakeFiles/IK_PF.dir/src/test/test.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Rotation2D.h
 CMakeFiles/IK_PF.dir/src/test/test.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/RotationBase.h
 CMakeFiles/IK_PF.dir/src/test/test.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Scaling.h
@@ -1316,6 +1316,7 @@ CMakeFiles/IK_PF.dir/src/viewer/InputListener.cpp.o: /usr/include/OGRE/OgreViewp
 CMakeFiles/IK_PF.dir/src/viewer/InputListener.cpp.o: /usr/include/OGRE/OgreWindowEventUtilities.h
 
 CMakeFiles/IK_PF.dir/src/viewer/S3DViewer.cpp.o: ../src/viewer/../3DModel/Joint.h
+CMakeFiles/IK_PF.dir/src/viewer/S3DViewer.cpp.o: ../src/viewer/../3DModel/Quaternion.h
 CMakeFiles/IK_PF.dir/src/viewer/S3DViewer.cpp.o: ../src/viewer/../3DModel/S3DModel.h
 CMakeFiles/IK_PF.dir/src/viewer/S3DViewer.cpp.o: ../src/viewer/InputListener.h
 CMakeFiles/IK_PF.dir/src/viewer/S3DViewer.cpp.o: ../src/viewer/S3DViewer.cpp
@@ -1611,7 +1612,6 @@ CMakeFiles/IK_PF.dir/src/viewer/S3DViewer.cpp.o: /usr/include/eigen3/Eigen/src/E
 CMakeFiles/IK_PF.dir/src/viewer/S3DViewer.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/AngleAxis.h
 CMakeFiles/IK_PF.dir/src/viewer/S3DViewer.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Hyperplane.h
 CMakeFiles/IK_PF.dir/src/viewer/S3DViewer.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/ParametrizedLine.h
-CMakeFiles/IK_PF.dir/src/viewer/S3DViewer.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Quaternion.h
 CMakeFiles/IK_PF.dir/src/viewer/S3DViewer.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Rotation2D.h
 CMakeFiles/IK_PF.dir/src/viewer/S3DViewer.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/RotationBase.h
 CMakeFiles/IK_PF.dir/src/viewer/S3DViewer.cpp.o: /usr/include/eigen3/Eigen/src/Eigen2Support/Geometry/Scaling.h

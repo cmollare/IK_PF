@@ -12,6 +12,7 @@ class Quaternion
 		
 		float norm();
 		void normalize();
+		Eigen::Vector4f getVector4f();
 	
 	private:
 		float mW, mX, mY, mZ;
