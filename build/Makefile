@@ -207,6 +207,54 @@ src/test/test.cpp.s:
 	$(MAKE) -f CMakeFiles/IK_PF.dir/build.make CMakeFiles/IK_PF.dir/src/test/test.cpp.s
 .PHONY : src/test/test.cpp.s
 
+src/viewer/InputListener.o: src/viewer/InputListener.cpp.o
+.PHONY : src/viewer/InputListener.o
+
+# target to build an object file
+src/viewer/InputListener.cpp.o:
+	$(MAKE) -f CMakeFiles/IK_PF.dir/build.make CMakeFiles/IK_PF.dir/src/viewer/InputListener.cpp.o
+.PHONY : src/viewer/InputListener.cpp.o
+
+src/viewer/InputListener.i: src/viewer/InputListener.cpp.i
+.PHONY : src/viewer/InputListener.i
+
+# target to preprocess a source file
+src/viewer/InputListener.cpp.i:
+	$(MAKE) -f CMakeFiles/IK_PF.dir/build.make CMakeFiles/IK_PF.dir/src/viewer/InputListener.cpp.i
+.PHONY : src/viewer/InputListener.cpp.i
+
+src/viewer/InputListener.s: src/viewer/InputListener.cpp.s
+.PHONY : src/viewer/InputListener.s
+
+# target to generate assembly for a file
+src/viewer/InputListener.cpp.s:
+	$(MAKE) -f CMakeFiles/IK_PF.dir/build.make CMakeFiles/IK_PF.dir/src/viewer/InputListener.cpp.s
+.PHONY : src/viewer/InputListener.cpp.s
+
+src/viewer/S3DViewer.o: src/viewer/S3DViewer.cpp.o
+.PHONY : src/viewer/S3DViewer.o
+
+# target to build an object file
+src/viewer/S3DViewer.cpp.o:
+	$(MAKE) -f CMakeFiles/IK_PF.dir/build.make CMakeFiles/IK_PF.dir/src/viewer/S3DViewer.cpp.o
+.PHONY : src/viewer/S3DViewer.cpp.o
+
+src/viewer/S3DViewer.i: src/viewer/S3DViewer.cpp.i
+.PHONY : src/viewer/S3DViewer.i
+
+# target to preprocess a source file
+src/viewer/S3DViewer.cpp.i:
+	$(MAKE) -f CMakeFiles/IK_PF.dir/build.make CMakeFiles/IK_PF.dir/src/viewer/S3DViewer.cpp.i
+.PHONY : src/viewer/S3DViewer.cpp.i
+
+src/viewer/S3DViewer.s: src/viewer/S3DViewer.cpp.s
+.PHONY : src/viewer/S3DViewer.s
+
+# target to generate assembly for a file
+src/viewer/S3DViewer.cpp.s:
+	$(MAKE) -f CMakeFiles/IK_PF.dir/build.make CMakeFiles/IK_PF.dir/src/viewer/S3DViewer.cpp.s
+.PHONY : src/viewer/S3DViewer.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -228,6 +276,12 @@ help:
 	@echo "... src/test/test.o"
 	@echo "... src/test/test.i"
 	@echo "... src/test/test.s"
+	@echo "... src/viewer/InputListener.o"
+	@echo "... src/viewer/InputListener.i"
+	@echo "... src/viewer/InputListener.s"
+	@echo "... src/viewer/S3DViewer.o"
+	@echo "... src/viewer/S3DViewer.i"
+	@echo "... src/viewer/S3DViewer.s"
 .PHONY : help
 
 
