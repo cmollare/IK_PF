@@ -182,6 +182,14 @@ vector
 Eigen/Dense
 -
 
+/home/cmollare/Documents/filtrage_postures/IK_PF/src/3DModel/Quaternion.cpp
+Quaternion.h
+/home/cmollare/Documents/filtrage_postures/IK_PF/src/3DModel/Quaternion.h
+
+/home/cmollare/Documents/filtrage_postures/IK_PF/src/3DModel/Quaternion.h
+Eigen/Dense
+-
+
 /home/cmollare/Documents/filtrage_postures/IK_PF/src/3DModel/S3DModel.cpp
 S3DModel.h
 /home/cmollare/Documents/filtrage_postures/IK_PF/src/3DModel/S3DModel.h

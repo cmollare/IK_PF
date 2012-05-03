@@ -1,6 +1,7 @@
 FILE(REMOVE_RECURSE
   "CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o"
   "CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o"
+  "CMakeFiles/IK_PF.dir/src/3DModel/Quaternion.cpp.o"
   "CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o"
   "CMakeFiles/IK_PF.dir/src/test/test.cpp.o"
   "CMakeFiles/IK_PF.dir/src/viewer/InputListener.cpp.o"

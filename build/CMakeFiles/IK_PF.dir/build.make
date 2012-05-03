@@ -97,9 +97,33 @@ CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o.provides: CMakeFiles/IK_PF.dir/s
 CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o.provides.build: CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o
 .PHONY : CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o.provides.build
 
+CMakeFiles/IK_PF.dir/src/3DModel/Quaternion.cpp.o: CMakeFiles/IK_PF.dir/flags.make
+CMakeFiles/IK_PF.dir/src/3DModel/Quaternion.cpp.o: ../src/3DModel/Quaternion.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/cmollare/Documents/filtrage_postures/IK_PF/build/CMakeFiles $(CMAKE_PROGRESS_3)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/IK_PF.dir/src/3DModel/Quaternion.cpp.o"
+	/usr/lib/ccache/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/IK_PF.dir/src/3DModel/Quaternion.cpp.o -c /home/cmollare/Documents/filtrage_postures/IK_PF/src/3DModel/Quaternion.cpp
+
+CMakeFiles/IK_PF.dir/src/3DModel/Quaternion.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/IK_PF.dir/src/3DModel/Quaternion.cpp.i"
+	/usr/lib/ccache/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/cmollare/Documents/filtrage_postures/IK_PF/src/3DModel/Quaternion.cpp > CMakeFiles/IK_PF.dir/src/3DModel/Quaternion.cpp.i
+
+CMakeFiles/IK_PF.dir/src/3DModel/Quaternion.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/IK_PF.dir/src/3DModel/Quaternion.cpp.s"
+	/usr/lib/ccache/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/cmollare/Documents/filtrage_postures/IK_PF/src/3DModel/Quaternion.cpp -o CMakeFiles/IK_PF.dir/src/3DModel/Quaternion.cpp.s
+
+CMakeFiles/IK_PF.dir/src/3DModel/Quaternion.cpp.o.requires:
+.PHONY : CMakeFiles/IK_PF.dir/src/3DModel/Quaternion.cpp.o.requires
+
+CMakeFiles/IK_PF.dir/src/3DModel/Quaternion.cpp.o.provides: CMakeFiles/IK_PF.dir/src/3DModel/Quaternion.cpp.o.requires
+	$(MAKE) -f CMakeFiles/IK_PF.dir/build.make CMakeFiles/IK_PF.dir/src/3DModel/Quaternion.cpp.o.provides.build
+.PHONY : CMakeFiles/IK_PF.dir/src/3DModel/Quaternion.cpp.o.provides
+
+CMakeFiles/IK_PF.dir/src/3DModel/Quaternion.cpp.o.provides.build: CMakeFiles/IK_PF.dir/src/3DModel/Quaternion.cpp.o
+.PHONY : CMakeFiles/IK_PF.dir/src/3DModel/Quaternion.cpp.o.provides.build
+
 CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o: CMakeFiles/IK_PF.dir/flags.make
 CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o: ../src/FileParsers/YamlBodyJoint.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/cmollare/Documents/filtrage_postures/IK_PF/build/CMakeFiles $(CMAKE_PROGRESS_3)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/cmollare/Documents/filtrage_postures/IK_PF/build/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o"
 	/usr/lib/ccache/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o -c /home/cmollare/Documents/filtrage_postures/IK_PF/src/FileParsers/YamlBodyJoint.cpp
 
@@ -123,7 +147,7 @@ CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o.provides.build: CMakeFi
 
 CMakeFiles/IK_PF.dir/src/test/test.cpp.o: CMakeFiles/IK_PF.dir/flags.make
 CMakeFiles/IK_PF.dir/src/test/test.cpp.o: ../src/test/test.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/cmollare/Documents/filtrage_postures/IK_PF/build/CMakeFiles $(CMAKE_PROGRESS_4)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/cmollare/Documents/filtrage_postures/IK_PF/build/CMakeFiles $(CMAKE_PROGRESS_5)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/IK_PF.dir/src/test/test.cpp.o"
 	/usr/lib/ccache/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/IK_PF.dir/src/test/test.cpp.o -c /home/cmollare/Documents/filtrage_postures/IK_PF/src/test/test.cpp
 
@@ -147,7 +171,7 @@ CMakeFiles/IK_PF.dir/src/test/test.cpp.o.provides.build: CMakeFiles/IK_PF.dir/sr
 
 CMakeFiles/IK_PF.dir/src/viewer/InputListener.cpp.o: CMakeFiles/IK_PF.dir/flags.make
 CMakeFiles/IK_PF.dir/src/viewer/InputListener.cpp.o: ../src/viewer/InputListener.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/cmollare/Documents/filtrage_postures/IK_PF/build/CMakeFiles $(CMAKE_PROGRESS_5)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/cmollare/Documents/filtrage_postures/IK_PF/build/CMakeFiles $(CMAKE_PROGRESS_6)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/IK_PF.dir/src/viewer/InputListener.cpp.o"
 	/usr/lib/ccache/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/IK_PF.dir/src/viewer/InputListener.cpp.o -c /home/cmollare/Documents/filtrage_postures/IK_PF/src/viewer/InputListener.cpp
 
@@ -171,7 +195,7 @@ CMakeFiles/IK_PF.dir/src/viewer/InputListener.cpp.o.provides.build: CMakeFiles/I
 
 CMakeFiles/IK_PF.dir/src/viewer/S3DViewer.cpp.o: CMakeFiles/IK_PF.dir/flags.make
 CMakeFiles/IK_PF.dir/src/viewer/S3DViewer.cpp.o: ../src/viewer/S3DViewer.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/cmollare/Documents/filtrage_postures/IK_PF/build/CMakeFiles $(CMAKE_PROGRESS_6)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/cmollare/Documents/filtrage_postures/IK_PF/build/CMakeFiles $(CMAKE_PROGRESS_7)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/IK_PF.dir/src/viewer/S3DViewer.cpp.o"
 	/usr/lib/ccache/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/IK_PF.dir/src/viewer/S3DViewer.cpp.o -c /home/cmollare/Documents/filtrage_postures/IK_PF/src/viewer/S3DViewer.cpp
 
@@ -197,6 +221,7 @@ CMakeFiles/IK_PF.dir/src/viewer/S3DViewer.cpp.o.provides.build: CMakeFiles/IK_PF
 IK_PF_OBJECTS = \
 "CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o" \
 "CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o" \
+"CMakeFiles/IK_PF.dir/src/3DModel/Quaternion.cpp.o" \
 "CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o" \
 "CMakeFiles/IK_PF.dir/src/test/test.cpp.o" \
 "CMakeFiles/IK_PF.dir/src/viewer/InputListener.cpp.o" \
@@ -207,6 +232,7 @@ IK_PF_EXTERNAL_OBJECTS =
 
 ../bin/IK_PF: CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o
 ../bin/IK_PF: CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o
+../bin/IK_PF: CMakeFiles/IK_PF.dir/src/3DModel/Quaternion.cpp.o
 ../bin/IK_PF: CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o
 ../bin/IK_PF: CMakeFiles/IK_PF.dir/src/test/test.cpp.o
 ../bin/IK_PF: CMakeFiles/IK_PF.dir/src/viewer/InputListener.cpp.o
@@ -222,6 +248,7 @@ CMakeFiles/IK_PF.dir/build: ../bin/IK_PF
 
 CMakeFiles/IK_PF.dir/requires: CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.o.requires
 CMakeFiles/IK_PF.dir/requires: CMakeFiles/IK_PF.dir/src/3DModel/S3DModel.cpp.o.requires
+CMakeFiles/IK_PF.dir/requires: CMakeFiles/IK_PF.dir/src/3DModel/Quaternion.cpp.o.requires
 CMakeFiles/IK_PF.dir/requires: CMakeFiles/IK_PF.dir/src/FileParsers/YamlBodyJoint.cpp.o.requires
 CMakeFiles/IK_PF.dir/requires: CMakeFiles/IK_PF.dir/src/test/test.cpp.o.requires
 CMakeFiles/IK_PF.dir/requires: CMakeFiles/IK_PF.dir/src/viewer/InputListener.cpp.o.requires

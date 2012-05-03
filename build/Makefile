@@ -135,6 +135,30 @@ src/3DModel/Joint.cpp.s:
 	$(MAKE) -f CMakeFiles/IK_PF.dir/build.make CMakeFiles/IK_PF.dir/src/3DModel/Joint.cpp.s
 .PHONY : src/3DModel/Joint.cpp.s
 
+src/3DModel/Quaternion.o: src/3DModel/Quaternion.cpp.o
+.PHONY : src/3DModel/Quaternion.o
+
+# target to build an object file
+src/3DModel/Quaternion.cpp.o:
+	$(MAKE) -f CMakeFiles/IK_PF.dir/build.make CMakeFiles/IK_PF.dir/src/3DModel/Quaternion.cpp.o
+.PHONY : src/3DModel/Quaternion.cpp.o
+
+src/3DModel/Quaternion.i: src/3DModel/Quaternion.cpp.i
+.PHONY : src/3DModel/Quaternion.i
+
+# target to preprocess a source file
+src/3DModel/Quaternion.cpp.i:
+	$(MAKE) -f CMakeFiles/IK_PF.dir/build.make CMakeFiles/IK_PF.dir/src/3DModel/Quaternion.cpp.i
+.PHONY : src/3DModel/Quaternion.cpp.i
+
+src/3DModel/Quaternion.s: src/3DModel/Quaternion.cpp.s
+.PHONY : src/3DModel/Quaternion.s
+
+# target to generate assembly for a file
+src/3DModel/Quaternion.cpp.s:
+	$(MAKE) -f CMakeFiles/IK_PF.dir/build.make CMakeFiles/IK_PF.dir/src/3DModel/Quaternion.cpp.s
+.PHONY : src/3DModel/Quaternion.cpp.s
+
 src/3DModel/S3DModel.o: src/3DModel/S3DModel.cpp.o
 .PHONY : src/3DModel/S3DModel.o
 
@@ -267,6 +291,9 @@ help:
 	@echo "... src/3DModel/Joint.o"
 	@echo "... src/3DModel/Joint.i"
 	@echo "... src/3DModel/Joint.s"
+	@echo "... src/3DModel/Quaternion.o"
+	@echo "... src/3DModel/Quaternion.i"
+	@echo "... src/3DModel/Quaternion.s"
 	@echo "... src/3DModel/S3DModel.o"
 	@echo "... src/3DModel/S3DModel.i"
 	@echo "... src/3DModel/S3DModel.s"
