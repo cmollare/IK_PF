@@ -8,6 +8,7 @@ class S3DModel
 {
 	public:
 		S3DModel(int id);
+		S3DModel(const Joint* jt);
 		~S3DModel();
 		
 	private:

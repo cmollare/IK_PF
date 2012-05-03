@@ -28,6 +28,7 @@ class YamlBodyJoint
 		
 		void parseModel();
 		void createModel();
+		Joint* getModel();
 	
 	private:
 		

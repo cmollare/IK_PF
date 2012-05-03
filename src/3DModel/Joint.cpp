@@ -11,6 +11,35 @@ Joint::Joint(string name, Joint *parent)
 		mQDefault = mParentJoint->getCurrOrientation()*mQDefault;*/
 }
 
+Joint::Joint(const Joint& jtCopy)
+{
+	mName = jtCopy.mName;
+	mColors = jtCopy.mColors;
+	mOrientation = jtCopy.mOrientation;
+	mQDefault = jtCopy.mQDefault;
+	mQLocal = jtCopy.mQLocal;
+	mQCurrent = jtCopy.mQCurrent;
+	mDefaultOffset = jtCopy.mDefaultOffset;
+	mLocalOffset = jtCopy.mLocalOffset;
+	mCurrentOffset = jtCopy.mCurrentOffset;
+	
+	//Dynamics allocations
+	
+	if (jtCopy.mParentJoint == NULL);
+		mParentJoint = NULL;
+	
+	if (jtCopy.mChildrenJoint.size() > 0)
+	{
+		for (int i=0 ; i < jtCopy.mChildrenJoint.size() ; i++)
+		{
+			mChildrenJoint.push_back(new Joint(*(jtCopy.mChildrenJoint[i])));
+			mChildrenJoint[i]->setParentIfChild(this);
+			//cout << "adresse : " << mChildrenJoint[i] << endl;
+			//cout << "adresse2 : " << jtCopy.mChildrenJoint[i] << endl;
+		}
+	}
+}
+
 Joint::~Joint()
 {
 	if (mChildrenJoint.size() > 0)
@@ -39,6 +68,28 @@ Joint* Joint::getRoot()
 	}while(parent != NULL);
 	
 	return prev;
+}
+
+void Joint::setParentIfChild(Joint *jt)
+{
+	vector<Joint*> parentChildren = jt->getChildren();
+	bool chgt = false;
+	if (parentChildren.size() > 0)
+	{
+		for (int i=0 ; i<parentChildren.size() ; i++)
+		{
+			if (parentChildren[i] == this)
+			{
+				mParentJoint = jt;
+				chgt = true;
+			}
+		}
+	}
+	
+	if (!chgt)
+	{
+		cout << "Error : Child doesn't exist for this parent" << endl;
+	}
 }
 
 Joint* Joint::getParent()
@@ -105,4 +156,9 @@ std::vector<Joint*>& Joint::getChildren()
 void Joint::addChild(std::string name)
 {
 	mChildrenJoint.push_back(new Joint(name, this));
+}
+
+void Joint::addChild(Joint* jt)
+{
+	mChildrenJoint.push_back(jt);
 }

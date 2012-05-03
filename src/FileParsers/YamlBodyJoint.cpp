@@ -10,6 +10,7 @@ YamlBodyJoint::YamlBodyJoint(std::string fileName)
 
 YamlBodyJoint::~YamlBodyJoint()
 {
+	delete mModel;
 }
 
 void YamlBodyJoint::parseModel()
@@ -30,8 +31,7 @@ void YamlBodyJoint::createModel()
 	
 	if (mParsedFile.BJoints[0].Parent == "_Root")
 	{
-		Joint model(mParsedFile.BJoints[0].Joint);
-		mModel = &model;
+		mModel = new Joint(mParsedFile.BJoints[0].Joint);
 		
 		for (int i=1 ; i<mParsedFile.BJoints.size() ; i++)
 		{
@@ -43,14 +43,22 @@ void YamlBodyJoint::createModel()
 				cout << mParsedFile.BJoints[i].Joint << " added to " << parent->getName() << endl;
 			}
 			else
+			{
 				cout << "Error to retrieve parent" << endl;
+				cout << "Check yaml file" << endl;
+			}
 		}
 		cout << "*******Skeleton constructed*******" << endl;
 	}
 	else
 	{
-		std::cout << "Error : The first joint is not root" << std::endl;
+		std::cout << "Error : The first joint has to be root" << std::endl;
 	}
+}
+
+Joint* YamlBodyJoint::getModel()
+{
+	return mModel;
 }
 
 void operator >> (const YAML::Node& node, SYmdFile &YmdFile)
