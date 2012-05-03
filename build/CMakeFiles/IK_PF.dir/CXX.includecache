@@ -257,6 +257,8 @@ Ogre.h
 -
 InputListener.h
 /home/cmollare/Documents/filtrage_postures/IK_PF/src/test/../viewer/InputListener.h
+../3DModel/S3DModel.h
+/home/cmollare/Documents/filtrage_postures/IK_PF/src/test/../viewer/../3DModel/S3DModel.h
 
 /home/cmollare/Documents/filtrage_postures/IK_PF/src/test/test.cpp
 iostream
@@ -269,6 +271,20 @@ vector
 /home/cmollare/Documents/filtrage_postures/IK_PF/src/test/../FileParsers/YamlBodyJoint.h
 ../viewer/S3DViewer.h
 /home/cmollare/Documents/filtrage_postures/IK_PF/src/test/../viewer/S3DViewer.h
+
+/home/cmollare/Documents/filtrage_postures/IK_PF/src/viewer/../3DModel/Joint.h
+iostream
+-
+vector
+-
+Eigen/Dense
+-
+
+/home/cmollare/Documents/filtrage_postures/IK_PF/src/viewer/../3DModel/S3DModel.h
+iostream
+-
+Joint.h
+/home/cmollare/Documents/filtrage_postures/IK_PF/src/viewer/../3DModel/Joint.h
 
 /home/cmollare/Documents/filtrage_postures/IK_PF/src/viewer/InputListener.cpp
 InputListener.h
@@ -289,6 +305,8 @@ Ogre.h
 -
 InputListener.h
 /home/cmollare/Documents/filtrage_postures/IK_PF/src/viewer/InputListener.h
+../3DModel/S3DModel.h
+/home/cmollare/Documents/filtrage_postures/IK_PF/src/viewer/../3DModel/S3DModel.h
 
 /usr/include/OGRE/GLX/../OgrePrerequisites.h
 OgrePlatform.h

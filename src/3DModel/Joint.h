@@ -28,6 +28,9 @@ class Joint
 		void addChild(std::string name);
 		void addChild(Joint* jt);
 		
+		Eigen::Matrix2f getOrientation();
+		float getOffset();
+		
 	private:
 	
 		std::string mName;
@@ -39,9 +42,9 @@ class Joint
 		Eigen::Matrix2f mQDefault;
 		Eigen::Matrix2f mQLocal;
 		Eigen::Matrix2f mQCurrent;
-		int mDefaultOffset;
-		int mLocalOffset;
-		int mCurrentOffset;
+		float mDefaultOffset;
+		float mLocalOffset;
+		float mCurrentOffset;
 };
 
 #endif

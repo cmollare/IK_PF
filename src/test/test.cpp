@@ -15,6 +15,8 @@ int main()
 	
 	S3DViewer viewer;
 	
+	viewer.start(); //infinit loop
+	
 	/*vector<S3DModel*> mods;
 	for (int i=0 ; i<100 ; i++)
 	{

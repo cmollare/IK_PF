@@ -77,6 +77,7 @@ void operator >> (const YAML::Node& node, vector<SBJoints> &BJoints)
 		const YAML::Node& joint = node[i];
 		joint["Joint"] >> BJoints[i].Joint;
 		joint["Parent"] >> BJoints[i].Parent;
+		joint["Offset"] >> BJoints[i].Offset;
 		
 		if (i==0 && (BJoints[i].Parent != "_Root"))
 		{

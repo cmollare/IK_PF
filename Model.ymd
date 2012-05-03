@@ -5,44 +5,64 @@ FirstIndex: 1
 BJoints:
    - Joint: Spine
      Parent: _Root
+     Offset: 0
    - Joint: ShoulderCenter
      Parent: Spine
+     Offset: 1
    - Joint: Head
      Parent: ShoulderCenter
+     Offset: 1
    - Joint: ShoulderLeft
      Parent: ShoulderCenter
+     Offset: 1
    - Joint: ElbowLeft
      Parent: ShoulderLeft
+     Offset: 1
    - Joint: WristleLeft
      Parent: ElbowLeft
+     Offset: 1
    - Joint: HandLeft
      Parent: WristleLeft
+     Offset: 1
    - Joint: ShoulderRight
      Parent: ShoulderCenter
+     Offset: 1
    - Joint: ElbowRight
      Parent: ShoulderRight
+     Offset: 1
    - Joint: WristleRight
      Parent: ElbowRight
+     Offset: 1
    - Joint: HandRight
      Parent: WristleRight
+     Offset: 1
    - Joint: HipCenter
      Parent: Spine
+     Offset: 1
    - Joint: HipLeft
      Parent: HipCenter
+     Offset: 1
    - Joint: KneeLeft
      Parent: HipLeft
+     Offset: 1
    - Joint: AnkleLeft
      Parent: KneeLeft
+     Offset: 1
    - Joint: FootLeft
      Parent: AnkleLeft
+     Offset: 1
    - Joint: HipRight
      Parent: HipCenter
+     Offset: 1
    - Joint: KneeRight
      Parent: HipRight
+     Offset: 1
    - Joint: AnkleRight
      Parent: KneeRight
+     Offset: 1
    - Joint: FootRight
      Parent: AnkleRight
+     Offset: 1
 BPartsColors:
    - {b: 0, g: 0, r: 0}
    - {b: 0, g: 0, r: 0}

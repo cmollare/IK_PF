@@ -10,6 +10,7 @@ typedef struct SBJoints
 {
 	std::string Joint;
 	std::string Parent;
+	float Offset;
 }SBJoints;
 			
 typedef struct SYmdFile

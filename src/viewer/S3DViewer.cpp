@@ -2,7 +2,9 @@
 
 S3DViewer::S3DViewer() : mRoot(0)
 {
-	this->start();
+	mDisplayJoint = true;
+	mDisplayBone = true;
+	mDisplayAxis = true;
 }
 
 S3DViewer::~S3DViewer()
@@ -80,5 +82,12 @@ void S3DViewer::createFrameListener()
 {
     mInputListener = new InputListener(mWindow, mCamera);
     mRoot->addFrameListener(mInputListener);
+}
+
+void S3DViewer::setOptions(bool displayJoint, bool displayAxis, bool displayBone)
+{
+	mDisplayJoint = displayJoint;
+	mDisplayBone = displayBone;
+	mDisplayAxis = displayAxis;
 }
 

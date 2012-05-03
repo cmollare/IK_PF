@@ -162,3 +162,13 @@ void Joint::addChild(Joint* jt)
 {
 	mChildrenJoint.push_back(jt);
 }
+
+Eigen::Matrix2f Joint::getOrientation()
+{
+	return mQLocal;
+}
+
+float Joint::getOffset()
+{
+	return mLocalOffset;
+}
