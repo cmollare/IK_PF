@@ -20,6 +20,7 @@ private:
 	Ogre::SceneManager* mSceneMgr;
 	Ogre::Camera* mCamera;
 	InputListener *mInputListener;
+	Ogre::LogManager* mLogMgr;
 	//Avatar *mAvatar;
 
 };

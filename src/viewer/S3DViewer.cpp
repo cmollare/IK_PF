@@ -10,11 +10,14 @@ S3DViewer::~S3DViewer()
 	delete mInputListener;
 	//delete mAvatar;
     delete mRoot;
+    delete mLogMgr;
 }
 
 bool S3DViewer::start()
 {
-	mRoot = new Ogre::Root("../config/plugins.cfg", "../config/ogre.cfg", "../config/Ogre.log");
+	mLogMgr = new Ogre::LogManager();
+	Ogre::LogManager::getSingleton().createLog("../config/Ogre.log", true, false, false);
+	mRoot = new Ogre::Root("../config/plugins.cfg", "../config/ogre.cfg");
 	Ogre::ConfigFile configFile;
 	configFile.load("../config/resources.cfg");
 	Ogre::ConfigFile::SectionIterator seci = configFile.getSectionIterator();
