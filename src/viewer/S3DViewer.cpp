@@ -112,8 +112,8 @@ void S3DViewer::initModels(vector<S3DModel*>& models)
 			oss << jt->getName() << "_" << i;
 			
 			//Orientation of Joint
-			Eigen::Vector4f vQuat = jt->getOrientation();
-			Ogre::Quaternion quat(vQuat[0], vQuat[1], vQuat[2], vQuat[3]);
+			Eigen::Quaternionf vQuat = jt->getOrientation();
+			Ogre::Quaternion quat((float)vQuat.w(), (float)vQuat.x(), (float)vQuat.y(), (float)vQuat.z());
 			
 			//offset
 			Eigen::Vector3f vOff = jt->getOffset();
@@ -145,9 +145,8 @@ void S3DViewer::initModels(vector<Joint*>& jts, SceneNode *node, int modelNum)
 			ostringstream oss;
 			oss << jts[i]->getName() << "_" << modelNum;
 			
-			//Orientation of Joint
-			Eigen::Vector4f vQuat = jts[i]->getOrientation();
-			Ogre::Quaternion quat(vQuat[0], vQuat[1], vQuat[2], vQuat[3]);
+			Eigen::Quaternionf vQuat = jts[i]->getOrientation();
+			Ogre::Quaternion quat(vQuat.w(), vQuat.x(), vQuat.y(), vQuat.z());
 			
 			//offset
 			Eigen::Vector3f vOff = jts[i]->getOffset();

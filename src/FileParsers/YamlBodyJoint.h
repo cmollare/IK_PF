@@ -5,22 +5,23 @@
 #include "../3DModel/Joint.h"
 #include <fstream>
 #include <string>
-#include "../3DModel/Quaternion.h"
 
 typedef struct SBJoints
 {
+	EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 	std::string Joint;
 	std::string Parent;
 	vector<float> Offset;
-	Quaternion Orientation;
+	Eigen::Quaternionf Orientation;
 }SBJoints;
 			
 typedef struct SYmdFile
 {
+	EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 	std::string NbPoses;
 	std::string NbJoints;
 	std::string FirstIndex;
-	vector<SBJoints> BJoints;
+	vector<SBJoints, Eigen::aligned_allocator<SBJoints> > BJoints;
 }SYmdFile;
 
 class YamlBodyJoint
@@ -44,8 +45,8 @@ class YamlBodyJoint
 };
 
 void operator>> (const YAML::Node& node, SYmdFile &YmdFile);
-void operator>> (const YAML::Node& node, vector<SBJoints> &BJoints);
-void operator>> (const YAML::Node& node, Quaternion& quat);
+void operator>> (const YAML::Node& node, vector<SBJoints, Eigen::aligned_allocator<SBJoints> > &BJoints);
+void operator>> (const YAML::Node& node, Eigen::Quaternionf& quat);
 void operator>> (const YAML::Node& node, vector<float>& Offset);
 
 #endif

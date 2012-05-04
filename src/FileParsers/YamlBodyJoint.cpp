@@ -70,7 +70,7 @@ void operator >> (const YAML::Node& node, SYmdFile &YmdFile)
 	node["BJoints"] >> YmdFile.BJoints;
 }
 
-void operator >> (const YAML::Node& node, vector<SBJoints> &BJoints)
+void operator >> (const YAML::Node& node, vector<SBJoints, Eigen::aligned_allocator<SBJoints> > &BJoints)
 {
 	BJoints.resize(node.size());
 	for (int i=0 ; i<node.size() ; i++)
@@ -90,9 +90,9 @@ void operator >> (const YAML::Node& node, vector<SBJoints> &BJoints)
 	}
 }
 
-void operator>> (const YAML::Node& node, Quaternion& quat)
+void operator>> (const YAML::Node& node, Eigen::Quaternionf& quat)
 {
-	quat = Quaternion(node["W"].to<float>(), node["X"].to<float>(), node["Y"].to<float>(), node["Z"].to<float>());
+	quat = Eigen::Quaternionf(node["W"].to<float>(), node["X"].to<float>(), node["Y"].to<float>(), node["Z"].to<float>());
 }
 
 void operator>> (const YAML::Node& node, vector<float>& Offset)

@@ -5,7 +5,6 @@
 #include <iostream>
 #include <vector>
 #include <Eigen/Dense>
-#include "Quaternion.h"
 
 using namespace std;
 
@@ -14,7 +13,7 @@ class Joint
 	public:
 		EIGEN_MAKE_ALIGNED_OPERATOR_NEW	//For Eigen3
 		
-		Joint(string name, Joint *parent=NULL, vector<float> offset=vector<float>(3,0), Quaternion quat=Quaternion());
+		Joint(string name, Joint *parent=NULL, vector<float> offset=vector<float>(3,0), Eigen::Quaternionf quat=Eigen::Quaternionf(1,0,0,0));
 		Joint(const Joint& jtCopy);
 		~Joint();
 		
@@ -27,11 +26,11 @@ class Joint
 		std::string getName();
 		bool hasChildren();
 		std::vector<Joint*>& getChildren();
-		Joint* addChild(std::string name, vector<float> offset=vector<float>(3,0), Quaternion quat=Quaternion());
+		Joint* addChild(std::string name, vector<float> offset=vector<float>(3,0), Eigen::Quaternionf quat=Eigen::Quaternionf(1,0,0,0));
 		Joint* addChild(Joint* jt);
 		
-		void setOrientation(const Quaternion quat);
-		Eigen::Vector4f getOrientation();
+		void setOrientation(const Eigen::Quaternionf quat);
+		Eigen::Quaternionf getOrientation();
 		Eigen::Vector3f getOffset();
 		
 	private:
@@ -43,7 +42,7 @@ class Joint
 		//Eigen::Matrix2f mOrientation;
 		
 		//Eigen::Matrix2f mQDefault;
-		Quaternion mQLocal;
+		Eigen::Quaternionf mQLocal;
 		//Eigen::Matrix2f mQCurrent;
 		//float mDefaultOffset;
 		Eigen::Vector3f mLocalOffset;

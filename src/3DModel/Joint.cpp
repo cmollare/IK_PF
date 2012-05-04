@@ -1,6 +1,6 @@
 #include "Joint.h"
 
-Joint::Joint(string name, Joint *parent, vector<float> offset, Quaternion quat)
+Joint::Joint(string name, Joint *parent, vector<float> offset, Eigen::Quaternionf quat)
 {
 	mParentJoint = parent;
 	mName = name;
@@ -155,7 +155,7 @@ std::vector<Joint*>& Joint::getChildren()
 	return mChildrenJoint;
 }
 
-Joint* Joint::addChild(std::string name, vector<float> offset, Quaternion quat)
+Joint* Joint::addChild(std::string name, vector<float> offset, Eigen::Quaternionf quat)
 {
 	Joint *jt = new Joint(name, this, offset, quat);
 	mChildrenJoint.push_back(jt);
@@ -168,14 +168,14 @@ Joint* Joint::addChild(Joint* jt)
 	return jt;
 }
 
-void Joint::setOrientation(Quaternion quat)
+void Joint::setOrientation(Eigen::Quaternionf quat)
 {
 	mQLocal = quat;
 }
 
-Eigen::Vector4f Joint::getOrientation()
+Eigen::Quaternionf Joint::getOrientation()
 {
-	return mQLocal.getVector4f();
+	return mQLocal;
 }
 
 Eigen::Vector3f Joint::getOffset()
