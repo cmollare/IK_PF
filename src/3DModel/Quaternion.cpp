@@ -16,6 +16,14 @@ Quaternion::Quaternion(float W, float X, float Y, float Z)
 	mZ = Z;
 }
 
+Quaternion::Quaternion(int W, int X, int Y, int Z)
+{
+	mW = (float) W;
+	mX = (float) X;
+	mY = (float) Y;
+	mZ = (float) Z;
+}
+
 Quaternion::~Quaternion()
 {
 }

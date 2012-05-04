@@ -6,9 +6,11 @@ Joint::Joint(string name, Joint *parent, Quaternion quat)
 	mName = name;
 	
 	mQLocal = quat;
+	mQLocal = Quaternion(rand(), rand(), rand(), rand());
+	
+	mLocalOffset = rand();
+	mLocalOffset/=100000000;
 
-	mQDefault << 1,0,
-				0,1;
 	/*if (mParentJoint != NULL)
 		mQDefault = mParentJoint->getCurrOrientation()*mQDefault;*/
 }

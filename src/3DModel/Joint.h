@@ -1,6 +1,7 @@
 #ifndef JOINT_H
 #define JOINT_H
 
+#include <cstdlib> 
 #include <iostream>
 #include <vector>
 #include <Eigen/Dense>

@@ -8,6 +8,7 @@ class Quaternion
 	public:
 		Quaternion();
 		Quaternion(float W, float X, float Y, float Z);
+		Quaternion(int W, int X, int Y, int Z);
 		~Quaternion();
 		
 		float norm();

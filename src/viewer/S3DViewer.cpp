@@ -108,14 +108,26 @@ void S3DViewer::initModels(vector<S3DModel*>& models)
 	{
 		for(int i=0 ; i<models.size() ; i++)
 		{
-			cout << "lol" << endl;
 			Joint* jt = models[i]->getRootJoint();
 			ostringstream oss;
 			oss << jt->getName() << "_" << i;
-			SceneNode *node = mSceneMgr->getSceneNode("Particles")->createChildSceneNode(oss.str());
+			
+			//Orientation of Joint
+			Eigen::Vector4f vQuat = jt->getOrientation();
+			Ogre::Quaternion quat(vQuat[0], vQuat[1], vQuat[2], vQuat[3]);
+			
+			//Creation of sceneNode with orientation and offset
+			SceneNode *node = mSceneMgr->getSceneNode("Particles")->createChildSceneNode(oss.str(), Vector3::ZERO, quat);
+			
+			if (mDisplayAxis)//option to display axis
+			{
+				ostringstream oss2;
+				oss2 << "Axis_" << oss.str();
+				node->attachObject(createAxis(oss2.str()));
+			}
 			if (jt->hasChildren())
 			{
-				initModels(jt->getChildren(), node, i);
+				initModels(jt->getChildren(), node, i);//Recursivity
 			}
 		}
 	}
@@ -129,10 +141,27 @@ void S3DViewer::initModels(vector<Joint*>& jts, SceneNode *node, int modelNum)
 		{
 			ostringstream oss;
 			oss << jts[i]->getName() << "_" << modelNum;
-			SceneNode *childNode = node->createChildSceneNode(oss.str());
+			
+			//Orientation of Joint
+			Eigen::Vector4f vQuat = jts[i]->getOrientation();
+			Ogre::Quaternion quat(vQuat[0], vQuat[1], vQuat[2], vQuat[3]);
+			
+			//offset
+			Vector3 offset(0, 0, jts[i]->getOffset());
+			cout << jts[i]->getOffset() << endl;
+			
+			//Creation of node with orientation and offset
+			SceneNode *childNode = node->createChildSceneNode(oss.str(), offset, quat);
+			
+			if (mDisplayAxis)//option to display axis
+			{
+				ostringstream oss2;
+				oss2 << "Axis_" << oss.str();
+				childNode->attachObject(createAxis(oss2.str()));
+			}
 			if (jts[i]->hasChildren())
 			{
-				initModels(jts[i]->getChildren(), childNode, modelNum);
+				initModels(jts[i]->getChildren(), childNode, modelNum);//Recursivity
 			}
 		}
 	}
