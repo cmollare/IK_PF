@@ -3,6 +3,7 @@
 
 #include <Ogre.h>
 #include <vector>
+#include <sstream>
 #include "InputListener.h"
 #include "../3DModel/S3DModel.h"
 
@@ -15,10 +16,12 @@ public:
     ~S3DViewer();
     
 	void createFrameListener();
+	bool init();
     bool start();
     
     void setOptions(bool displayJoint=true, bool displayAxis=true, bool displayBone=false);
-    void initModels(vector<S3DModel*> models);
+    void initModels(vector<S3DModel*>& models);
+    void initModels(vector<Joint*>& jts, SceneNode *node, int modelNum);
     
     //Drawing functions
     void defineMaterials();

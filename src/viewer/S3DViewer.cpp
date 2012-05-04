@@ -15,7 +15,7 @@ S3DViewer::~S3DViewer()
     delete mLogMgr;
 }
 
-bool S3DViewer::start()
+bool S3DViewer::init()
 {
 	mLogMgr = new Ogre::LogManager();
 	Ogre::LogManager::getSingleton().createLog("../config/Ogre.log", true, false, false);
@@ -62,10 +62,17 @@ bool S3DViewer::start()
 	
 	//mAvatar = new Avatar(mSceneMgr);
 	defineMaterials();
+	mSceneMgr->getRootSceneNode()->createChildSceneNode("Particles");
 	mSceneMgr->getRootSceneNode()->createChildSceneNode("lol")->attachObject(createAxis("Axis"));
-	//mSceneMgr->getSceneNode("lol")->rotate(Vector3(1,1,1), Radian(0.5));
+	mSceneMgr->getSceneNode("lol")->rotate(Vector3(1,1,1), Radian(0.5));
 	
 	createFrameListener();
+	
+	return true;
+}
+	
+bool S3DViewer::start()
+{
 	
 	while(true)
 	{
@@ -94,8 +101,41 @@ void S3DViewer::setOptions(bool displayJoint, bool displayAxis, bool displayBone
 	mDisplayAxis = displayAxis;
 }
 
-void initModels(vector<S3DModel*> models)
+void S3DViewer::initModels(vector<S3DModel*>& models)
 {
+	int i=0;
+	if (models.size()>0)
+	{
+		for(int i=0 ; i<models.size() ; i++)
+		{
+			cout << "lol" << endl;
+			Joint* jt = models[i]->getRootJoint();
+			ostringstream oss;
+			oss << jt->getName() << "_" << i;
+			SceneNode *node = mSceneMgr->getSceneNode("Particles")->createChildSceneNode(oss.str());
+			if (jt->hasChildren())
+			{
+				initModels(jt->getChildren(), node, i);
+			}
+		}
+	}
+}
+
+void S3DViewer::initModels(vector<Joint*>& jts, SceneNode *node, int modelNum)
+{
+	if (jts.size()>0)
+	{
+		for (int i=0 ; i<jts.size() ; i++)
+		{
+			ostringstream oss;
+			oss << jts[i]->getName() << "_" << modelNum;
+			SceneNode *childNode = node->createChildSceneNode(oss.str());
+			if (jts[i]->hasChildren())
+			{
+				initModels(jts[i]->getChildren(), childNode, modelNum);
+			}
+		}
+	}
 }
 
 void S3DViewer::defineMaterials()

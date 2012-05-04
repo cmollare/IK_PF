@@ -4,6 +4,8 @@
 #include "../FileParsers/YamlBodyJoint.h"
 #include "../viewer/S3DViewer.h"
 
+#define NBMODELS 5
+
 using namespace std;
 
 int main()
@@ -15,19 +17,21 @@ int main()
 	
 	S3DViewer viewer;
 	
+	vector<S3DModel*> mods;
+	for (int i=0 ; i<NBMODELS ; i++)
+	{
+		mods.push_back(new S3DModel(model, i));
+	}
+	//S3DModel princMod(model);
+	viewer.init();
+	viewer.initModels(mods);
+	
 	viewer.start(); //infinit loop
 	
-	/*vector<S3DModel*> mods;
-	for (int i=0 ; i<100 ; i++)
-	{
-		mods.push_back(new S3DModel(model));
-	}
-	S3DModel princMod(model);*/
-	
-	/*for (int i=0 ; i<100 ; i++)
+	for (int i=0 ; i<NBMODELS ; i++)
 	{
 		delete mods[i];
-	}*/
+	}
 
 	cout << "Program ended successfuly !!!" << endl;
 	return 0;
