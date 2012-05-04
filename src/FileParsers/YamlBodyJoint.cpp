@@ -93,6 +93,5 @@ void operator >> (const YAML::Node& node, vector<SBJoints> &BJoints)
 void operator>> (const YAML::Node& node, Quaternion& quat)
 {
 	quat = Quaternion(node["W"].to<float>(), node["X"].to<float>(), node["Y"].to<float>(), node["Z"].to<float>());
-	cout << node["Y"].to<float>() << endl;
 }
 

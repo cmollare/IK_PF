@@ -157,14 +157,17 @@ std::vector<Joint*>& Joint::getChildren()
 	return mChildrenJoint;
 }
 
-void Joint::addChild(std::string name, Quaternion quat)
+Joint* Joint::addChild(std::string name, Quaternion quat)
 {
-	mChildrenJoint.push_back(new Joint(name, this, quat));
+	Joint *jt = new Joint(name, this, quat);
+	mChildrenJoint.push_back(jt);
+	return jt;
 }
 
-void Joint::addChild(Joint* jt)
+Joint* Joint::addChild(Joint* jt)
 {
 	mChildrenJoint.push_back(jt);
+	return jt;
 }
 
 void Joint::setOrientation(Quaternion quat)
