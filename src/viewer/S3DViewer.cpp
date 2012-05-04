@@ -116,8 +116,12 @@ void S3DViewer::initModels(vector<S3DModel*>& models)
 			Eigen::Vector4f vQuat = jt->getOrientation();
 			Ogre::Quaternion quat(vQuat[0], vQuat[1], vQuat[2], vQuat[3]);
 			
+			//offset
+			Eigen::Vector3f vOff = jt->getOffset();
+			Vector3 offset(vOff[0], vOff[1], vOff[2]);
+			
 			//Creation of sceneNode with orientation and offset
-			SceneNode *node = mSceneMgr->getSceneNode("Particles")->createChildSceneNode(oss.str(), Vector3::ZERO, quat);
+			SceneNode *node = mSceneMgr->getSceneNode("Particles")->createChildSceneNode(oss.str(), offset, quat);
 			
 			if (mDisplayAxis)//option to display axis
 			{
@@ -147,7 +151,8 @@ void S3DViewer::initModels(vector<Joint*>& jts, SceneNode *node, int modelNum)
 			Ogre::Quaternion quat(vQuat[0], vQuat[1], vQuat[2], vQuat[3]);
 			
 			//offset
-			Vector3 offset(0, 0, jts[i]->getOffset());
+			Eigen::Vector3f vOff = jts[i]->getOffset();
+			Vector3 offset(vOff[0], vOff[1], vOff[2]);
 			
 			//Creation of node with orientation and offset
 			SceneNode *childNode = node->createChildSceneNode(oss.str(), offset, quat);

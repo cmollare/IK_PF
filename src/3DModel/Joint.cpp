@@ -1,15 +1,18 @@
 #include "Joint.h"
 
-Joint::Joint(string name, Joint *parent, Quaternion quat)
+Joint::Joint(string name, Joint *parent, vector<float> offset, Quaternion quat)
 {
 	mParentJoint = parent;
 	mName = name;
 	
 	mQLocal = quat;
 	//mQLocal = Quaternion(rand(), rand(), rand(), rand());
-	
-	mLocalOffset = rand();
-	mLocalOffset/=100000000;
+	if (offset.size() == 3)
+		mLocalOffset = Eigen::Vector3f(offset[0], offset[1], offset[2]);
+	else
+		mLocalOffset = Eigen::Vector3f(0, 0, 0);
+	//mLocalOffset = rand();
+	//mLocalOffset/=100000000;
 
 	/*if (mParentJoint != NULL)
 		mQDefault = mParentJoint->getCurrOrientation()*mQDefault;*/
@@ -19,13 +22,13 @@ Joint::Joint(const Joint& jtCopy)
 {
 	mName = jtCopy.mName;
 	mColors = jtCopy.mColors;
-	mOrientation = jtCopy.mOrientation;
-	mQDefault = jtCopy.mQDefault;
+	//mOrientation = jtCopy.mOrientation;
+	//mQDefault = jtCopy.mQDefault;
 	mQLocal = jtCopy.mQLocal;
-	mQCurrent = jtCopy.mQCurrent;
-	mDefaultOffset = jtCopy.mDefaultOffset;
+	//mQCurrent = jtCopy.mQCurrent;
+	//mDefaultOffset = jtCopy.mDefaultOffset;
 	mLocalOffset = jtCopy.mLocalOffset;
-	mCurrentOffset = jtCopy.mCurrentOffset;
+	//mCurrentOffset = jtCopy.mCurrentOffset;
 	
 	//Dynamics allocations
 	
@@ -53,11 +56,6 @@ Joint::~Joint()
 			delete mChildrenJoint[i];
 		}
 	}
-}
-
-Eigen::Matrix2f Joint::getCurrOrientation()
-{
-	return mQCurrent;
 }
 
 Joint* Joint::getRoot()
@@ -157,9 +155,9 @@ std::vector<Joint*>& Joint::getChildren()
 	return mChildrenJoint;
 }
 
-Joint* Joint::addChild(std::string name, Quaternion quat)
+Joint* Joint::addChild(std::string name, vector<float> offset, Quaternion quat)
 {
-	Joint *jt = new Joint(name, this, quat);
+	Joint *jt = new Joint(name, this, offset, quat);
 	mChildrenJoint.push_back(jt);
 	return jt;
 }
@@ -180,7 +178,7 @@ Eigen::Vector4f Joint::getOrientation()
 	return mQLocal.getVector4f();
 }
 
-float Joint::getOffset()
+Eigen::Vector3f Joint::getOffset()
 {
 	return mLocalOffset;
 }

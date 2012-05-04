@@ -32,7 +32,7 @@ void YamlBodyJoint::createModel()
 	
 	if (mParsedFile.BJoints[0].Parent == "_Root")
 	{
-		mModel = new Joint(mParsedFile.BJoints[0].Joint, NULL, mParsedFile.BJoints[0].Orientation);
+		mModel = new Joint(mParsedFile.BJoints[0].Joint, NULL, mParsedFile.BJoints[0].Offset, mParsedFile.BJoints[0].Orientation);
 		
 		for (int i=1 ; i<mParsedFile.BJoints.size() ; i++)
 		{
@@ -40,7 +40,7 @@ void YamlBodyJoint::createModel()
 			Joint* parent = mModel->getJointFromName(mParsedFile.BJoints[i].Parent);
 			if (parent != NULL)
 			{
-				parent->addChild(mParsedFile.BJoints[i].Joint, mParsedFile.BJoints[i].Orientation);//Create Children
+				parent->addChild(mParsedFile.BJoints[i].Joint, mParsedFile.BJoints[i].Offset, mParsedFile.BJoints[i].Orientation);//Create Children
 				cout << mParsedFile.BJoints[i].Joint << " added to " << parent->getName() << endl;
 			}
 			else
@@ -93,5 +93,12 @@ void operator >> (const YAML::Node& node, vector<SBJoints> &BJoints)
 void operator>> (const YAML::Node& node, Quaternion& quat)
 {
 	quat = Quaternion(node["W"].to<float>(), node["X"].to<float>(), node["Y"].to<float>(), node["Z"].to<float>());
+}
+
+void operator>> (const YAML::Node& node, vector<float>& Offset)
+{
+	Offset.push_back(node["X"].to<float>());
+	Offset.push_back(node["Y"].to<float>());
+	Offset.push_back(node["Z"].to<float>());
 }
 

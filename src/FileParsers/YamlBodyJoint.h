@@ -11,7 +11,7 @@ typedef struct SBJoints
 {
 	std::string Joint;
 	std::string Parent;
-	float Offset;
+	vector<float> Offset;
 	Quaternion Orientation;
 }SBJoints;
 			
@@ -46,5 +46,6 @@ class YamlBodyJoint
 void operator>> (const YAML::Node& node, SYmdFile &YmdFile);
 void operator>> (const YAML::Node& node, vector<SBJoints> &BJoints);
 void operator>> (const YAML::Node& node, Quaternion& quat);
+void operator>> (const YAML::Node& node, vector<float>& Offset);
 
 #endif

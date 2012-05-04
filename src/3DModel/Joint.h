@@ -14,12 +14,11 @@ class Joint
 	public:
 		EIGEN_MAKE_ALIGNED_OPERATOR_NEW	//For Eigen3
 		
-		Joint(string name, Joint *parent=NULL, Quaternion quat=Quaternion());
+		Joint(string name, Joint *parent=NULL, vector<float> offset=vector<float>(), Quaternion quat=Quaternion());
 		Joint(const Joint& jtCopy);
 		~Joint();
 		
 		//void setDof(vector<bool> dof);
-		Eigen::Matrix2f getCurrOrientation();
 		Joint *getRoot();
 		void setParentIfChild(Joint *jt);
 		Joint *getParent();
@@ -28,12 +27,12 @@ class Joint
 		std::string getName();
 		bool hasChildren();
 		std::vector<Joint*>& getChildren();
-		Joint* addChild(std::string name, Quaternion quat=Quaternion());
+		Joint* addChild(std::string name, vector<float> offset=vector<float>(), Quaternion quat=Quaternion());
 		Joint* addChild(Joint* jt);
 		
 		void setOrientation(const Quaternion quat);
 		Eigen::Vector4f getOrientation();
-		float getOffset();
+		Eigen::Vector3f getOffset();
 		
 	private:
 	
@@ -41,14 +40,14 @@ class Joint
 		Joint *mParentJoint;
 		std::vector<Joint*> mChildrenJoint;
 		Eigen::Vector3i mColors;
-		Eigen::Matrix2f mOrientation;
+		//Eigen::Matrix2f mOrientation;
 		
-		Eigen::Matrix2f mQDefault;
+		//Eigen::Matrix2f mQDefault;
 		Quaternion mQLocal;
-		Eigen::Matrix2f mQCurrent;
-		float mDefaultOffset;
-		float mLocalOffset;
-		float mCurrentOffset;
+		//Eigen::Matrix2f mQCurrent;
+		//float mDefaultOffset;
+		Eigen::Vector3f mLocalOffset;
+		//float mCurrentOffset;
 };
 
 #endif
