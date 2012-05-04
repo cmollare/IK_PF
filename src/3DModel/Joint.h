@@ -28,7 +28,7 @@ class Joint
 		std::string getName();
 		bool hasChildren();
 		std::vector<Joint*>& getChildren();
-		void addChild(std::string name);
+		void addChild(std::string name, Quaternion quat=Quaternion());
 		void addChild(Joint* jt);
 		
 		void setOrientation(const Quaternion quat);

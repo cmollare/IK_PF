@@ -27,11 +27,12 @@ void YamlBodyJoint::parseModel()
 
 void YamlBodyJoint::createModel()
 {
-	this->parseModel();
+	if (mParsedFile.BJoints.size() <= 0)
+		this->parseModel();
 	
 	if (mParsedFile.BJoints[0].Parent == "_Root")
 	{
-		mModel = new Joint(mParsedFile.BJoints[0].Joint);
+		mModel = new Joint(mParsedFile.BJoints[0].Joint, NULL, mParsedFile.BJoints[0].Orientation);
 		
 		for (int i=1 ; i<mParsedFile.BJoints.size() ; i++)
 		{
@@ -39,7 +40,7 @@ void YamlBodyJoint::createModel()
 			Joint* parent = mModel->getJointFromName(mParsedFile.BJoints[i].Parent);
 			if (parent != NULL)
 			{
-				parent->addChild(mParsedFile.BJoints[i].Joint);
+				parent->addChild(mParsedFile.BJoints[i].Joint, mParsedFile.BJoints[i].Orientation);//Create Children
 				cout << mParsedFile.BJoints[i].Joint << " added to " << parent->getName() << endl;
 			}
 			else
@@ -78,6 +79,7 @@ void operator >> (const YAML::Node& node, vector<SBJoints> &BJoints)
 		joint["Joint"] >> BJoints[i].Joint;
 		joint["Parent"] >> BJoints[i].Parent;
 		joint["Offset"] >> BJoints[i].Offset;
+		joint["Orientation"] >> BJoints[i].Orientation;
 		
 		if (i==0 && (BJoints[i].Parent != "_Root"))
 		{
@@ -86,5 +88,11 @@ void operator >> (const YAML::Node& node, vector<SBJoints> &BJoints)
 			std::cout << "The joint : " << BJoints[i].Joint << "have been setted to _Root by default" << std::endl;
 		}
 	}
+}
+
+void operator>> (const YAML::Node& node, Quaternion& quat)
+{
+	quat = Quaternion(node["W"].to<float>(), node["X"].to<float>(), node["Y"].to<float>(), node["Z"].to<float>());
+	cout << node["Y"].to<float>() << endl;
 }
 

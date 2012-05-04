@@ -6,65 +6,83 @@ BJoints:
    - Joint: Spine
      Parent: _Root
      Offset: 0
-     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0,0}
+     Orientation: {W: 0.5, X: 0, Y: 0.5, Z: 0}
    - Joint: ShoulderCenter
      Parent: Spine
      Offset: 1
-     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0,0}
+     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
    - Joint: Head
      Parent: ShoulderCenter
      Offset: 1
+     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
    - Joint: ShoulderLeft
      Parent: ShoulderCenter
      Offset: 1
+     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
    - Joint: ElbowLeft
      Parent: ShoulderLeft
      Offset: 1
+     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
    - Joint: WristleLeft
      Parent: ElbowLeft
      Offset: 1
+     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
    - Joint: HandLeft
      Parent: WristleLeft
      Offset: 1
+     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
    - Joint: ShoulderRight
      Parent: ShoulderCenter
      Offset: 1
+     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
    - Joint: ElbowRight
      Parent: ShoulderRight
      Offset: 1
+     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
    - Joint: WristleRight
      Parent: ElbowRight
      Offset: 1
+     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
    - Joint: HandRight
      Parent: WristleRight
      Offset: 1
+     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
    - Joint: HipCenter
      Parent: Spine
      Offset: 1
+     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
    - Joint: HipLeft
      Parent: HipCenter
      Offset: 1
+     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
    - Joint: KneeLeft
      Parent: HipLeft
      Offset: 1
+     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
    - Joint: AnkleLeft
      Parent: KneeLeft
      Offset: 1
+     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
    - Joint: FootLeft
      Parent: AnkleLeft
      Offset: 1
+     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
    - Joint: HipRight
      Parent: HipCenter
      Offset: 1
+     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
    - Joint: KneeRight
      Parent: HipRight
      Offset: 1
+     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
    - Joint: AnkleRight
      Parent: KneeRight
      Offset: 1
+     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
    - Joint: FootRight
      Parent: AnkleRight
      Offset: 1
+     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
 BPartsColors:
    - {b: 0, g: 0, r: 0}
    - {b: 0, g: 0, r: 0}

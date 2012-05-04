@@ -6,7 +6,7 @@ Joint::Joint(string name, Joint *parent, Quaternion quat)
 	mName = name;
 	
 	mQLocal = quat;
-	mQLocal = Quaternion(rand(), rand(), rand(), rand());
+	//mQLocal = Quaternion(rand(), rand(), rand(), rand());
 	
 	mLocalOffset = rand();
 	mLocalOffset/=100000000;
@@ -157,9 +157,9 @@ std::vector<Joint*>& Joint::getChildren()
 	return mChildrenJoint;
 }
 
-void Joint::addChild(std::string name)
+void Joint::addChild(std::string name, Quaternion quat)
 {
-	mChildrenJoint.push_back(new Joint(name, this));
+	mChildrenJoint.push_back(new Joint(name, this, quat));
 }
 
 void Joint::addChild(Joint* jt)

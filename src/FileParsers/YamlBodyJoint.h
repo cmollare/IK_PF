@@ -5,12 +5,14 @@
 #include "../3DModel/Joint.h"
 #include <fstream>
 #include <string>
+#include "../3DModel/Quaternion.h"
 
 typedef struct SBJoints
 {
 	std::string Joint;
 	std::string Parent;
 	float Offset;
+	Quaternion Orientation;
 }SBJoints;
 			
 typedef struct SYmdFile
@@ -43,5 +45,6 @@ class YamlBodyJoint
 
 void operator>> (const YAML::Node& node, SYmdFile &YmdFile);
 void operator>> (const YAML::Node& node, vector<SBJoints> &BJoints);
+void operator>> (const YAML::Node& node, Quaternion& quat);
 
 #endif

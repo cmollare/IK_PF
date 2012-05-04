@@ -63,8 +63,8 @@ bool S3DViewer::init()
 	//mAvatar = new Avatar(mSceneMgr);
 	defineMaterials();
 	mSceneMgr->getRootSceneNode()->createChildSceneNode("Particles");
-	mSceneMgr->getRootSceneNode()->createChildSceneNode("lol")->attachObject(createAxis("Axis"));
-	mSceneMgr->getSceneNode("lol")->rotate(Vector3(1,1,1), Radian(0.5));
+	//mSceneMgr->getRootSceneNode()->createChildSceneNode("lol")->attachObject(createAxis("Axis"));
+	//mSceneMgr->getSceneNode("lol")->rotate(Vector3(1,1,1), Radian(0.5));
 	
 	createFrameListener();
 	
@@ -148,7 +148,6 @@ void S3DViewer::initModels(vector<Joint*>& jts, SceneNode *node, int modelNum)
 			
 			//offset
 			Vector3 offset(0, 0, jts[i]->getOffset());
-			cout << jts[i]->getOffset() << endl;
 			
 			//Creation of node with orientation and offset
 			SceneNode *childNode = node->createChildSceneNode(oss.str(), offset, quat);
