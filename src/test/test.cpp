@@ -26,7 +26,7 @@ int main()
 	viewer.init();
 	viewer.initModels(mods);
 	
-	viewer.start(); //infinit loop
+	viewer.start(); //infinite loop
 	
 	for (int i=0 ; i<NBMODELS ; i++)
 	{

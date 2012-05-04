@@ -9,47 +9,47 @@ BJoints:
      Orientation: {W: 1, X: 0.0, Y: 0.0, Z: 0.0}
    - Joint: ShoulderCenter
      Parent: Spine
-     Offset: {X: 0.0, Y: 3.0, Z: 0.0}
+     Offset: {X: 0.0, Y: 7.0, Z: 0.0}
      Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
    - Joint: Head
      Parent: ShoulderCenter
-     Offset: {X: 0.0, Y: 0.0, Z: 0.0}
+     Offset: {X: 0.0, Y: 2.0, Z: 0.0}
      Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
    - Joint: ShoulderLeft
      Parent: ShoulderCenter
-     Offset: {X: 0.0, Y: 0.0, Z: 0.0}
-     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
+     Offset: {X: -4.0, Y: 0.0, Z: 0.0}
+     Orientation: {W: 1.0, X: 0.0, Y: -1.0, Z: 0.0}
    - Joint: ElbowLeft
      Parent: ShoulderLeft
      Offset: {X: 0.0, Y: 0.0, Z: 0.0}
-     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
+     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 3.0}
    - Joint: WristleLeft
      Parent: ElbowLeft
      Offset: {X: 0.0, Y: 0.0, Z: 0.0}
-     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
+     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 3.0}
    - Joint: HandLeft
      Parent: WristleLeft
      Offset: {X: 0.0, Y: 0.0, Z: 0.0}
-     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
+     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 3.0}
    - Joint: ShoulderRight
      Parent: ShoulderCenter
-     Offset: {X: 0.0, Y: 0.0, Z: 0.0}
-     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
+     Offset: {X: 4.0, Y: 0.0, Z: 0.0}
+     Orientation: {W: 1.0, X: 0.0, Y: 1.0, Z: 0.0}
    - Joint: ElbowRight
      Parent: ShoulderRight
      Offset: {X: 0.0, Y: 0.0, Z: 0.0}
-     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
+     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 3.0}
    - Joint: WristleRight
      Parent: ElbowRight
      Offset: {X: 0.0, Y: 0.0, Z: 0.0}
-     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
+     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 3.0}
    - Joint: HandRight
      Parent: WristleRight
      Offset: {X: 0.0, Y: 0.0, Z: 0.0}
-     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
+     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 3.0}
    - Joint: HipCenter
      Parent: Spine
-     Offset: {X: 0.0, Y: -2.0, Z: 0.0}
+     Offset: {X: 0.0, Y: -3.0, Z: 0.0}
      Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
    - Joint: HipLeft
      Parent: HipCenter

@@ -14,7 +14,7 @@ class Joint
 	public:
 		EIGEN_MAKE_ALIGNED_OPERATOR_NEW	//For Eigen3
 		
-		Joint(string name, Joint *parent=NULL, vector<float> offset=vector<float>(), Quaternion quat=Quaternion());
+		Joint(string name, Joint *parent=NULL, vector<float> offset=vector<float>(3,0), Quaternion quat=Quaternion());
 		Joint(const Joint& jtCopy);
 		~Joint();
 		
@@ -27,7 +27,7 @@ class Joint
 		std::string getName();
 		bool hasChildren();
 		std::vector<Joint*>& getChildren();
-		Joint* addChild(std::string name, vector<float> offset=vector<float>(), Quaternion quat=Quaternion());
+		Joint* addChild(std::string name, vector<float> offset=vector<float>(3,0), Quaternion quat=Quaternion());
 		Joint* addChild(Joint* jt);
 		
 		void setOrientation(const Quaternion quat);

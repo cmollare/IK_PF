@@ -10,7 +10,6 @@ S3DViewer::S3DViewer() : mRoot(0)
 S3DViewer::~S3DViewer()
 {
 	delete mInputListener;
-	//delete mAvatar;
     delete mRoot;
     delete mLogMgr;
 }
@@ -60,7 +59,7 @@ bool S3DViewer::init()
 	vp->setBackgroundColour(Ogre::ColourValue(0,0,0));
 	mCamera->setAspectRatio(Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
 	
-	//mAvatar = new Avatar(mSceneMgr);
+	//Load models
 	defineMaterials();
 	mSceneMgr->getRootSceneNode()->createChildSceneNode("Particles");
 	//mSceneMgr->getRootSceneNode()->createChildSceneNode("lol")->attachObject(createAxis("Axis"));
