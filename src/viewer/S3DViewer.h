@@ -6,6 +6,8 @@
 #include "InputListener.h"
 #include "../3DModel/S3DModel.h"
 
+using namespace Ogre;
+
 class S3DViewer
 {
 public:
@@ -17,6 +19,10 @@ public:
     
     void setOptions(bool displayJoint=true, bool displayAxis=true, bool displayBone=false);
     void initModels(vector<S3DModel*> models);
+    
+    //Drawing functions
+    void defineMaterials();
+    ManualObject* createAxis(const std::string& strName, int scale=3);
 
 private:
     Ogre::Root *mRoot;

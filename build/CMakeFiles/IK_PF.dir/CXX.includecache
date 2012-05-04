@@ -279,6 +279,8 @@ OIS/OIS.h
 /home/cmollare/Documents/filtrage_postures/IK_PF/src/test/../viewer/S3DViewer.h
 Ogre.h
 -
+vector
+-
 InputListener.h
 /home/cmollare/Documents/filtrage_postures/IK_PF/src/test/../viewer/InputListener.h
 ../3DModel/S3DModel.h
@@ -332,6 +334,8 @@ S3DViewer.h
 
 /home/cmollare/Documents/filtrage_postures/IK_PF/src/viewer/S3DViewer.h
 Ogre.h
+-
+vector
 -
 InputListener.h
 /home/cmollare/Documents/filtrage_postures/IK_PF/src/viewer/InputListener.h

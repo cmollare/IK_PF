@@ -61,6 +61,9 @@ bool S3DViewer::start()
 	mCamera->setAspectRatio(Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
 	
 	//mAvatar = new Avatar(mSceneMgr);
+	defineMaterials();
+	mSceneMgr->getRootSceneNode()->createChildSceneNode("lol")->attachObject(createAxis("Axis"));
+	//mSceneMgr->getSceneNode("lol")->rotate(Vector3(1,1,1), Radian(0.5));
 	
 	createFrameListener();
 	
@@ -93,5 +96,52 @@ void S3DViewer::setOptions(bool displayJoint, bool displayAxis, bool displayBone
 
 void initModels(vector<S3DModel*> models)
 {
+}
+
+void S3DViewer::defineMaterials()
+{
+	MaterialPtr myManualObjectMaterial = MaterialManager::getSingleton().create("Red","axis"); 
+	myManualObjectMaterial->setReceiveShadows(false); 
+	myManualObjectMaterial->getTechnique(0)->setLightingEnabled(true); 
+	myManualObjectMaterial->getTechnique(0)->getPass(0)->setDiffuse(1,0,0,0); 
+	myManualObjectMaterial->getTechnique(0)->getPass(0)->setAmbient(1,0,0); 
+	myManualObjectMaterial->getTechnique(0)->getPass(0)->setSelfIllumination(1,0,0);
+	
+	myManualObjectMaterial = MaterialManager::getSingleton().create("Green","axis"); 
+	myManualObjectMaterial->setReceiveShadows(false); 
+	myManualObjectMaterial->getTechnique(0)->setLightingEnabled(true); 
+	myManualObjectMaterial->getTechnique(0)->getPass(0)->setDiffuse(0,1,0,0); 
+	myManualObjectMaterial->getTechnique(0)->getPass(0)->setAmbient(0,1,0); 
+	myManualObjectMaterial->getTechnique(0)->getPass(0)->setSelfIllumination(0,1,0); 
+	
+	myManualObjectMaterial = MaterialManager::getSingleton().create("Blue","axis"); 
+	myManualObjectMaterial->setReceiveShadows(false); 
+	myManualObjectMaterial->getTechnique(0)->setLightingEnabled(true); 
+	myManualObjectMaterial->getTechnique(0)->getPass(0)->setDiffuse(0,0,1,0); 
+	myManualObjectMaterial->getTechnique(0)->getPass(0)->setAmbient(0,0,1); 
+	myManualObjectMaterial->getTechnique(0)->getPass(0)->setSelfIllumination(0,0,1); 
+}
+
+ManualObject* S3DViewer::createAxis(const std::string& strName, int scale)
+{
+	ManualObject* manual = mSceneMgr->createManualObject(strName);
+ 
+	// specify the material (by name) and rendering type
+	manual->begin("Red", RenderOperation::OT_LINE_LIST);
+	manual->position(0, 0, 0);
+	manual->position(scale, 0, 0);
+	manual->end();
+	
+	manual->begin("Green", RenderOperation::OT_LINE_LIST);
+	manual->position(0, 0, 0);
+	manual->position(0, scale, 0);
+	manual->end();
+	
+	manual->begin("Blue", RenderOperation::OT_LINE_LIST);
+	manual->position(0, 0, 0);
+	manual->position(0, 0, scale);
+	manual->end();
+	 
+	return manual;
 }
 
