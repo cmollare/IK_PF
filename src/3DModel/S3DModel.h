@@ -21,7 +21,7 @@ class S3DModel
 		int getNumberJoint();
 		vector<Eigen::Quaternionf*, Eigen::aligned_allocator<Eigen::Quaternionf*> > getOrientationVec();
 		
-		void debug()
+		void debug()//fonction temporaire
 		{
 			for (int i=0 ; i<mOrientationVec.size() ; i++)
 			{

@@ -17,6 +17,16 @@ S3DModel::S3DModel(const Joint* jt, unsigned int id)
 	std::cout << "S3DModel : model index successfully created !" << std::endl;
 }
 
+S3DModel::S3DModel(const S3DModel& model)
+{
+	mRootJoint = new Joint(*(model.mRootJoint));
+	mId = -2;
+	mNbJoints = -1;
+	createMaps();
+	createOrientationVec();
+	std::cout << "S3DModel : model index successfully created !" << std::endl;
+}
+
 S3DModel::~S3DModel()
 {
 	delete mRootJoint;
