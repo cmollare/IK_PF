@@ -14,9 +14,9 @@ class S3DModel
 		~S3DModel();
 		
 		Joint* getRootJoint();
+		void createMaps();
 		
 	private:
-		void createMaps();
 		void createMaps(vector<Joint*>& jts);
 		
 		unsigned int mId;

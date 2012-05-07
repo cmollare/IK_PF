@@ -31,7 +31,9 @@ class Joint
 		
 		void setOrientation(const Eigen::Quaternionf quat);
 		Eigen::Quaternionf getOrientation();
-		Eigen::Vector3f getOffset();
+		Eigen::Translation3f getOffset();
+		Eigen::Vector3f getXYZVect();
+		Eigen::Transform<float, 3, Eigen::Projective> getTransformationMatrix();
 		
 	private:
 	
@@ -45,7 +47,7 @@ class Joint
 		Eigen::Quaternionf mQLocal;
 		//Eigen::Matrix2f mQCurrent;
 		//float mDefaultOffset;
-		Eigen::Vector3f mLocalOffset;
+		Eigen::Translation3f mLocalOffset;
 		//float mCurrentOffset;
 };
 

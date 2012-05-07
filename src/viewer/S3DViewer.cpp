@@ -116,8 +116,8 @@ void S3DViewer::initModels(vector<S3DModel*>& models)
 			Ogre::Quaternion quat((float)vQuat.w(), (float)vQuat.x(), (float)vQuat.y(), (float)vQuat.z());
 			
 			//offset
-			Eigen::Vector3f vOff = jt->getOffset();
-			Vector3 offset(vOff[0], vOff[1], vOff[2]);
+			Eigen::Translation3f vOff = jt->getOffset();
+			Vector3 offset(vOff.x(), vOff.y(), vOff.z());
 			
 			//Creation of sceneNode with orientation and offset
 			SceneNode *node = mSceneMgr->getSceneNode("Particles")->createChildSceneNode(oss.str(), offset, quat);
@@ -149,8 +149,8 @@ void S3DViewer::initModels(vector<Joint*>& jts, SceneNode *node, int modelNum)
 			Ogre::Quaternion quat(vQuat.w(), vQuat.x(), vQuat.y(), vQuat.z());
 			
 			//offset
-			Eigen::Vector3f vOff = jts[i]->getOffset();
-			Vector3 offset(vOff[0], vOff[1], vOff[2]);
+			Eigen::Translation3f vOff = jts[i]->getOffset();
+			Vector3 offset(vOff.x(), vOff.y(), vOff.z());
 			
 			//Creation of node with orientation and offset
 			SceneNode *childNode = node->createChildSceneNode(oss.str(), offset, quat);

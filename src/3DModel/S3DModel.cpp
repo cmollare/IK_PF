@@ -28,6 +28,10 @@ Joint* S3DModel::getRootJoint()
 
 void S3DModel::createMaps()
 {
+	mStringToJoint.clear();
+	mIntToJoint.clear();
+	mStringToInt.clear();
+	
 	if (mRootJoint != NULL)
 	{
 		mNbJoints++;

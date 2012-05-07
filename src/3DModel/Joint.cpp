@@ -8,9 +8,9 @@ Joint::Joint(string name, Joint *parent, vector<float> offset, Eigen::Quaternion
 	mQLocal = quat;
 	//mQLocal = Quaternion(rand(), rand(), rand(), rand());
 	if (offset.size() == 3)
-		mLocalOffset = Eigen::Vector3f(offset[0], offset[1], offset[2]);
+		mLocalOffset = Eigen::Translation3f(offset[0], offset[1], offset[2]);
 	else
-		mLocalOffset = Eigen::Vector3f(0, 0, 0);
+		mLocalOffset = Eigen::Translation3f(0, 0, 0);
 	//mLocalOffset = rand();
 	//mLocalOffset/=100000000;
 
@@ -178,7 +178,16 @@ Eigen::Quaternionf Joint::getOrientation()
 	return mQLocal;
 }
 
-Eigen::Vector3f Joint::getOffset()
+Eigen::Translation3f Joint::getOffset()
 {
 	return mLocalOffset;
+}
+
+Eigen::Vector3f Joint::getXYZVect()
+{
+}
+
+Eigen::Transform<float, 3, Eigen::Projective> Joint::getTransformationMatrix()
+{
+	return mLocalOffset*mQLocal;
 }
