@@ -112,11 +112,11 @@ void S3DViewer::initModels(vector<S3DModel*>& models)
 			oss << jt->getName() << "_" << i;
 			
 			//Orientation of Joint
-			Eigen::Quaternionf vQuat = jt->getOrientation();
+			Eigen::Quaternionf vQuat = *(jt->getOrientation());
 			Ogre::Quaternion quat((float)vQuat.w(), (float)vQuat.x(), (float)vQuat.y(), (float)vQuat.z());
 			
 			//offset
-			Eigen::Translation3f vOff = jt->getOffset();
+			Eigen::Translation3f vOff = *(jt->getOffset());
 			Vector3 offset(vOff.x(), vOff.y(), vOff.z());
 			
 			//Creation of sceneNode with orientation and offset
@@ -145,11 +145,11 @@ void S3DViewer::initModels(vector<Joint*>& jts, SceneNode *node, int modelNum)
 			ostringstream oss;
 			oss << jts[i]->getName() << "_" << modelNum;
 			
-			Eigen::Quaternionf vQuat = jts[i]->getOrientation();
+			Eigen::Quaternionf vQuat = *(jts[i]->getOrientation());
 			Ogre::Quaternion quat(vQuat.w(), vQuat.x(), vQuat.y(), vQuat.z());
 			
 			//offset
-			Eigen::Translation3f vOff = jts[i]->getOffset();
+			Eigen::Translation3f vOff = *(jts[i]->getOffset());
 			Vector3 offset(vOff.x(), vOff.y(), vOff.z());
 			
 			//Creation of node with orientation and offset

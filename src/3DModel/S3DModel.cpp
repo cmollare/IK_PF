@@ -53,6 +53,11 @@ int S3DModel::getNumberJoint()
 	return mNbJoints+1;
 }
 
+vector<Eigen::Quaternionf*, Eigen::aligned_allocator<Eigen::Quaternionf*> > S3DModel::getOrientationVec()
+{
+	return mOrientationVec;
+}
+
 void S3DModel::createMaps(vector<Joint*>& jts)
 {
 	if (jts.size() > 0)

@@ -30,8 +30,8 @@ class Joint
 		Joint* addChild(Joint* jt);
 		
 		void setOrientation(const Eigen::Quaternionf quat);
-		Eigen::Quaternionf& getOrientation();
-		Eigen::Translation3f& getOffset();
+		Eigen::Quaternionf* getOrientation();
+		Eigen::Translation3f* getOffset();
 		const Eigen::Vector3f getXYZVect();
 		Eigen::Transform<float, 3, Eigen::Projective> getTransformationMatrix();
 		

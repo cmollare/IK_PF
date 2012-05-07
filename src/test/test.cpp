@@ -26,6 +26,14 @@ int main()
 	viewer.init();
 	viewer.initModels(mods);
 	
+	/*vector<Eigen::Quaternionf*, Eigen::aligned_allocator<Eigen::Quaternionf*> > vec = mods[0]->getOrientationVec();
+	mods[0]->debug();
+	for (int i=0 ; i<vec.size() ; i++)
+	{
+		*vec[i]*=Eigen::Quaternionf(4,2,5,3);
+	}
+	mods[0]->debug();*/
+	
 	viewer.start(); //infinite loop
 	
 	for (int i=0 ; i<NBMODELS ; i++)

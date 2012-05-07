@@ -19,6 +19,17 @@ class S3DModel
 		Joint* getRootJoint();
 		void createMaps();
 		int getNumberJoint();
+		vector<Eigen::Quaternionf*, Eigen::aligned_allocator<Eigen::Quaternionf*> > getOrientationVec();
+		
+		void debug()
+		{
+			for (int i=0 ; i<mOrientationVec.size() ; i++)
+			{
+				cout << "****************" << endl;
+				cout << Eigen::Matrix3f(*mOrientationVec[i]) << endl;
+				cout << "****************" << endl;
+			}
+		}
 		
 	private:
 		void createMaps(vector<Joint*>& jts);
@@ -32,7 +43,7 @@ class S3DModel
 		std::map<int, Joint*> mIntToJoint;
 		int mNbJoints;
 		
-		vector<Eigen::Quaternionf, Eigen::aligned_allocator<Eigen::Quaternionf> > mOrientationVec;
+		vector<Eigen::Quaternionf*, Eigen::aligned_allocator<Eigen::Quaternionf*> > mOrientationVec;
 };
 
 #endif

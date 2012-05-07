@@ -173,14 +173,14 @@ void Joint::setOrientation(Eigen::Quaternionf quat)
 	mQLocal = quat;
 }
 
-Eigen::Quaternionf& Joint::getOrientation()
+Eigen::Quaternionf* Joint::getOrientation()
 {
-	return mQLocal;
+	return &mQLocal;
 }
 
-Eigen::Translation3f& Joint::getOffset()
+Eigen::Translation3f* Joint::getOffset()
 {
-	return mLocalOffset;
+	return &mLocalOffset;
 }
 
 const Eigen::Vector3f Joint::getXYZVect()
