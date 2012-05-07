@@ -21,13 +21,14 @@ public:
     
     void setOptions(bool displayJoint=true, bool displayAxis=true, bool displayBone=false);
     void initModels(vector<S3DModel*>& models);
-    void initModels(vector<Joint*>& jts, SceneNode *node, int modelNum);
     
     //Drawing functions
     void defineMaterials();
     ManualObject* createAxis(const std::string& strName, int scale=3);
 
 private:
+	void initModels(vector<Joint*>& jts, SceneNode *node, int modelNum);
+	
     Ogre::Root *mRoot;
     Ogre::RenderWindow* mWindow;
 	Ogre::SceneManager* mSceneMgr;
