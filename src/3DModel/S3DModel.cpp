@@ -57,6 +57,7 @@ void S3DModel::createMaps(vector<Joint*>& jts)
 			mStringToJoint[jts[i]->getName()] = jts[i];
 			mIntToJoint[mNbJoints] = jts[i];
 			mStringToInt[jts[i]->getName()] = mNbJoints;
+			cout << jts[i]->getXYZVect() << endl;
 			
 			if (jts[i]->hasChildren())
 			{
