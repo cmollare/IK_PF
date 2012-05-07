@@ -33,6 +33,6 @@ int main()
 		delete mods[i];
 	}
 
-	cout << "Program ended successfuly !!!" << endl;
+	cout << "Program ended successfully !!!" << endl;
 	return 0;
 }

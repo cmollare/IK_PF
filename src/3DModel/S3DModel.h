@@ -2,6 +2,7 @@
 #define S3DMODEL_H
 
 #include <iostream>
+#include <map>
 #include "Joint.h"
 
 class S3DModel
@@ -15,8 +16,16 @@ class S3DModel
 		Joint* getRootJoint();
 		
 	private:
+		void createMaps();
+		void createMaps(vector<Joint*>& jts);
+		
 		unsigned int mId;
 		Joint *mRootJoint;
+		
+		std::map<std::string, Joint*> mStringToJoint;
+		std::map<std::string, int> mStringToInt;
+		std::map<int, Joint*> mIntToJoint;
+		int mNbJoints;
 		
 };
 
