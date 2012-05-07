@@ -1,4 +1,5 @@
 #include <iostream>
+#include <Eigen/Dense>
 #include "../3DModel/S3DModel.h"
 
 class IKSolverPF
