@@ -173,20 +173,19 @@ void Joint::setOrientation(Eigen::Quaternionf quat)
 	mQLocal = quat;
 }
 
-Eigen::Quaternionf Joint::getOrientation()
+Eigen::Quaternionf& Joint::getOrientation()
 {
 	return mQLocal;
 }
 
-Eigen::Translation3f Joint::getOffset()
+Eigen::Translation3f& Joint::getOffset()
 {
 	return mLocalOffset;
 }
 
-Eigen::Vector3f Joint::getXYZVect()
+const Eigen::Vector3f Joint::getXYZVect()
 {
 	Joint* jt = this;
-	//Eigen::Vector4f result = jt->getTransformationMatrix()*Eigen::Vector4f(1,1,1,0);
 	Eigen::Transform<float, 3, Eigen::Projective> result = jt->getTransformationMatrix();
 	
 	while(jt->getParent() != NULL)
@@ -196,7 +195,6 @@ Eigen::Vector3f Joint::getXYZVect()
 	}
 	
 	return result.translation();
-	//return Eigen::Vector3f(result[0], result[1], result[2]);
 }
 
 Eigen::Transform<float, 3, Eigen::Projective> Joint::getTransformationMatrix()

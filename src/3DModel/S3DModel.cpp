@@ -13,6 +13,7 @@ S3DModel::S3DModel(const Joint* jt, unsigned int id)
 	mId = id;
 	mNbJoints = -1;
 	createMaps();
+	createOrientationVec();
 	std::cout << "S3DModel : model index successfully created !" << std::endl;
 }
 
@@ -47,6 +48,11 @@ void S3DModel::createMaps()
 	}
 }
 
+int S3DModel::getNumberJoint()
+{
+	return mNbJoints+1;
+}
+
 void S3DModel::createMaps(vector<Joint*>& jts)
 {
 	if (jts.size() > 0)
@@ -57,13 +63,23 @@ void S3DModel::createMaps(vector<Joint*>& jts)
 			mStringToJoint[jts[i]->getName()] = jts[i];
 			mIntToJoint[mNbJoints] = jts[i];
 			mStringToInt[jts[i]->getName()] = mNbJoints;
-			cout << jts[i]->getXYZVect() << endl;
 			
 			if (jts[i]->hasChildren())
 			{
 				vector<Joint*> children = jts[i]->getChildren();
 				createMaps(children);
 			}
+		}
+	}
+}
+
+void S3DModel::createOrientationVec()
+{
+	if (mNbJoints != -1)
+	{
+		for (int i=0 ; i<=mNbJoints ; i++)
+		{
+			mOrientationVec.push_back(mIntToJoint[i]->getOrientation());
 		}
 	}
 }
