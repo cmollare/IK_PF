@@ -1,8 +1,7 @@
-#include <iostream>
-#include <Eigen/Dense>
+#include "IKSolver.h"
 #include "../3DModel/S3DModel.h"
 
-class IKSolverPF
+class IKSolverPF : public IKSolver
 {
 	public:
 		IKSolverPF(vector<S3DModel*>& mods);
