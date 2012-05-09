@@ -25,7 +25,9 @@ int main()
 	}
 	//S3DModel princMod(model);
 	viewer.init();
-	//viewer.initModels(mods);
+	viewer.initModels(mods);
+	
+	IKSolverPF iksol(mods);
 	
 	/*vector<Eigen::Quaternionf*, Eigen::aligned_allocator<Eigen::Quaternionf*> > vec = mods[0]->getOrientationVec();
 	mods[0]->debug();
@@ -35,14 +37,16 @@ int main()
 	}
 	mods[0]->debug();*/
 	
-	IKSolverPF iksol(mods);
+	//TESTER LE SAMPLING
+	
+	/*IKSolverPF iksol(mods);
 	
 	for(int i=0 ; i<1000 ; i++)
 	{
 		Eigen::Quaternionf mean;
 		mean.setIdentity();
 		viewer.displaySampling(iksol.sampleQuTEM(mean,1,1,0.1,1));
-	}
+	}*/
 	
 	
 	

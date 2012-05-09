@@ -40,3 +40,7 @@ float IKSolver::randn()
 	float Y = sqrt(-2*log(U1))*sin(2*3.14*U2);
 	return X;
 }
+
+void IKSolver::mapXYZPositions(vector<std::string> JointsNames, vector<int> jointsXYZPositions)
+{
+}

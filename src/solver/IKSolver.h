@@ -5,6 +5,8 @@
 #include <math.h>
 #include <Eigen/Dense>
 #include <vector>
+#include <map>
+#include "../3DModel/S3DModel.h"
 
 using namespace std;
 
@@ -18,5 +20,9 @@ class IKSolver
 		
 	protected:
 		float randn();//Box-Muller algorithm
+		void mapXYZPositions(vector<std::string> JointsNames, vector<int> jointsXYZPositions);
+		
+		std::map<std::string, int> mJointNameToPos;
+		std::map<Joint*, int> mJointToPos;
 		
 };
