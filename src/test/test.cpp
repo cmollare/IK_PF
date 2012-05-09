@@ -3,6 +3,7 @@
 #include "../3DModel/S3DModel.h"
 #include "../FileParsers/YamlBodyJoint.h"
 #include "../viewer/S3DViewer.h"
+#include "../solver/IKSolverPF.h"
 
 #define NBMODELS 5
 
@@ -33,6 +34,10 @@ int main()
 		*vec[i]*=Eigen::Quaternionf(4,2,5,3);
 	}
 	mods[0]->debug();*/
+	
+	IKSolverPF iksol(mods);
+	
+	
 	
 	viewer.start(); //infinite loop
 	

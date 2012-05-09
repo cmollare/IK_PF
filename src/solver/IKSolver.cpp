@@ -5,6 +5,29 @@ IKSolver::IKSolver()
 	srand (time(NULL));//Initialisation of randon numbers
 }
 
+Eigen::Quaternionf IKSolver::samplePrior(Eigen::Quaternionf mean, float sigma, float sigma1, float sigma2, float sigma3)
+{
+	Eigen::Vector4f axis(0, this->randn(), this->randn(), this->randn());
+	
+	//N
+	axis.normalize();
+	axis[1]=axis[1]*sigma1;
+	axis[2]=axis[2]*sigma2;
+	axis[3]=axis[3]*sigma3;
+	
+	//theta
+	float theta = this->randn()*sigma;
+	
+	//exp(N*theta)
+	axis=axis*sin(theta);
+	axis[0]=cos(theta);
+	
+	//to quaternion
+	Eigen::Quaternionf quat(axis[0], axis[1], axis[2], axis[3]);
+	quat = mean*quat;
+	
+	return quat;
+}
 
 float IKSolver::randn()
 {
