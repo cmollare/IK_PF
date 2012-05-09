@@ -22,6 +22,9 @@ public:
     void setOptions(bool displayJoint=true, bool displayAxis=true, bool displayBone=false);
     void initModels(vector<S3DModel*>& models);
     
+    //debug functions
+    void displaySampling(Eigen::Quaternionf quat);//ajouter la rotation
+    
     //Drawing functions
     void defineMaterials();
     ManualObject* createAxis(const std::string& strName, int scale=3);

@@ -62,6 +62,8 @@ bool S3DViewer::init()
 	//Load models
 	defineMaterials();
 	mSceneMgr->getRootSceneNode()->createChildSceneNode("Particles");
+	mSceneMgr->getRootSceneNode()->createChildSceneNode("Debug")->attachObject(createAxis("Axis",5));
+	
 	//mSceneMgr->getRootSceneNode()->createChildSceneNode("lol")->attachObject(createAxis("Axis"));
 	//mSceneMgr->getSceneNode("lol")->rotate(Vector3(1,1,1), Radian(0.5));
 	
@@ -91,6 +93,17 @@ void S3DViewer::createFrameListener()
 {
     mInputListener = new InputListener(mWindow, mCamera);
     mRoot->addFrameListener(mInputListener);
+}
+
+void S3DViewer::displaySampling(Eigen::Quaternionf quat)
+{
+	std::ostringstream oss;
+	Ogre::Vector3 vec(quat.x(), quat.y(), quat.z());
+	vec.normalise();
+	vec=vec*10;
+	SceneNode *node = mSceneMgr->getSceneNode("Particles")->createChildSceneNode(vec);
+	oss << "Axis_particule_" << node->getName() << endl;
+	node->attachObject(createAxis(oss.str(),2));
 }
 
 void S3DViewer::setOptions(bool displayJoint, bool displayAxis, bool displayBone)
