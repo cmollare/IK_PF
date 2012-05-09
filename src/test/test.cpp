@@ -41,7 +41,7 @@ int main()
 	{
 		Eigen::Quaternionf mean;
 		mean.setIdentity();
-		viewer.displaySampling(iksol.samplePrior(mean,1,1,0.1,0.05));
+		viewer.displaySampling(iksol.samplePrior(mean,1,1,0.1,1));
 	}
 	
 	

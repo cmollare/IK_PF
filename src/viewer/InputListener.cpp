@@ -1,11 +1,23 @@
 #include "InputListener.h"
 
-InputListener::InputListener(Ogre::RenderWindow *wnd, Ogre::Camera *camera)
+InputListener::InputListener(Ogre::SceneManager* scMgr, Ogre::RenderWindow *wnd, Ogre::Camera *camera)
 {
     mWindow = wnd;
     mCamera = camera;
+    mSceneMgr = scMgr;
+    
     //mAvatar=avatar;
     startOIS();
+    
+    mContinue = true;
+    
+    
+    mYaw = 0;
+    mPitch = 0;
+    mZoom = mCamera->getPosition().z;
+    
+	mMouseLPressed = false;
+    mMouseRPressed = false;
     
     //mCounterAnimAvatar=0;
 
@@ -22,13 +34,27 @@ bool InputListener::frameRenderingQueued(const Ogre::FrameEvent& evt)
 	//mCounterAnimAvatar+=evt.timeSinceLastFrame;
 	
     if(mWindow->isClosed())
-        return false;
+        mContinue = false;
+        
+    if(mMouse)
+        mMouse->capture();
+    if(mKeyboard)
+        mKeyboard->capture();
+    
+    mCamera->setPosition(Ogre::Vector3(0, 0, mZoom));
+    mSceneMgr->getRootSceneNode()->yaw(Ogre::Radian(mYaw));
+    mSceneMgr->getRootSceneNode()->pitch(Ogre::Radian(mPitch));
+    mYaw = 0;
+    mPitch = 0;
 
-    mKeyboard->capture();
-    mMouse->capture();
+	return mContinue;
+
+    //mKeyboard->capture();
+    //mMouse->capture();
  
-    if(mKeyboard->isKeyDown(OIS::KC_ESCAPE))
-        return false;
+    //if(mKeyboard->isKeyDown(OIS::KC_ESCAPE))
+      //  return false;
+        
         
     /*if(mKeyboard->isKeyDown(OIS::KC_N))
 		mAvatar->moveNextFrame();*/
@@ -38,8 +64,7 @@ bool InputListener::frameRenderingQueued(const Ogre::FrameEvent& evt)
 		mCounterAnimAvatar=0;
 		mAvatar->moveNextFrame();
 	}*/
- 
-    return true;
+
 }
 
 void InputListener::windowResized(Ogre::RenderWindow* wnd)
@@ -81,11 +106,83 @@ void InputListener::startOIS()
     pl.insert(std::make_pair(std::string("WINDOW"), windowHndStr.str()));
  
     mInputManager = OIS::InputManager::createInputSystem( pl );
-    mMouse = static_cast<OIS::Mouse*>(mInputManager->createInputObject( OIS::OISMouse, false ));
-    mKeyboard = static_cast<OIS::Keyboard*>(mInputManager->createInputObject( OIS::OISKeyboard, false ));
+    mMouse = static_cast<OIS::Mouse*>(mInputManager->createInputObject( OIS::OISMouse, true ));
+    mKeyboard = static_cast<OIS::Keyboard*>(mInputManager->createInputObject( OIS::OISKeyboard, true ));
 
     windowResized(mWindow);
     Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
+    
+    //Buffer
+    mMouse->setEventCallback(this);
+	mKeyboard->setEventCallback(this);
+}
+
+bool InputListener::mouseMoved(const OIS::MouseEvent &e)
+{
+	if (mMouseLPressed)
+	{
+		mPitch = e.state.Y.rel*0.01;
+		mYaw = e.state.X.rel*0.01;
+	}
+	else if(mMouseRPressed)
+	{
+		mZoom += e.state.Y.rel*0.1;
+	}
+	return mContinue;
+}
+
+bool InputListener::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
+{
+	switch(id)
+	{
+		case OIS::MB_Left:
+			mMouseLPressed = true;
+			return mContinue;
+			break;
+		
+		case OIS::MB_Right:
+			mMouseRPressed = true;
+			return mContinue;
+			break;
+	}
+	return mContinue; 
+}
+
+bool InputListener::mouseReleased(const OIS::MouseEvent &e, OIS::MouseButtonID id)
+{
+	switch(id)
+	{
+		case OIS::MB_Left:
+			mMouseLPressed = false;
+			return mContinue;
+			break;
+		
+		case OIS::MB_Right:
+			mMouseRPressed = false;
+			return mContinue;
+			break;
+	}
+	return mContinue;
+}
+ 
+bool InputListener::keyPressed(const OIS::KeyEvent &e)
+{
+	switch(e.key)
+    {
+    case OIS::KC_ESCAPE:
+        mContinue = false;
+        break;
+    
+    default:
+		break;
+    }
+
+    return mContinue;
+}
+
+bool InputListener::keyReleased(const OIS::KeyEvent &e)
+{
+	return true;
 }
 
 
