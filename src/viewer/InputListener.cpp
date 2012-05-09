@@ -6,7 +6,6 @@ InputListener::InputListener(Ogre::SceneManager* scMgr, Ogre::RenderWindow *wnd,
     mCamera = camera;
     mSceneMgr = scMgr;
     
-    //mAvatar=avatar;
     startOIS();
     
     mContinue = true;
@@ -18,9 +17,6 @@ InputListener::InputListener(Ogre::SceneManager* scMgr, Ogre::RenderWindow *wnd,
     
 	mMouseLPressed = false;
     mMouseRPressed = false;
-    
-    //mCounterAnimAvatar=0;
-
 }
 
 InputListener::~InputListener()
@@ -31,7 +27,6 @@ InputListener::~InputListener()
 
 bool InputListener::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
-	//mCounterAnimAvatar+=evt.timeSinceLastFrame;
 	
     if(mWindow->isClosed())
         mContinue = false;
@@ -48,23 +43,6 @@ bool InputListener::frameRenderingQueued(const Ogre::FrameEvent& evt)
     mPitch = 0;
 
 	return mContinue;
-
-    //mKeyboard->capture();
-    //mMouse->capture();
- 
-    //if(mKeyboard->isKeyDown(OIS::KC_ESCAPE))
-      //  return false;
-        
-        
-    /*if(mKeyboard->isKeyDown(OIS::KC_N))
-		mAvatar->moveNextFrame();*/
-		
-	/*if(mCounterAnimAvatar>=0.05)
-	{
-		mCounterAnimAvatar=0;
-		mAvatar->moveNextFrame();
-	}*/
-
 }
 
 void InputListener::windowResized(Ogre::RenderWindow* wnd)

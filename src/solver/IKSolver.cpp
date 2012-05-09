@@ -5,7 +5,7 @@ IKSolver::IKSolver()
 	srand (time(NULL));//Initialisation of randon numbers
 }
 
-Eigen::Quaternionf IKSolver::samplePrior(Eigen::Quaternionf mean, float sigma, float sigma1, float sigma2, float sigma3)
+Eigen::Quaternionf IKSolver::sampleQuTEM(Eigen::Quaternionf mean, float sigma, float sigma1, float sigma2, float sigma3)
 {
 	Eigen::Vector4f axis(0, this->randn(), this->randn(), this->randn());
 	

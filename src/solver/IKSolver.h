@@ -14,7 +14,7 @@ class IKSolver
 		IKSolver();
 		
 		virtual void initFilter()=0;
-		Eigen::Quaternionf samplePrior(Eigen::Quaternionf mean, float sigma, float sigma1=1, float sigma2=1, float sigma3=1);
+		Eigen::Quaternionf sampleQuTEM(Eigen::Quaternionf mean, float sigma, float sigma1=1, float sigma2=1, float sigma3=1);
 		
 	protected:
 		float randn();//Box-Muller algorithm
