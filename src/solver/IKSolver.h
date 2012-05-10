@@ -20,7 +20,7 @@ class IKSolver
 		
 	protected:
 		float randn();//Box-Muller algorithm
-		void mapXYZPositions(vector<std::string> JointsNames, vector<int> jointsXYZPositions);
+		void mapXYZPositions(std::vector<std::string> JointsNames, std::vector<int> jointsXYZPositions);
 		
 		std::map<std::string, int> mJointNameToPos;
 		std::map<Joint*, int> mJointToPos;

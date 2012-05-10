@@ -18,7 +18,7 @@ int main()
 	
 	S3DViewer viewer;
 	
-	vector<S3DModel*> mods;
+	std::vector<S3DModel*> mods;
 	for (int i=0 ; i<NBMODELS ; i++)
 	{
 		mods.push_back(new S3DModel(model, i));

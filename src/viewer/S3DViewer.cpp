@@ -113,7 +113,7 @@ void S3DViewer::setOptions(bool displayJoint, bool displayAxis, bool displayBone
 	mDisplayAxis = displayAxis;
 }
 
-void S3DViewer::initModels(vector<S3DModel*>& models)
+void S3DViewer::initModels(std::vector<S3DModel*>& models)
 {
 	int i=0;
 	if (models.size()>0)
@@ -149,7 +149,7 @@ void S3DViewer::initModels(vector<S3DModel*>& models)
 	}
 }
 
-void S3DViewer::initModels(vector<Joint*>& jts, SceneNode *node, int modelNum)
+void S3DViewer::initModels(std::vector<Joint*>& jts, SceneNode *node, int modelNum)
 {
 	if (jts.size()>0)
 	{
@@ -184,7 +184,8 @@ void S3DViewer::initModels(vector<Joint*>& jts, SceneNode *node, int modelNum)
 
 void S3DViewer::defineMaterials()
 {
-	MaterialPtr myManualObjectMaterial = MaterialManager::getSingleton().create("Red","axis"); 
+	ResourceGroupManager::getSingleton().createResourceGroup("axis");
+	MaterialPtr myManualObjectMaterial = MaterialManager::getSingleton().create("Red","axis", true);
 	myManualObjectMaterial->setReceiveShadows(false); 
 	myManualObjectMaterial->getTechnique(0)->setLightingEnabled(true); 
 	myManualObjectMaterial->getTechnique(0)->getPass(0)->setDiffuse(1,0,0,0); 
@@ -203,7 +204,7 @@ void S3DViewer::defineMaterials()
 	myManualObjectMaterial->getTechnique(0)->setLightingEnabled(true); 
 	myManualObjectMaterial->getTechnique(0)->getPass(0)->setDiffuse(0,0,1,0); 
 	myManualObjectMaterial->getTechnique(0)->getPass(0)->setAmbient(0,0,1); 
-	myManualObjectMaterial->getTechnique(0)->getPass(0)->setSelfIllumination(0,0,1); 
+	myManualObjectMaterial->getTechnique(0)->getPass(0)->setSelfIllumination(0,0,1);
 }
 
 ManualObject* S3DViewer::createAxis(const std::string& strName, int scale)

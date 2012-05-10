@@ -71,7 +71,7 @@ public:
      * 
      * \param models A vector of pointers on previously created S3Model.
      */
-    void initModels(vector<S3DModel*>& models);
+    void initModels(std::vector<S3DModel*>& models);
     
     //debug functions
     /*!
@@ -111,7 +111,7 @@ private:
 	 * \param node Parent Ogre::SceneNode.
 	 * \param modelNum Index of the S3DModel.
 	 */
-	void initModels(vector<Joint*>& jts, SceneNode *node, int modelNum);
+	void initModels(std::vector<Joint*>& jts, SceneNode *node, int modelNum);
 	
     Ogre::Root *mRoot; /*!< Ogre::Root */
     Ogre::RenderWindow* mWindow; /*!< Ogre::RenderWindow */
