@@ -18,7 +18,7 @@ void IKSolverPF::initFilter()
 		{
 			Eigen::Quaternionf quat;
 			quat.setIdentity();
-			(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 5, 0.1, 0.05, 1);
+			(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 1, 1);
 		}
 	}
 }

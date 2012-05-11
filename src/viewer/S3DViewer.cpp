@@ -9,6 +9,7 @@ S3DViewer::S3DViewer() : mRoot(0)
 
 S3DViewer::~S3DViewer()
 {
+	//ajouter les destructions des Line3D !!!
 	delete mInputListener;
     delete mRoot;
     delete mLogMgr;

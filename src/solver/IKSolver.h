@@ -1,6 +1,10 @@
 #ifndef IKSOLVER_H
 #define IKSOLVER_H
 
+/*!
+ * \file IKSolver.h
+ */
+
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,6 +17,10 @@
 
 using namespace std;
 
+/*!
+ * \class IKSolver
+ * \brief Abstract class for the inverse kinematic solver
+ */
 class IKSolver
 {
 	public:
@@ -26,6 +34,7 @@ class IKSolver
 		void mapXYZPositions(std::vector<std::string> JointsNames, std::vector<int> jointsXYZPositions);
 		
 		std::map<std::string, int> mJointNameToPos;
+		std::map<std::string, int> mJointNameToInt; /*!< Name of the Joint to its position in the orientation vector */
 		std::vector<S3DModel*> mModels;
 		std::vector<std::vector<Eigen::Quaternionf*, Eigen::aligned_allocator<Eigen::Quaternionf*> > >mOrientationVec;
 		std::vector<std::vector<std::string> > mNameVec;

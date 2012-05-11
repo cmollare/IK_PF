@@ -12,5 +12,4 @@ class IKSolverPF : public IKSolver
 		virtual void initFilter();
 		
 	private:
-		//vector<S3DModel*> mModels;
 };
