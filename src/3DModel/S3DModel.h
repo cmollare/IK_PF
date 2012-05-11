@@ -78,11 +78,14 @@ class S3DModel
 		/*!
 		 * \brief Get the orientation vector
 		 * 
-		 * Return the local orientation of each Joints in a vector
+		 * Return the local orientation of each Joints in a vector.
+		 * Warning : If you modify the orientation, it will be modified in the corresponding Joint.
 		 * 
 		 * \return A vector of Eigen::quaternionf
 		 */
 		vector<Eigen::Quaternionf*, Eigen::aligned_allocator<Eigen::Quaternionf*> > getOrientationVec();
+		
+		vector<std::string> getNameVec();
 		
 		void debug()//fonction temporaire
 		{
@@ -113,6 +116,12 @@ class S3DModel
 		 */
 		void createOrientationVec();
 		
+		/*!
+		 * \fn void createNameVec()
+		 * \brief Create a vector of Joint names
+		 */
+		void createNameVec();
+		
 		unsigned int mId; /*!< id of the model */
 		Joint *mRootJoint; /*!< pointer on the root Joint */
 		
@@ -122,6 +131,7 @@ class S3DModel
 		int mNbJoints; /*!< total number of Joints */
 		
 		vector<Eigen::Quaternionf*, Eigen::aligned_allocator<Eigen::Quaternionf*> > mOrientationVec; /*!< Orientation vector */
+		vector<std::string> mNameVec; /*!< Vector of Joint names */
 };
 
 #endif

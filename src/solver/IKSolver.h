@@ -23,6 +23,4 @@ class IKSolver
 		void mapXYZPositions(std::vector<std::string> JointsNames, std::vector<int> jointsXYZPositions);
 		
 		std::map<std::string, int> mJointNameToPos;
-		std::map<Joint*, int> mJointToPos;
-		
 };
