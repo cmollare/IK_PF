@@ -5,7 +5,7 @@
 #include "../viewer/S3DViewer.h"
 #include "../solver/IKSolverPF.h"
 
-#define NBMODELS 5
+#define NBMODELS 1
 
 using namespace std;
 
@@ -23,11 +23,12 @@ int main()
 	{
 		mods.push_back(new S3DModel(model, i));
 	}
+	
+	IKSolverPF iksol(mods);
+	iksol.initFilter();
 	//S3DModel princMod(model);
 	viewer.init();
 	viewer.initModels(mods);
-	
-	IKSolverPF iksol(mods);
 	
 	/*std::vector<Eigen::Quaternionf*, Eigen::aligned_allocator<Eigen::Quaternionf*> > vec = mods[0]->getOrientationVec();
 	mods[0]->debug();

@@ -1,12 +1,26 @@
 #include "IKSolverPF.h"
 
-IKSolverPF::IKSolverPF(vector<S3DModel*>& mods)
+IKSolverPF::IKSolverPF(vector<S3DModel*> mods) : IKSolver(mods)
 {
-	vector<S3DModel*> models = mods;
 }
 
 void IKSolverPF::initFilter()
 {
+	for (int i=0 ; i<mModels.size() ; i++)
+	{
+		mOrientationVec.push_back(mModels[i]->getOrientationVec());
+		mNameVec.push_back(mModels[i]->getNameVec());
+	}
+	
+	for (int i=0 ; i<mOrientationVec.size() ; i++)
+	{
+		for (int j=0 ; j < mOrientationVec[i].size() ; j++)
+		{
+			Eigen::Quaternionf quat;
+			quat.setIdentity();
+			(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 5, 0.1, 0.05, 1);
+		}
+	}
 }
 
 

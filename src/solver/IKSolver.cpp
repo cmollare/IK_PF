@@ -1,8 +1,9 @@
 #include "IKSolver.h"
 
-IKSolver::IKSolver()
+IKSolver::IKSolver(std::vector<S3DModel*> mods)
 {
 	srand (time(NULL));//Initialisation of randon numbers
+	mModels = mods;
 }
 
 Eigen::Quaternionf IKSolver::sampleQuTEM(Eigen::Quaternionf mean, float sigma, float sigma1, float sigma2, float sigma3)

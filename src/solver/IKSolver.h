@@ -16,7 +16,7 @@ using namespace std;
 class IKSolver
 {
 	public:
-		IKSolver();
+		IKSolver(std::vector<S3DModel*> mods);
 		
 		virtual void initFilter()=0;
 		Eigen::Quaternionf sampleQuTEM(Eigen::Quaternionf mean, float sigma, float sigma1=1, float sigma2=1, float sigma3=1);
@@ -26,6 +26,9 @@ class IKSolver
 		void mapXYZPositions(std::vector<std::string> JointsNames, std::vector<int> jointsXYZPositions);
 		
 		std::map<std::string, int> mJointNameToPos;
+		std::vector<S3DModel*> mModels;
+		std::vector<std::vector<Eigen::Quaternionf*, Eigen::aligned_allocator<Eigen::Quaternionf*> > >mOrientationVec;
+		std::vector<std::vector<std::string> > mNameVec;
 };
 
 #endif
