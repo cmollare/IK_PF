@@ -1,7 +1,8 @@
 #include "Line3D.h"
 
-Line3D::Line3D(Ogre::String& name) : Ogre::ManualObject(name)
+Line3D::Line3D(Ogre::String name) : Ogre::ManualObject(name)
 {
+	
 }
 
 Line3D::~Line3D()

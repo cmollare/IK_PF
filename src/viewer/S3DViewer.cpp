@@ -174,6 +174,14 @@ void S3DViewer::initModels(std::vector<Joint*>& jts, SceneNode *node, int modelN
 				oss2 << "Axis_" << oss.str();
 				childNode->attachObject(createAxis(oss2.str()));
 			}
+			if (mDisplayBone)//option to display bones
+			{
+				ostringstream oss2;
+				oss2 << "Line_" << oss.str();
+				Line3D *line = new Line3D(oss2.str());
+				line->setLine(childNode->getPosition(), Vector3(0,0,0));
+				node->attachObject(line);
+			}
 			if (jts[i]->hasChildren())
 			{
 				initModels(jts[i]->getChildren(), childNode, modelNum);//Recursivity

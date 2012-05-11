@@ -6,6 +6,7 @@
  */
 
 #include <Ogre.h>
+#include <string>
 
 /*!
  * \class Line3D
@@ -20,11 +21,11 @@ class Line3D : public Ogre::ManualObject
 	public:
 	
 		/*!
-		 * \fn Line3D(Ogre::String& name)
+		 * \fn Line3D(Ogre::String name)
 		 * \brief Constructor of Line3D
 		 * \param name Unique name of the line
 		 */
-		Line3D(Ogre::String& name);
+		Line3D(Ogre::String name);
 		
 		/*!
 		 * \fn ~Line3D()
@@ -39,6 +40,8 @@ class Line3D : public Ogre::ManualObject
 		 * \param stop Second 3D point.
 		 */
 		void setLine(const Ogre::Vector3& start, const Ogre::Vector3& stop);
+		
+	private:
 };
 
 #endif

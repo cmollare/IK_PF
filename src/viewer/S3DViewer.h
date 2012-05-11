@@ -10,6 +10,7 @@
 #include <vector>
 #include <sstream>
 #include "InputListener.h"
+#include "Line3D.h"
 #include "../3DModel/S3DModel.h"
 
 using namespace Ogre;
@@ -62,7 +63,7 @@ public:
      * \param displayAxis If true, display the local axis on the Joint position.
      * \param displayBone If true, display a bone between the Joint and its parent.
      */
-    void setOptions(bool displayJoint=true, bool displayAxis=true, bool displayBone=false);
+    void setOptions(bool displayJoint=true, bool displayAxis=true, bool displayBone=true);
     
     /*!
      * \brief Initiate the model following Ogre3D hierarchy.
@@ -98,7 +99,7 @@ public:
      * \param strName Name of the axis.
      * \param scale Scale of the axis : minimum 1.
      */
-    ManualObject* createAxis(const std::string& strName, int scale=3);
+    ManualObject* createAxis(const std::string& strName, int scale=1);
 
 private:
 
