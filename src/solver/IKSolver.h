@@ -1,3 +1,6 @@
+#ifndef IKSOLVER_H
+#define IKSOLVER_H
+
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
@@ -24,3 +27,5 @@ class IKSolver
 		
 		std::map<std::string, int> mJointNameToPos;
 };
+
+#endif

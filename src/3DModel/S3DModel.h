@@ -85,6 +85,11 @@ class S3DModel
 		 */
 		vector<Eigen::Quaternionf*, Eigen::aligned_allocator<Eigen::Quaternionf*> > getOrientationVec();
 		
+		/*!
+		 * \fn vector<std::string> getNameVec()
+		 * \brief Return the name of each Joints in a vector
+		 * \return vector of names
+		 */
 		vector<std::string> getNameVec();
 		
 		void debug()//fonction temporaire
