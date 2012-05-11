@@ -5,6 +5,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include <string>
 
 using namespace std;
 
@@ -16,12 +17,14 @@ class FileParser
 		vector<vector<double> > &getFirstFrame();
 		vector<vector<double> > &getNextFrame();
 		vector<vector<double> > &getCurrentFrame();
+		vector<std::string> getJointNames();
 		
 	private:
 		std::string mPath;
 		std::string mFileBeg;
 		int mMaxFileNumber;
 		vector<vector<vector<double> > > mVideoSequence;
+		vector<std::string> mJointNames;
 		int mNextFrame;
 };
 

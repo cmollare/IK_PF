@@ -35,6 +35,11 @@ void FileParser::readFile(int number)
 			
 			file >> name >> tempo >> x >> tempo >> y >> tempo >> z >> tempo >> tracked;
 			
+			if (number==0)
+			{
+				mJointNames.push_back(name);
+			}
+			
 			if (tracked == "Tracked")
 				joint.push_back(1);
 			else
@@ -81,4 +86,9 @@ vector<vector<double> > &FileParser::getCurrentFrame()
 		currentFrame=mMaxFileNumber-1;
 	
 	return mVideoSequence[currentFrame];
+}
+
+vector<std::string> FileParser::getJointNames()
+{
+	return mJointNames;
 }
