@@ -69,6 +69,8 @@ int main()
 	bool continuer = true;
 	while (continuer)
 	{
+		iksol.initFilter();
+		viewer.update(mods);
 		continuer = viewer.isRendering();
 	}
 	

@@ -34,8 +34,16 @@ void IKSolverPF::initFilter()
 		{
 			Eigen::Quaternionf quat;
 			quat.setIdentity();
-			(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 1, 1);//A modifier suivant les contraintes
-			(*mOffsetVec[i][j])=Eigen::Translation3f(this->randn()*0.1, this->randn()*0.1, this->randn()*0.1);//A modifier suivant les contraintes
+			bool valide = true;
+			while(valide)
+			{
+				(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 1, 1);//A modifier suivant les contraintes
+				//cout << Eigen::Matrix3f(*mOrientationVec[i][j]) << endl;
+				(*mOffsetVec[i][j])=Eigen::Translation3f(this->randn()*0.1, this->randn()*0.1, this->randn()*0.1);//A modifier suivant les contraintes
+				valide = (mOrientationVec[i][j]->w() != mOrientationVec[i][j]->w());
+			}
+			
+			
 		}
 	}
 }

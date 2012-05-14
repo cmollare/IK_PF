@@ -78,6 +78,8 @@ public:
     
     void initObservations(std::vector<std::string> jtNames, std::vector<std::vector<double> > frame);
     
+    void update(std::vector<S3DModel*>& models);
+    
     //debug functions
     /*!
      * \brief Display a quaternion in Angle-Axis space
@@ -116,7 +118,7 @@ private:
 	 * \param node Parent Ogre::SceneNode.
 	 * \param modelNum Index of the S3DModel.
 	 */
-	void initModels(std::vector<Joint*>& jts, SceneNode *node, int modelNum, std::vector<std::string>& snNames);
+	void initModels(std::vector<Joint*>& jts, SceneNode *node, int modelNum, std::map<std::string, std::string>& snNames);
 	
     Ogre::Root *mRoot; /*!< Ogre::Root */
     Ogre::RenderWindow* mWindow; /*!< Ogre::RenderWindow */
@@ -127,7 +129,7 @@ private:
 	
 	//Mapping
 	std::vector<Line3D*> mLine3D;
-	std::vector<std::vector<std::string> > mModelSNNames;
+	std::vector<std::map<std::string, std::string> > mModelSNNames;
 	std::vector<std::string> mObservationSNNames;
 	//End mapping
 	

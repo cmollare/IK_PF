@@ -137,7 +137,7 @@ void S3DViewer::initModels(std::vector<S3DModel*>& models)
 	{
 		for(int i=0 ; i<models.size() ; i++)
 		{
-			std::vector<std::string> snNames;
+			std::map<std::string, std::string> snNames;
 			Joint* jt = models[i]->getRootJoint();
 			ostringstream oss;
 			oss << jt->getName() << "_" << i;
@@ -153,7 +153,7 @@ void S3DViewer::initModels(std::vector<S3DModel*>& models)
 			//Creation of sceneNode with orientation and offset
 			SceneNode *node = mSceneMgr->getSceneNode("Particles")->createChildSceneNode(oss.str(), offset, quat);
 
-			snNames.push_back(oss.str());
+			snNames[jt->getName()]=oss.str();
 
 			
 			if (mDisplayAxis)//option to display axis
@@ -169,6 +169,15 @@ void S3DViewer::initModels(std::vector<S3DModel*>& models)
 			mModelSNNames.push_back(snNames);
 		}
 	}
+	
+	/*for(int i=0 ; i<mModelSNNames.size() ; i++)
+	{
+		std::map<std::string, std::string>::iterator it;
+		for (it = mModelSNNames[i].begin() ; it != mModelSNNames[i].end() ; it++)
+		{
+			cout << (*it).first << " => " << (*it).second << endl;
+		}
+	}*/
 
 }
 
@@ -177,6 +186,7 @@ void S3DViewer::initObservations(std::vector<std::string> jtNames, std::vector<s
 	mObsNameVec = jtNames;
 	mObsCurrentFrame = frame;
 	mObservationSNNames.clear();
+	mLine3D.clear();
 	
 	Ogre::SceneNode *obsNode = mSceneMgr->getSceneNode("Observations");
 	
@@ -193,7 +203,27 @@ void S3DViewer::initObservations(std::vector<std::string> jtNames, std::vector<s
 	}
 }
 
-void S3DViewer::initModels(std::vector<Joint*>& jts, SceneNode *node, int modelNum, std::vector<std::string>& snNames)
+void S3DViewer::update(std::vector<S3DModel*>& models)
+{
+	for (int i=0 ; i < models.size() ; i++)
+	{
+		std::vector<std::string> nameVec = models[i]->getNameVec();
+		for (int j=0 ; j<nameVec.size() ; j++)
+		{
+			Eigen::Quaternionf vQuat = *(models[i]->getJoint(nameVec[j])->getOrientation());
+			Ogre::Quaternion quat((float)vQuat.w(), (float)vQuat.x(), (float)vQuat.y(), (float)vQuat.z());
+			Eigen::Translation3f vOff = *(models[i]->getJoint(nameVec[j])->getOffset());
+			cout << vOff.x() << " " << vOff.y() << " " << vOff.z() << endl;
+			Vector3 offset(vOff.x(), vOff.y(), vOff.z());
+			
+			Ogre::SceneNode *node = mSceneMgr->getSceneNode(mModelSNNames[i][nameVec[j]]);
+			node->setOrientation(quat);
+			node->setPosition(offset);
+		}
+	}
+}
+
+void S3DViewer::initModels(std::vector<Joint*>& jts, SceneNode *node, int modelNum, std::map<std::string, std::string>& snNames)
 {
 	if (jts.size()>0)
 	{
@@ -211,7 +241,7 @@ void S3DViewer::initModels(std::vector<Joint*>& jts, SceneNode *node, int modelN
 			
 			//Creation of node with orientation and offset
 			SceneNode *childNode = node->createChildSceneNode(oss.str(), offset, quat);
-			snNames.push_back(oss.str());
+			snNames[jts[i]->getName()]=oss.str();
 			
 			if (mDisplayAxis)//option to display axis
 			{
