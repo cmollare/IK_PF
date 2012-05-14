@@ -52,9 +52,9 @@ bool S3DViewer::init()
 	mSceneMgr->setAmbientLight(Ogre::ColourValue(1.0f, 1.0f, 1.0f));
 
 	mCamera = mSceneMgr->createCamera("Default Camera");
-	mCamera->setPosition(Ogre::Vector3(0,0,100));
+	mCamera->setPosition(Ogre::Vector3(0,0,-100));
 	mCamera->lookAt(Ogre::Vector3(0,0,0));
-	mCamera->setNearClipDistance(5);
+	mCamera->setNearClipDistance(0.1);
 
 	Ogre::Viewport* vp = mWindow->addViewport(mCamera);
 	vp->setBackgroundColour(Ogre::ColourValue(0,0,0));
@@ -62,7 +62,9 @@ bool S3DViewer::init()
 	
 	//Load models
 	defineMaterials();
-	mSceneMgr->getRootSceneNode()->createChildSceneNode("Particles");
+	SceneNode *filteringNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("Filtering");
+	filteringNode->createChildSceneNode("Particles");
+	filteringNode->createChildSceneNode("Observations");
 	mSceneMgr->getRootSceneNode()->createChildSceneNode("Debug")->attachObject(createAxis("Axis_ref_debug",5));
 	
 	//mSceneMgr->getRootSceneNode()->createChildSceneNode("lol")->attachObject(createAxis("Axis"));
@@ -150,6 +152,25 @@ void S3DViewer::initModels(std::vector<S3DModel*>& models)
 	}
 }
 
+void S3DViewer::initObservations(std::vector<std::string> jtNames, std::vector<std::vector<double> > frame)
+{
+	mObsNameVec = jtNames;
+	mObsCurrentFrame = frame;
+	
+	Ogre::SceneNode *obsNode = mSceneMgr->getSceneNode("Observations");
+	
+	for (int i=0 ; i<mObsNameVec.size() ; i++)
+	{
+		ostringstream oss;
+		mObsMap[mObsNameVec[i]]=i;
+		oss << "obs_" << mObsNameVec[i];
+		Ogre::SceneNode *tempoNode = obsNode->createChildSceneNode(oss.str(), Ogre::Vector3(mObsCurrentFrame[i][1], mObsCurrentFrame[i][2], mObsCurrentFrame[i][3]));
+		oss.clear();
+		oss << "axisObs_" << mObsNameVec[i];
+		tempoNode->attachObject(createAxis(oss.str()));
+	}
+}
+
 void S3DViewer::initModels(std::vector<Joint*>& jts, SceneNode *node, int modelNum)
 {
 	if (jts.size()>0)
@@ -224,7 +245,7 @@ void S3DViewer::defineMaterials()
 	myManualObjectMaterial->getTechnique(0)->getPass(0)->setSelfIllumination(1,0,1);
 }
 
-ManualObject* S3DViewer::createAxis(const std::string& strName, int scale)
+ManualObject* S3DViewer::createAxis(const std::string& strName, float scale)
 {
 	ManualObject* manual = mSceneMgr->createManualObject(strName);
  

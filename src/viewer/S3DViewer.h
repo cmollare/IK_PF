@@ -74,6 +74,8 @@ public:
      */
     void initModels(std::vector<S3DModel*>& models);
     
+    void initObservations(std::vector<std::string> jtNames, std::vector<std::vector<double> > frame);
+    
     //debug functions
     /*!
      * \brief Display a quaternion in Angle-Axis space
@@ -99,7 +101,7 @@ public:
      * \param strName Name of the axis.
      * \param scale Scale of the axis : minimum 1.
      */
-    ManualObject* createAxis(const std::string& strName, int scale=1);
+    ManualObject* createAxis(const std::string& strName, float scale=0.05);
 
 private:
 
@@ -120,7 +122,11 @@ private:
 	Ogre::Camera* mCamera; /*!< Ogre::Camera */
 	InputListener *mInputListener; /*!< InputListener for event handling */
 	Ogre::LogManager* mLogMgr; /*!< For Ogre.log file management */
-	//Avatar *mAvatar;
+	
+	//For observations
+	std::map<std::string, int> mObsMap;
+	std::vector<std::string> mObsNameVec;
+	std::vector<std::vector<double> > mObsCurrentFrame;
 	
 	//Display options
 	bool mDisplayJoint; /*!< set/clear in setOptions function */
