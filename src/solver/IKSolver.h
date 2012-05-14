@@ -13,6 +13,7 @@
 #include <Eigen/Dense>
 #include <vector>
 #include <map>
+#include <string>
 #include "../3DModel/S3DModel.h"
 
 using namespace std;
@@ -30,14 +31,24 @@ class IKSolver
 		Eigen::Quaternionf sampleQuTEM(Eigen::Quaternionf mean, float sigma, float sigma1=1, float sigma2=1, float sigma3=1);
 		
 	protected:
-		float randn();//Box-Muller algorithm
-		void mapXYZPositions(std::vector<std::string> JointsNames, std::vector<vector<double> > jointsXYZPositions);
+		
+		/*!
+		 * \fn float randn()
+		 * \brief Sampling from a normal distribution using the Box-Muller algorithm
+		 * \return A float sampled following a normal distribution.
+		 */
+		float randn();
+		void mapXYZPositions(std::vector<std::string> JointsNames, std::vector<std::vector<double> > jointsXYZPositions);
+		
+		std::map<std::string, std::string> mJointNameToPosName; /*!< Map between Joint Names file and animation file */
 		std::map<std::string, int> mJointNameToPos;
 		std::map<std::string, int> mJointNameToInt; /*!< Name of the Joint to its position in the orientation vector */
 		std::vector<S3DModel*> mModels;
 		std::vector<std::vector<Eigen::Quaternionf*, Eigen::aligned_allocator<Eigen::Quaternionf*> > > mOrientationVec;
 		std::vector<std::vector<Eigen::Translation3f*, Eigen::aligned_allocator<Eigen::Translation3f*> > > mOffsetVec;
 		std::vector<std::vector<std::string> > mNameVec;
+		
+		std::vector<std::vector<double> > mCurrentFrame;
 };
 
 #endif

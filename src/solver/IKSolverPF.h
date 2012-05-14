@@ -7,7 +7,7 @@ using namespace std;
 class IKSolverPF : public IKSolver
 {
 	public:
-		IKSolverPF(std::vector<S3DModel*> mods);
+		IKSolverPF(std::vector<S3DModel*> mods, std::vector<std::string> posNames, std::vector<std::vector<double> > jointsXYZPositions);
 		
 		virtual void initFilter();
 		

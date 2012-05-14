@@ -42,6 +42,6 @@ float IKSolver::randn()
 	return X;
 }
 
-void IKSolver::mapXYZPositions(vector<std::string> JointsNames, vector<int> jointsXYZPositions)
+void IKSolver::mapXYZPositions(std::vector<std::string> JointsNames, std::vector<vector<double> > jointsXYZPositions)
 {
 }

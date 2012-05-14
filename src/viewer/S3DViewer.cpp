@@ -92,6 +92,19 @@ bool S3DViewer::start()
     return true;
 }
 
+bool S3DViewer::isRendering()
+{
+	Ogre::WindowEventUtilities::messagePump();
+	 
+	if(mWindow->isClosed())
+		return false;
+	 
+	if(!mRoot->renderOneFrame())
+		return false;
+		
+	return true;
+}
+
 void S3DViewer::createFrameListener()
 {
     mInputListener = new InputListener(mSceneMgr, mWindow, mCamera);

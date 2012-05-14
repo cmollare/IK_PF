@@ -21,18 +21,28 @@ int main()
 	
 	S3DViewer viewer;//Declaration of viewer
 	
+	//******************************************
+	//*************INITIALISATION***************
+	//******************************************
+	
 	std::vector<S3DModel*> mods;//Initialisations of all models
 	for (int i=0 ; i<NBMODELS ; i++)
 	{
 		mods.push_back(new S3DModel(model, i));
 	}
 	
-	IKSolverPF iksol(mods);//Declaration of solver
+	std::vector<std::vector<double> >& frame = fileParser->getFirstFrame();
+	
+	IKSolverPF iksol(mods, fileParser->getJointNames(), frame);//Declaration of solver
 	iksol.initFilter();
 	//S3DModel princMod(model);
 	viewer.init();
 	viewer.initModels(mods);
-	viewer.initObservations(fileParser->getJointNames(), fileParser->getFirstFrame());
+	viewer.initObservations(fileParser->getJointNames(), frame);
+	
+	//******************************************
+	//**********END INITIALISATION**************
+	//******************************************
 	
 	/*std::vector<Eigen::Quaternionf*, Eigen::aligned_allocator<Eigen::Quaternionf*> > vec = mods[0]->getOrientationVec();
 	mods[0]->debug();
@@ -55,7 +65,12 @@ int main()
 	
 	
 	
-	viewer.start(); //infinite loop
+	//viewer.start(); //infinite loop
+	bool continuer = true;
+	while (continuer)
+	{
+		continuer = viewer.isRendering();
+	}
 	
 	for (int i=0 ; i<NBMODELS ; i++)
 	{

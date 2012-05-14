@@ -56,6 +56,8 @@ public:
 	 */
     bool start();
     
+    bool isRendering();
+    
     /*!
      * \brief Set the viewer options
      * 
