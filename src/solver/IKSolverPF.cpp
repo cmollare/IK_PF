@@ -18,6 +18,8 @@ IKSolverPF::IKSolverPF(std::vector<S3DModel*> mods, std::vector<std::string> pos
 void IKSolverPF::initFilter()
 {
 	mCurrentWeights.setConstant(mModels.size(), 1, 1./mModels.size());
+	mCurrentDistances.resize(mModels.size(), 1);
+	mCurrentLikelihood.resize(mModels.size(), 1);
 	
 	for (int i=0 ; i<mModels.size() ; i++)
 	{
@@ -39,9 +41,7 @@ void IKSolverPF::initFilter()
 }
 
 void IKSolverPF::computeDistance()
-{
-	mCurrentDistances.clear();
-	
+{	
 	//ajouter plus de poids au root ???
 	std::map<std::string, int>::iterator it;
 	for (int i=0 ; i<mModels.size() ; i++)
@@ -56,12 +56,20 @@ void IKSolverPF::computeDistance()
 				Eigen::Vector3f diff = jtPos - jtObs;
 				Eigen::Matrix3f cov;
 				cov.setIdentity();
-				float tempo = diff.transpose()*(cov*diff);
-				distance += sqrt(tempo);
+				distance += diff.transpose()*(cov*diff);
 			}
 		}
-		mCurrentDistances.push_back(distance);
+		mCurrentDistances[i] = sqrt(distance);
 	}
+}
+
+void IKSolverPF::computeLikelihood()
+{	
+	for (int i=0 ; i<mCurrentDistances.size() ; i++)
+	{
+		mCurrentLikelihood[i] = exp(-abs(mCurrentDistances[i]));
+	}
+	cout << mCurrentLikelihood << endl;
 }
 
 

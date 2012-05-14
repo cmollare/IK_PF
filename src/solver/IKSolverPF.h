@@ -11,6 +11,7 @@ class IKSolverPF : public IKSolver
 
 		virtual void initFilter();
 		virtual void computeDistance();
+		virtual void computeLikelihood();
 		
 	private:
 		

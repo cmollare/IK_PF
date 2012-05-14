@@ -29,6 +29,7 @@ class IKSolver
 		
 		virtual void initFilter()=0;
 		virtual void computeDistance()=0;
+		virtual void computeLikelihood()=0;
 		Eigen::Quaternionf sampleQuTEM(Eigen::Quaternionf mean, float sigma, float sigma1=1, float sigma2=1, float sigma3=1);
 		
 	protected:
@@ -50,7 +51,8 @@ class IKSolver
 		std::vector<std::vector<std::string> > mNameVec;
 		
 		std::vector<std::vector<double> > mCurrentFrame;
-		std::vector<float> mCurrentDistances;
+		Eigen::VectorXf mCurrentDistances;
+		Eigen::VectorXf mCurrentLikelihood;
 };
 
 #endif
