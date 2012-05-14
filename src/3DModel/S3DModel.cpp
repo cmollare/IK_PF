@@ -14,6 +14,7 @@ S3DModel::S3DModel(const Joint* jt, unsigned int id)
 	mNbJoints = -1;
 	createMaps();
 	createOrientationVec();
+	createOffsetVec();
 	createNameVec();
 	std::cout << "S3DModel : model index successfully created !" << std::endl;
 }
@@ -25,6 +26,7 @@ S3DModel::S3DModel(const S3DModel& model)
 	mNbJoints = -1;
 	createMaps();
 	createOrientationVec();
+	createOffsetVec();
 	createNameVec();
 	std::cout << "S3DModel : model index successfully created !" << std::endl;
 }
@@ -70,6 +72,11 @@ vector<Eigen::Quaternionf*, Eigen::aligned_allocator<Eigen::Quaternionf*> > S3DM
 	return mOrientationVec;
 }
 
+vector<Eigen::Translation3f*, Eigen::aligned_allocator<Eigen::Translation3f*> > S3DModel::getOffsetVector()
+{
+	return mOffsetVec;
+}
+
 vector<std::string> S3DModel::getNameVec()
 {
 	return mNameVec;
@@ -102,6 +109,17 @@ void S3DModel::createOrientationVec()
 		for (int i=0 ; i<=mNbJoints ; i++)
 		{
 			mOrientationVec.push_back(mIntToJoint[i]->getOrientation());
+		}
+	}
+}
+
+void S3DModel::createOffsetVec()
+{
+	if (mNbJoints != -1)
+	{
+		for (int i=0 ; i<=mNbJoints ; i++)
+		{
+			mOffsetVec.push_back(mIntToJoint[i]->getOffset());
 		}
 	}
 }

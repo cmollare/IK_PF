@@ -85,6 +85,8 @@ class S3DModel
 		 */
 		vector<Eigen::Quaternionf*, Eigen::aligned_allocator<Eigen::Quaternionf*> > getOrientationVec();
 		
+		vector<Eigen::Translation3f*, Eigen::aligned_allocator<Eigen::Translation3f*> > getOffsetVector();
+		
 		/*!
 		 * \fn vector<std::string> getNameVec()
 		 * \brief Return the name of each Joints in a vector
@@ -121,6 +123,8 @@ class S3DModel
 		 */
 		void createOrientationVec();
 		
+		void createOffsetVec();
+		
 		/*!
 		 * \fn void createNameVec()
 		 * \brief Create a vector of Joint names
@@ -136,6 +140,7 @@ class S3DModel
 		int mNbJoints; /*!< total number of Joints */
 		
 		vector<Eigen::Quaternionf*, Eigen::aligned_allocator<Eigen::Quaternionf*> > mOrientationVec; /*!< Orientation vector */
+		vector<Eigen::Translation3f*, Eigen::aligned_allocator<Eigen::Translation3f*> > mOffsetVec;
 		vector<std::string> mNameVec; /*!< Vector of Joint names */
 };
 

@@ -6,16 +6,12 @@ Joint::Joint(string name, Joint *parent, vector<float> offset, Eigen::Quaternion
 	mName = name;
 	
 	mQLocal = quat;
-	//mQLocal = Quaternion(rand(), rand(), rand(), rand());
+
 	if (offset.size() == 3)
 		mLocalOffset = Eigen::Translation3f(offset[0], offset[1], offset[2]);
 	else
 		mLocalOffset = Eigen::Translation3f(0, 0, 0);
-	//mLocalOffset = rand();
-	//mLocalOffset/=100000000;
 
-	/*if (mParentJoint != NULL)
-		mQDefault = mParentJoint->getCurrOrientation()*mQDefault;*/
 }
 
 Joint::Joint(const Joint& jtCopy)
