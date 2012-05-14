@@ -10,10 +10,10 @@ class IKSolverPF : public IKSolver
 		IKSolverPF(std::vector<S3DModel*> mods, std::vector<std::string> posNames, std::vector<std::vector<double> > jointsXYZPositions);
 
 		virtual void initFilter();
-		virtual void computeDistance();
 		virtual void computeLikelihood();
 		
-	private:
+	protected:
+		virtual void computeDistance();
 		
 		Eigen::VectorXf mCurrentWeights;
 };

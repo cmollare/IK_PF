@@ -28,11 +28,11 @@ class IKSolver
 		IKSolver(std::vector<S3DModel*> mods);
 		
 		virtual void initFilter()=0;
-		virtual void computeDistance()=0;
 		virtual void computeLikelihood()=0;
 		Eigen::Quaternionf sampleQuTEM(Eigen::Quaternionf mean, float sigma, float sigma1=1, float sigma2=1, float sigma3=1);
 		
 	protected:
+		virtual void computeDistance()=0;
 		
 		/*!
 		 * \fn float randn()

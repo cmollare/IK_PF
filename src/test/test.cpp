@@ -38,7 +38,6 @@ int main()
 	viewer.init();
 	viewer.initModels(mods);
 	viewer.initObservations(fileParser->getJointNames(), frame);
-	iksol.computeDistance();
 	iksol.computeLikelihood();
 	
 	//******************************************

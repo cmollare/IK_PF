@@ -116,7 +116,7 @@ private:
 	 * \param node Parent Ogre::SceneNode.
 	 * \param modelNum Index of the S3DModel.
 	 */
-	void initModels(std::vector<Joint*>& jts, SceneNode *node, int modelNum);
+	void initModels(std::vector<Joint*>& jts, SceneNode *node, int modelNum, std::vector<std::string>& snNames);
 	
     Ogre::Root *mRoot; /*!< Ogre::Root */
     Ogre::RenderWindow* mWindow; /*!< Ogre::RenderWindow */
@@ -124,6 +124,11 @@ private:
 	Ogre::Camera* mCamera; /*!< Ogre::Camera */
 	InputListener *mInputListener; /*!< InputListener for event handling */
 	Ogre::LogManager* mLogMgr; /*!< For Ogre.log file management */
+	
+	//Mapping
+	std::vector<Line3D*> mLine3D;
+	std::vector<std::vector<std::string> > mModelSNNames;
+	//End mapping
 	
 	//For observations
 	std::map<std::string, int> mObsMap;

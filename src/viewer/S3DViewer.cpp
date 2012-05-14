@@ -131,11 +131,13 @@ void S3DViewer::setOptions(bool displayJoint, bool displayAxis, bool displayBone
 
 void S3DViewer::initModels(std::vector<S3DModel*>& models)
 {
+	mModelSNNames.clear();
 	int i=0;
 	if (models.size()>0)
 	{
 		for(int i=0 ; i<models.size() ; i++)
 		{
+			std::vector<std::string> snNames;
 			Joint* jt = models[i]->getRootJoint();
 			ostringstream oss;
 			oss << jt->getName() << "_" << i;
@@ -150,6 +152,9 @@ void S3DViewer::initModels(std::vector<S3DModel*>& models)
 			
 			//Creation of sceneNode with orientation and offset
 			SceneNode *node = mSceneMgr->getSceneNode("Particles")->createChildSceneNode(oss.str(), offset, quat);
+
+			snNames.push_back(oss.str());
+
 			
 			if (mDisplayAxis)//option to display axis
 			{
@@ -159,10 +164,12 @@ void S3DViewer::initModels(std::vector<S3DModel*>& models)
 			}
 			if (jt->hasChildren())
 			{
-				initModels(jt->getChildren(), node, i);//Recursivity
+				initModels(jt->getChildren(), node, i, snNames);//Recursivity
 			}
+			mModelSNNames.push_back(snNames);
 		}
 	}
+
 }
 
 void S3DViewer::initObservations(std::vector<std::string> jtNames, std::vector<std::vector<double> > frame)
@@ -184,7 +191,7 @@ void S3DViewer::initObservations(std::vector<std::string> jtNames, std::vector<s
 	}
 }
 
-void S3DViewer::initModels(std::vector<Joint*>& jts, SceneNode *node, int modelNum)
+void S3DViewer::initModels(std::vector<Joint*>& jts, SceneNode *node, int modelNum, std::vector<std::string>& snNames)
 {
 	if (jts.size()>0)
 	{
@@ -202,6 +209,7 @@ void S3DViewer::initModels(std::vector<Joint*>& jts, SceneNode *node, int modelN
 			
 			//Creation of node with orientation and offset
 			SceneNode *childNode = node->createChildSceneNode(oss.str(), offset, quat);
+			snNames.push_back(oss.str());
 			
 			if (mDisplayAxis)//option to display axis
 			{
@@ -214,12 +222,13 @@ void S3DViewer::initModels(std::vector<Joint*>& jts, SceneNode *node, int modelN
 				ostringstream oss2;
 				oss2 << "Line_" << oss.str();
 				Line3D *line = new Line3D(oss2.str());
+				mLine3D.push_back(line);//mapping
 				line->setLine(childNode->getPosition(), Vector3(0,0,0));
 				node->attachObject(line);
 			}
 			if (jts[i]->hasChildren())
 			{
-				initModels(jts[i]->getChildren(), childNode, modelNum);//Recursivity
+				initModels(jts[i]->getChildren(), childNode, modelNum, snNames);//Recursivity
 			}
 		}
 	}

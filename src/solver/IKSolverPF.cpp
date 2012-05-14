@@ -65,11 +65,14 @@ void IKSolverPF::computeDistance()
 
 void IKSolverPF::computeLikelihood()
 {	
+	//contraintes a ajouter
+	this->computeDistance();
+	
 	for (int i=0 ; i<mCurrentDistances.size() ; i++)
 	{
 		mCurrentLikelihood[i] = exp(-abs(mCurrentDistances[i]));
 	}
-	cout << mCurrentLikelihood << endl;
+	//cout << mCurrentLikelihood << endl;
 }
 
 
