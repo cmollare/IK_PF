@@ -176,6 +176,7 @@ void S3DViewer::initObservations(std::vector<std::string> jtNames, std::vector<s
 {
 	mObsNameVec = jtNames;
 	mObsCurrentFrame = frame;
+	mObservationSNNames.clear();
 	
 	Ogre::SceneNode *obsNode = mSceneMgr->getSceneNode("Observations");
 	
@@ -185,6 +186,7 @@ void S3DViewer::initObservations(std::vector<std::string> jtNames, std::vector<s
 		mObsMap[mObsNameVec[i]]=i;
 		oss << "obs_" << mObsNameVec[i];
 		Ogre::SceneNode *tempoNode = obsNode->createChildSceneNode(oss.str(), Ogre::Vector3(mObsCurrentFrame[i][1], mObsCurrentFrame[i][2], mObsCurrentFrame[i][3]));
+		mObservationSNNames.push_back(oss.str());
 		oss.clear();
 		oss << "axisObs_" << mObsNameVec[i];
 		tempoNode->attachObject(createAxis(oss.str()));

@@ -128,6 +128,7 @@ private:
 	//Mapping
 	std::vector<Line3D*> mLine3D;
 	std::vector<std::vector<std::string> > mModelSNNames;
+	std::vector<std::string> mObservationSNNames;
 	//End mapping
 	
 	//For observations
