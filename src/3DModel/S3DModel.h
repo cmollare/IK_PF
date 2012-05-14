@@ -116,6 +116,7 @@ class S3DModel
 		void createMaps(vector<Joint*>& jts);
 		
 		/*!
+		 * \fn void createOrientationVec()
 		 * \brief create the local orientation vector of the Joints.
 		 * 
 		 * This function is used in the S3DModel constructor.
@@ -123,6 +124,13 @@ class S3DModel
 		 */
 		void createOrientationVec();
 		
+		/*!
+		 * \fn void createOffsetVec()
+		 * \brief create the local offset vector of the Joints.
+		 * 
+		 * This function is used in the S3DModel constructor.
+		 * 
+		 */
 		void createOffsetVec();
 		
 		/*!

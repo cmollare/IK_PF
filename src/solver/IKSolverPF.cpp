@@ -9,6 +9,7 @@ void IKSolverPF::initFilter()
 	for (int i=0 ; i<mModels.size() ; i++)
 	{
 		mOrientationVec.push_back(mModels[i]->getOrientationVec());
+		mOffsetVec.push_back(mModels[i]->getOffsetVector());
 		mNameVec.push_back(mModels[i]->getNameVec());
 	}
 	
@@ -18,7 +19,8 @@ void IKSolverPF::initFilter()
 		{
 			Eigen::Quaternionf quat;
 			quat.setIdentity();
-			(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 1, 1);
+			(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 1, 1);//A modifier suivant les contraintes
+			(*mOffsetVec[i][j])=Eigen::Translation3f(this->randn()*0.1, this->randn()*0.1, this->randn()*0.1);//A modifier suivant les contraintes
 		}
 	}
 }

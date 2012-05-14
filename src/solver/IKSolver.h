@@ -31,12 +31,12 @@ class IKSolver
 		
 	protected:
 		float randn();//Box-Muller algorithm
-		void mapXYZPositions(std::vector<std::string> JointsNames, std::vector<int> jointsXYZPositions);
-		
+		void mapXYZPositions(std::vector<std::string> JointsNames, std::vector<vector<double> > jointsXYZPositions);
 		std::map<std::string, int> mJointNameToPos;
 		std::map<std::string, int> mJointNameToInt; /*!< Name of the Joint to its position in the orientation vector */
 		std::vector<S3DModel*> mModels;
-		std::vector<std::vector<Eigen::Quaternionf*, Eigen::aligned_allocator<Eigen::Quaternionf*> > >mOrientationVec;
+		std::vector<std::vector<Eigen::Quaternionf*, Eigen::aligned_allocator<Eigen::Quaternionf*> > > mOrientationVec;
+		std::vector<std::vector<Eigen::Translation3f*, Eigen::aligned_allocator<Eigen::Translation3f*> > > mOffsetVec;
 		std::vector<std::vector<std::string> > mNameVec;
 };
 
