@@ -17,6 +17,8 @@ IKSolverPF::IKSolverPF(std::vector<S3DModel*> mods, std::vector<std::string> pos
 
 void IKSolverPF::initFilter()
 {
+	mCurrentWeights = std::vector<float>(mModels.size(), 1./mModels.size());
+	
 	for (int i=0 ; i<mModels.size() ; i++)
 	{
 		mOrientationVec.push_back(mModels[i]->getOrientationVec());
@@ -24,7 +26,7 @@ void IKSolverPF::initFilter()
 		mNameVec.push_back(mModels[i]->getNameVec());
 	}
 	
-	for (int i=0 ; i<mOrientationVec.size() ; i++)
+	for (int i=0 ; i<mModels.size() ; i++)
 	{
 		for (int j=0 ; j < mOrientationVec[i].size() ; j++)
 		{
