@@ -75,6 +75,8 @@ class S3DModel
 		 */
 		int getNumberJoint();
 		
+		Joint* getJoint(std::string);
+		
 		/*!
 		 * \brief Get the orientation vector
 		 * 

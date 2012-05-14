@@ -67,6 +67,11 @@ int S3DModel::getNumberJoint()
 	return mNbJoints+1;
 }
 
+Joint* S3DModel::getJoint(std::string jtName)
+{
+	return mStringToJoint[jtName];
+}
+
 vector<Eigen::Quaternionf*, Eigen::aligned_allocator<Eigen::Quaternionf*> > S3DModel::getOrientationVec()
 {
 	return mOrientationVec;

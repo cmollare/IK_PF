@@ -6,7 +6,7 @@
 #include "../viewer/S3DViewer.h"
 #include "../solver/IKSolverPF.h"
 
-#define NBMODELS 1
+#define NBMODELS 10
 
 using namespace std;
 
@@ -35,10 +35,10 @@ int main()
 	
 	IKSolverPF iksol(mods, fileParser->getJointNames(), frame);//Declaration of solver
 	iksol.initFilter();
-	//S3DModel princMod(model);
 	viewer.init();
 	viewer.initModels(mods);
 	viewer.initObservations(fileParser->getJointNames(), frame);
+	iksol.computeDistance();
 	
 	//******************************************
 	//**********END INITIALISATION**************

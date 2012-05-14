@@ -162,7 +162,7 @@ class Joint
 		/*!
 		 * \brief Get world position
 		 * 
-		 * Get the world position using forward kinematic.
+		 * Get the Joint world position using forward kinematic.
 		 * 
 		 * \return A vector of (X,Y,Z) position.
 		 */
@@ -170,6 +170,9 @@ class Joint
 		
 		/*!
 		 * \brief Get the transformation Matrix
+		 * 
+		 * This function retrieve the transformation Matrix of the Joint.
+		 * 
 		 * \return Return the 4x4 transformation Matrix.
 		 */
 		Eigen::Transform<float, 3, Eigen::Projective> getTransformationMatrix();

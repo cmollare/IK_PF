@@ -8,8 +8,9 @@ class IKSolverPF : public IKSolver
 {
 	public:
 		IKSolverPF(std::vector<S3DModel*> mods, std::vector<std::string> posNames, std::vector<std::vector<double> > jointsXYZPositions);
-		
+
 		virtual void initFilter();
+		virtual void computeDistance();
 		
 	private:
 };

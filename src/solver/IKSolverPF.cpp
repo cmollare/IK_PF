@@ -36,4 +36,30 @@ void IKSolverPF::initFilter()
 	}
 }
 
+void IKSolverPF::computeDistance()
+{
+	mCurrentDistances.clear();
+	
+	//ajouter plus de poids au root ???
+	std::map<std::string, int>::iterator it;
+	for (int i=0 ; i<mModels.size() ; i++)
+	{
+		float distance=0;
+		for (it = mJointNameToPos.begin() ; it != mJointNameToPos.end() ; it++)
+		{
+			if ((*it).second != -1)
+			{
+				Eigen::Vector3f jtPos = mModels[i]->getJoint((*it).first)->getXYZVect();
+				Eigen::Vector3f jtObs(mCurrentFrame[(*it).second][1], mCurrentFrame[(*it).second][2], mCurrentFrame[(*it).second][3]);
+				Eigen::Vector3f diff = jtPos - jtObs;
+				Eigen::Matrix3f cov;
+				cov.setIdentity();
+				float tempo = diff.transpose()*(cov*diff);
+				distance += sqrt(tempo);
+			}
+		}
+		mCurrentDistances.push_back(distance);
+	}
+}
+
 
