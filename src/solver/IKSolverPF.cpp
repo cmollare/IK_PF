@@ -17,7 +17,7 @@ IKSolverPF::IKSolverPF(std::vector<S3DModel*> mods, std::vector<std::string> pos
 
 void IKSolverPF::initFilter()
 {
-	mCurrentWeights = std::vector<float>(mModels.size(), 1./mModels.size());
+	mCurrentWeights.setConstant(mModels.size(), 1, 1./mModels.size());
 	
 	for (int i=0 ; i<mModels.size() ; i++)
 	{

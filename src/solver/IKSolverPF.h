@@ -13,5 +13,6 @@ class IKSolverPF : public IKSolver
 		virtual void computeDistance();
 		
 	private:
-		std::vector<float> mCurrentWeights;
+		
+		Eigen::VectorXf mCurrentWeights;
 };
