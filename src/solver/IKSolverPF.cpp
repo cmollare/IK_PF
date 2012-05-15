@@ -38,7 +38,7 @@ void IKSolverPF::initFilter()
 			while(valide)
 			{
 				valide = false;
-				(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 1, 1);//A modifier suivant les contraintes
+				(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 0.1, 1, 1);//A modifier suivant les contraintes
 
 				(*mOffsetVec[i][j])=Eigen::Translation3f(this->randn()*0.1, this->randn()*0.1, this->randn()*0.1);//A modifier suivant les contraintes
 
@@ -100,10 +100,11 @@ void IKSolverPF::step()
 			while(valide)
 			{
 				valide = false;
-				(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 1, 1);//A modifier suivant les contraintes
+				(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 0.1, 1, 1);//A modifier suivant les contraintes
 				
 				Eigen::Vector3f tempo = Eigen::Vector3f(this->randn()*0.1, this->randn()*0.1, this->randn()*0.1);
-				tempo+=offs;
+				if (j==0)
+					tempo+=offs;
 				(*mOffsetVec[i][j])=Eigen::Translation3f(tempo);//A modifier suivant les contraintes
 
 				//To avoid infinite and NaN cases
@@ -117,7 +118,8 @@ void IKSolverPF::step()
 	}
 	
 	this->updateWeights();
-	cout << this->computeNeff() << endl;
+	if (this->computeNeff() < (mModels.size()*0.1))
+		this->resample();
 }
 
 float IKSolverPF::computeNeff()
@@ -136,11 +138,39 @@ void IKSolverPF::updateWeights()
 		sum+=mCurrentWeights[i];
 	}
 	mCurrentWeights/=sum;
-	cout << mCurrentWeights << endl;
+	//cout << mCurrentWeights << endl;
 }
 
 void IKSolverPF::resample()
 {
+	float invNbSamp = 1./mModels.size();
+	//verifier dans la these
+	Eigen::VectorXf cdf(mModels.size());
+	cdf[0]=0;
+	for (int i=1 ; i<mModels.size() ; i++)
+	{
+		cdf[i]=cdf[i-1]+mCurrentWeights[i];
+	}
+	
+	int i=0;
+	float u = randUnif(invNbSamp);
+	//cout << u << endl;
+	for (int j=0 ; j<mModels.size() ; j++)
+	{
+		u=u+invNbSamp*j;
+		while(u>cdf[i] && i<(mModels.size()-1))
+		{
+			//cout << cdf[i] << "/" << u << endl;
+			//cout << "lol2" << endl;
+			i++;
+		}
+		for (int k=0 ; k<mOrientationVec[i].size() ; k++)
+		{
+			(*mOrientationVec[j][k])=(*mOrientationVec[i][k]);
+			(*mOffsetVec[j][k])=(*mOffsetVec[i][k]);
+		}
+		mCurrentWeights[j]=invNbSamp;
+	}
 }
 
 

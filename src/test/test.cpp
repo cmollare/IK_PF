@@ -6,7 +6,7 @@
 #include "../viewer/S3DViewer.h"
 #include "../solver/IKSolverPF.h"
 
-#define NBMODELS 5
+#define NBMODELS 100
 
 using namespace std;
 
