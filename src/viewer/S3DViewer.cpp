@@ -213,7 +213,7 @@ void S3DViewer::update(std::vector<S3DModel*>& models)
 			Eigen::Quaternionf vQuat = *(models[i]->getJoint(nameVec[j])->getOrientation());
 			Ogre::Quaternion quat((float)vQuat.w(), (float)vQuat.x(), (float)vQuat.y(), (float)vQuat.z());
 			Eigen::Translation3f vOff = *(models[i]->getJoint(nameVec[j])->getOffset());
-			cout << vOff.x() << " " << vOff.y() << " " << vOff.z() << endl;
+			
 			Vector3 offset(vOff.x(), vOff.y(), vOff.z());
 			
 			Ogre::SceneNode *node = mSceneMgr->getSceneNode(mModelSNNames[i][nameVec[j]]);

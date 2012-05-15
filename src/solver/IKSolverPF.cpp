@@ -37,10 +37,15 @@ void IKSolverPF::initFilter()
 			bool valide = true;
 			while(valide)
 			{
+				valide = false;
 				(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 1, 1);//A modifier suivant les contraintes
-				//cout << Eigen::Matrix3f(*mOrientationVec[i][j]) << endl;
+
 				(*mOffsetVec[i][j])=Eigen::Translation3f(this->randn()*0.1, this->randn()*0.1, this->randn()*0.1);//A modifier suivant les contraintes
-				valide = (mOrientationVec[i][j]->w() != mOrientationVec[i][j]->w());
+
+				//To avoid infinite and NaN cases
+				valide |= ((mOffsetVec[i][j]->x() == std::numeric_limits<float>::infinity()) || (mOffsetVec[i][j]->y() == std::numeric_limits<float>::infinity()) || (mOffsetVec[i][j]->z() == std::numeric_limits<float>::infinity()));
+				valide |= ((mOffsetVec[i][j]->x() == -std::numeric_limits<float>::infinity()) || (mOffsetVec[i][j]->y() == -std::numeric_limits<float>::infinity()) || (mOffsetVec[i][j]->z() == -std::numeric_limits<float>::infinity()));
+				valide |= (mOrientationVec[i][j]->w() != mOrientationVec[i][j]->w());
 			}
 			
 			
