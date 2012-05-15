@@ -52,7 +52,7 @@ bool S3DViewer::init()
 	mSceneMgr->setAmbientLight(Ogre::ColourValue(1.0f, 1.0f, 1.0f));
 
 	mCamera = mSceneMgr->createCamera("Default Camera");
-	mCamera->setPosition(Ogre::Vector3(0,0,-10));
+	mCamera->setPosition(Ogre::Vector3(0,0,-5));
 	mCamera->lookAt(Ogre::Vector3(0,0,0));
 	mCamera->setNearClipDistance(0.1);
 
@@ -131,6 +131,7 @@ void S3DViewer::setOptions(bool displayJoint, bool displayAxis, bool displayBone
 
 void S3DViewer::initModels(std::vector<S3DModel*>& models)
 {
+	mLine3DToSNName.clear();
 	mModelSNNames.clear();
 	int i=0;
 	if (models.size()>0)
@@ -186,7 +187,6 @@ void S3DViewer::initObservations(std::vector<std::string> jtNames, std::vector<s
 	mObsNameVec = jtNames;
 	mObsCurrentFrame = frame;
 	mObservationSNNames.clear();
-	mLine3D.clear();
 	
 	Ogre::SceneNode *obsNode = mSceneMgr->getSceneNode("Observations");
 	
@@ -221,6 +221,7 @@ void S3DViewer::update(std::vector<S3DModel*>& models)
 			node->setPosition(offset);
 		}
 	}
+	this->updateLine3D();
 }
 
 void S3DViewer::initModels(std::vector<Joint*>& jts, SceneNode *node, int modelNum, std::map<std::string, std::string>& snNames)
@@ -254,7 +255,7 @@ void S3DViewer::initModels(std::vector<Joint*>& jts, SceneNode *node, int modelN
 				ostringstream oss2;
 				oss2 << "Line_" << oss.str();
 				Line3D *line = new Line3D(oss2.str());
-				mLine3D.push_back(line);//mapping
+				mLine3DToSNName[line] = oss.str();//mapping
 				line->setLine(childNode->getPosition(), Vector3(0,0,0));
 				node->attachObject(line);
 			}
@@ -320,5 +321,17 @@ ManualObject* S3DViewer::createAxis(const std::string& strName, float scale)
 	manual->end();
 	 
 	return manual;
+}
+
+void S3DViewer::updateLine3D()
+{
+	std::map<Line3D*, std::string>::iterator it;//cout << "lol2" << endl;
+	for (it = mLine3DToSNName.begin() ; it != mLine3DToSNName.end() ; it++)
+	{
+		Line3D* line = (*it).first;
+		Ogre::SceneNode* node = line->getParentSceneNode();
+		Ogre::SceneNode* childNode = mSceneMgr->getSceneNode((*it).second);
+		line->setLine(childNode->getPosition(), Ogre::Vector3(0, 0, 0));
+	}
 }
 

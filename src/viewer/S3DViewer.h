@@ -119,6 +119,7 @@ private:
 	 * \param modelNum Index of the S3DModel.
 	 */
 	void initModels(std::vector<Joint*>& jts, SceneNode *node, int modelNum, std::map<std::string, std::string>& snNames);
+	void updateLine3D();
 	
     Ogre::Root *mRoot; /*!< Ogre::Root */
     Ogre::RenderWindow* mWindow; /*!< Ogre::RenderWindow */
@@ -128,7 +129,7 @@ private:
 	Ogre::LogManager* mLogMgr; /*!< For Ogre.log file management */
 	
 	//Mapping
-	std::vector<Line3D*> mLine3D;
+	std::map<Line3D*, std::string> mLine3DToSNName;
 	std::vector<std::map<std::string, std::string> > mModelSNNames;
 	std::vector<std::string> mObservationSNNames;
 	//End mapping
