@@ -32,13 +32,23 @@ Eigen::Quaternionf IKSolver::sampleQuTEM(Eigen::Quaternionf mean, float sigma, f
 
 float IKSolver::randn()
 {
-	int U1int = rand()%10001;
+	/*int U1int = rand()%10001;
 	int U2int = rand()%10001;
 	float U1 = (float)U1int / 10001.;
-	float U2 = (float)U2int / 10001.;
+	float U2 = (float)U2int / 10001.;*/
+	float U1 = randUnif();
+	float U2 = randUnif();
 	
 	float X = sqrt(-2*log(U1))*cos(2*3.14*U2);
 	float Y = sqrt(-2*log(U1))*sin(2*3.14*U2);
 	return X;
+}
+
+float IKSolver::randUnif(float sup)
+{
+	int Uint = rand()%10001;
+	float U = (float)Uint / 10001.;
+	U*=sup;
+	return U;
 }
 

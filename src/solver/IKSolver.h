@@ -40,6 +40,7 @@ class IKSolver
 		 * \return A float sampled following a normal distribution.
 		 */
 		float randn();
+		float randUnif(float sup=1.0);
 		
 		std::map<std::string, std::string> mJointNameToPosName; /*!< Map between Joint Names file and animation file */
 		std::map<std::string, int> mJointNameToPos;
