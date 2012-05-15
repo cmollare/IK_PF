@@ -11,9 +11,11 @@ class IKSolverPF : public IKSolver
 
 		virtual void initFilter();
 		virtual void computeLikelihood();
+		virtual void step();
 		
 	protected:
 		virtual void computeDistance();
+		void updateWeights();
 		
 		Eigen::VectorXf mCurrentWeights;
 };

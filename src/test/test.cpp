@@ -70,7 +70,7 @@ int main()
 	while (continuer)
 	{
 		//for(int i=0 ; i<200000 ; i++){cout << "lol" << endl;}
-		iksol.initFilter();
+		iksol.step();
 		viewer.update(mods);
 		continuer = viewer.isRendering();
 	}
