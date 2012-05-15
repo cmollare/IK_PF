@@ -35,12 +35,15 @@ void IKSolverPF::initFilter()
 			Eigen::Quaternionf quat;
 			quat.setIdentity();
 			bool valide = true;
+			Eigen::Vector3f offs = mOffsetVec[i][j]->vector();
 			while(valide)
 			{
 				valide = false;
-				(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 0.1, 1, 1);//A modifier suivant les contraintes
-
-				(*mOffsetVec[i][j])=Eigen::Translation3f(this->randn()*0.1, this->randn()*0.1, this->randn()*0.1);//A modifier suivant les contraintes
+				//(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 0.1, 1, 1);//A modifier suivant les contraintes
+				
+				Eigen::Vector3f tempo = Eigen::Vector3f(0, 0, this->randn()*0.1);
+				tempo+=offs;
+				(*mOffsetVec[i][j])=Eigen::Translation3f(tempo);//A modifier suivant les contraintes
 
 				//To avoid infinite and NaN cases
 				valide |= ((mOffsetVec[i][j]->x() == std::numeric_limits<float>::infinity()) || (mOffsetVec[i][j]->y() == std::numeric_limits<float>::infinity()) || (mOffsetVec[i][j]->z() == std::numeric_limits<float>::infinity()));
@@ -100,10 +103,10 @@ void IKSolverPF::step()
 			while(valide)
 			{
 				valide = false;
-				(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 0.1, 1, 1);//A modifier suivant les contraintes
+				//(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 0.1, 1, 1);//A modifier suivant les contraintes
 				
-				Eigen::Vector3f tempo = Eigen::Vector3f(this->randn()*0.1, this->randn()*0.1, this->randn()*0.1);
-				if (j==0)
+				Eigen::Vector3f tempo = Eigen::Vector3f(0, 0, this->randn()*0.1);
+				//if (j==0)
 					tempo+=offs;
 				(*mOffsetVec[i][j])=Eigen::Translation3f(tempo);//A modifier suivant les contraintes
 
