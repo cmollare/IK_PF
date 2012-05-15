@@ -117,18 +117,30 @@ void IKSolverPF::step()
 	}
 	
 	this->updateWeights();
+	cout << this->computeNeff() << endl;
+}
+
+float IKSolverPF::computeNeff()
+{
+	return 1./(mCurrentWeights.dot(mCurrentWeights));
 }
 
 void IKSolverPF::updateWeights()
 {
+	float sum=0;
 	this->computeLikelihood();
 	
 	for (int i=0 ; i<mCurrentLikelihood.size() ; i++)
 	{
 		mCurrentWeights[i] = mCurrentWeights[i]*mCurrentLikelihood[i];
+		sum+=mCurrentWeights[i];
 	}
-	mCurrentWeights.normalize();
-	//cout << mCurrentWeights << endl;
+	mCurrentWeights/=sum;
+	cout << mCurrentWeights << endl;
+}
+
+void IKSolverPF::resample()
+{
 }
 
 
