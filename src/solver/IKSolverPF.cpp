@@ -28,7 +28,7 @@ void IKSolverPF::initFilter()
 		mNameVec.push_back(mModels[i]->getNameVec());
 	}
 	
-	for (int i=0 ; i<mModels.size() ; i++)
+	/*for (int i=0 ; i<mModels.size() ; i++)
 	{
 		for (int j=0 ; j < mOrientationVec[i].size() ; j++)
 		{
@@ -53,7 +53,7 @@ void IKSolverPF::initFilter()
 			
 			
 		}
-	}
+	}*/
 }
 
 void IKSolverPF::computeDistance()
