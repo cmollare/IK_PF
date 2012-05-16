@@ -80,6 +80,8 @@ void operator >> (const YAML::Node& node, vector<SBJoints, Eigen::aligned_alloca
 		joint["Parent"] >> BJoints[i].Parent;
 		joint["Offset"] >> BJoints[i].Offset;
 		joint["Orientation"] >> BJoints[i].Orientation;
+		joint["ConstOff"] >> BJoints[i].ConstOff;
+		joint["ConstOrient"] >> BJoints[i].ConstOrient;
 		
 		if (i==0 && (BJoints[i].Parent != "_Root"))
 		{

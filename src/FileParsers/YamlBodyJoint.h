@@ -24,6 +24,8 @@ typedef struct SBJoints
 	std::string Parent; /*!< Name of the parent = "_Root" if this Joint is the root */ 
 	vector<float> Offset; /*!< Position of the Joint relative to its parent */
 	Eigen::Quaternionf Orientation; /*!< Local orientation of the Joint */
+	std::string ConstOff; /*!< Constraint on the local offset of the Joint */
+	std::string ConstOrient; /*!< Constraint on the local orientation of the Joint */
 }SBJoints;
 			
 /*!
