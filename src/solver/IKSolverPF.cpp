@@ -39,10 +39,10 @@ void IKSolverPF::initFilter()
 			while(valide)
 			{
 				valide = false;
-				//(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 0.1, 1, 1);//A modifier suivant les contraintes
+				(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 1, 1);//A modifier suivant les contraintes
 				
-				Eigen::Vector3f tempo = Eigen::Vector3f(0, 0, this->randn()*0.1);
-				tempo+=offs;
+				Eigen::Vector3f tempo = Eigen::Vector3f(this->randn()*0.1, this->randn()*0.1, this->randn()*0.1);
+				//tempo+=offs;
 				(*mOffsetVec[i][j])=Eigen::Translation3f(tempo);//A modifier suivant les contraintes
 
 				//To avoid infinite and NaN cases
@@ -88,7 +88,7 @@ void IKSolverPF::computeLikelihood()
 	{
 		mCurrentLikelihood[i] = exp(-abs(mCurrentDistances[i]));
 	}
-	//cout << mCurrentLikelihood << endl;
+	//cout << mCurrentLikelihood << "//" << endl;
 }
 
 void IKSolverPF::step()
@@ -103,10 +103,10 @@ void IKSolverPF::step()
 			while(valide)
 			{
 				valide = false;
-				//(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 0.1, 1, 1);//A modifier suivant les contraintes
+				(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 1, 1);//A modifier suivant les contraintes
 				
-				Eigen::Vector3f tempo = Eigen::Vector3f(0, 0, this->randn()*0.1);
-				//if (j==0)
+				Eigen::Vector3f tempo = Eigen::Vector3f(this->randn()*0.1, this->randn()*0.1, this->randn()*0.1);
+				if (j==0)
 					tempo+=offs;
 				(*mOffsetVec[i][j])=Eigen::Translation3f(tempo);//A modifier suivant les contraintes
 
@@ -121,7 +121,9 @@ void IKSolverPF::step()
 	}
 	
 	this->updateWeights();
-	if (this->computeNeff() < (mModels.size()*0.1))
+	float Neff = this->computeNeff();;
+	//cout << Neff << "****" << endl;
+	if (Neff < 1.5 || Neff < mModels.size()*0.1)
 		this->resample();
 }
 
@@ -147,9 +149,8 @@ void IKSolverPF::updateWeights()
 void IKSolverPF::resample()
 {
 	float invNbSamp = 1./mModels.size();
-	//verifier dans la these
 	Eigen::VectorXf cdf(mModels.size());
-	cdf[0]=0;
+	cdf[0]=mCurrentWeights[0];
 	for (int i=1 ; i<mModels.size() ; i++)
 	{
 		cdf[i]=cdf[i-1]+mCurrentWeights[i];
@@ -157,14 +158,10 @@ void IKSolverPF::resample()
 	
 	int i=0;
 	float u = randUnif(invNbSamp);
-	//cout << u << endl;
 	for (int j=0 ; j<mModels.size() ; j++)
 	{
-		u=u+invNbSamp*j;
-		while(u>cdf[i] && i<(mModels.size()-1))
+		while(u>cdf[i])
 		{
-			//cout << cdf[i] << "/" << u << endl;
-			//cout << "lol2" << endl;
 			i++;
 		}
 		for (int k=0 ; k<mOrientationVec[i].size() ; k++)
@@ -173,6 +170,7 @@ void IKSolverPF::resample()
 			(*mOffsetVec[j][k])=(*mOffsetVec[i][k]);
 		}
 		mCurrentWeights[j]=invNbSamp;
+		u=u+invNbSamp;
 	}
 }
 
