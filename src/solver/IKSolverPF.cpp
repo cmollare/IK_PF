@@ -28,7 +28,7 @@ void IKSolverPF::initFilter()
 		mNameVec.push_back(mModels[i]->getNameVec());
 	}
 	
-	/*for (int i=0 ; i<mModels.size() ; i++)
+	for (int i=0 ; i<mModels.size() ; i++)
 	{
 		for (int j=0 ; j < mOrientationVec[i].size() ; j++)
 		{
@@ -41,7 +41,7 @@ void IKSolverPF::initFilter()
 				valide = false;
 				(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 1, 1);//A modifier suivant les contraintes
 				
-				Eigen::Vector3f tempo = Eigen::Vector3f(this->randn()*0.1, this->randn()*0.1, this->randn()*0.1);
+				Eigen::Vector3f tempo = Eigen::Vector3f(this->randn()*0.01, this->randn()*0.01, this->randn()*0.01);
 				//tempo+=offs;
 				(*mOffsetVec[i][j])=Eigen::Translation3f(tempo);//A modifier suivant les contraintes
 
@@ -53,7 +53,7 @@ void IKSolverPF::initFilter()
 			
 			
 		}
-	}*/
+	}//*/
 }
 
 void IKSolverPF::computeDistance()
@@ -105,8 +105,8 @@ void IKSolverPF::step()
 				valide = false;
 				(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 1, 1);//A modifier suivant les contraintes
 				
-				Eigen::Vector3f tempo = Eigen::Vector3f(this->randn()*0.1, this->randn()*0.1, this->randn()*0.1);
-				if (j==0)
+				Eigen::Vector3f tempo = Eigen::Vector3f(this->randn()*0.01, this->randn()*0.01, this->randn()*0.01);
+				//if (j==0)
 					tempo+=offs;
 				(*mOffsetVec[i][j])=Eigen::Translation3f(tempo);//A modifier suivant les contraintes
 

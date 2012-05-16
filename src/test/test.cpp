@@ -6,7 +6,7 @@
 #include "../viewer/S3DViewer.h"
 #include "../solver/IKSolverPF.h"
 
-#define NBMODELS 100
+#define NBMODELS 5
 
 using namespace std;
 
@@ -70,8 +70,8 @@ int main()
 	while (continuer)
 	{
 		//for(int i=0 ; i<200000 ; i++){cout << "lol" << endl;}
-		//iksol.step();
-		//viewer.update(mods);
+		iksol.step();
+		viewer.update(mods);
 		continuer = viewer.isRendering();
 	}
 	
