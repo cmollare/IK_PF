@@ -16,6 +16,7 @@ S3DModel::S3DModel(const Joint* jt, unsigned int id)
 	createOrientationVec();
 	createOffsetVec();
 	createNameVec();
+	createConstraintVecs();
 	std::cout << "S3DModel : model index successfully created !" << std::endl;
 }
 
@@ -28,6 +29,7 @@ S3DModel::S3DModel(const S3DModel& model)
 	createOrientationVec();
 	createOffsetVec();
 	createNameVec();
+	createConstraintVecs();
 	std::cout << "S3DModel : model index successfully created !" << std::endl;
 }
 
@@ -136,6 +138,18 @@ void S3DModel::createNameVec()
 		for (int i=0 ; i<=mNbJoints ; i++)
 		{
 			mNameVec.push_back(mIntToJoint[i]->getName());
+		}
+	}
+}
+
+void S3DModel::createConstraintVecs()
+{
+	if (mNbJoints != -1)
+	{
+		for (int i=0 ; i<=mNbJoints ; i++)
+		{
+			mConstOffsetVec.push_back(mIntToJoint[i]->getOffsetConstraint());
+			mConstOrientVec.push_back(mIntToJoint[i]->getOrientationConstraint());
 		}
 	}
 }

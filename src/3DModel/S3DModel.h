@@ -141,6 +141,8 @@ class S3DModel
 		 */
 		void createNameVec();
 		
+		void createConstraintVecs();
+		
 		unsigned int mId; /*!< id of the model */
 		Joint *mRootJoint; /*!< pointer on the root Joint */
 		
@@ -152,6 +154,8 @@ class S3DModel
 		vector<Eigen::Quaternionf*, Eigen::aligned_allocator<Eigen::Quaternionf*> > mOrientationVec; /*!< Orientation vector */
 		vector<Eigen::Translation3f*, Eigen::aligned_allocator<Eigen::Translation3f*> > mOffsetVec;
 		vector<std::string> mNameVec; /*!< Vector of Joint names */
+		vector<std::string> mConstOffsetVec;
+		vector<std::string> mConstOrientVec;
 };
 
 #endif
