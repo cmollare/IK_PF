@@ -33,6 +33,7 @@ void YamlBodyJoint::createModel()
 	if (mParsedFile.BJoints[0].Parent == "_Root")
 	{
 		mModel = new Joint(mParsedFile.BJoints[0].Joint, NULL, mParsedFile.BJoints[0].Offset, mParsedFile.BJoints[0].Orientation);
+		mModel->setConstraints(mParsedFile.BJoints[0].ConstOff, mParsedFile.BJoints[0].ConstOrient);
 		
 		for (int i=1 ; i<mParsedFile.BJoints.size() ; i++)
 		{
@@ -40,7 +41,7 @@ void YamlBodyJoint::createModel()
 			Joint* parent = mModel->getJointFromName(mParsedFile.BJoints[i].Parent);
 			if (parent != NULL)
 			{
-				parent->addChild(mParsedFile.BJoints[i].Joint, mParsedFile.BJoints[i].Offset, mParsedFile.BJoints[i].Orientation);//Create Children
+				parent->addChild(mParsedFile.BJoints[i].Joint, mParsedFile.BJoints[i].Offset, mParsedFile.BJoints[i].Orientation)->setConstraints(mParsedFile.BJoints[i].ConstOff, mParsedFile.BJoints[i].ConstOrient);//Create Children
 				cout << mParsedFile.BJoints[i].Joint << " added to " << parent->getName() << endl;
 			}
 			else
