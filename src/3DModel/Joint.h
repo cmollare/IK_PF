@@ -13,6 +13,20 @@
 
 using namespace std;//A supprimer
 
+//Constraints on orientations
+#define ORIENT_CONST_FREE "Free"
+#define ORIENT_CONST_TWIST "Twist"
+#define ORIENT_CONST_FLEX "Flex"
+#define ORIENT_CONST_TFLEX "TFlex"
+#define ORIENT_CONST_BIFLEX "BiFlex"
+#define ORIENT_CONST_FIXED "Fixed"
+
+//Constraints on offsets
+#define OFFSET_CONST_FREE "Free"
+#define OFFSET_CONST_BONE "Bone"
+#define OFFSET_CONST_FIXED "Fixed"
+
+
 /*!
  * \class Joint
  * \brief class representing model joints
@@ -147,6 +161,8 @@ class Joint
 		 */
 		void setOrientation(const Eigen::Quaternionf quat);
 		
+		void setConstraints(const std::string offset=OFFSET_CONST_FREE, const std::string orientation=ORIENT_CONST_FREE);
+		
 		/*!
 		 * \brief Get the Joint local orientation.
 		 * \return Quaternion of Joint local orientation.
@@ -187,7 +203,6 @@ class Joint
 		Joint *mParentJoint; /*!< parent Joint, NULL if root */
 		std::vector<Joint*> mChildrenJoint; /*!< vector of child Joints */
 		Eigen::Vector3i mColors; /*!< Color of the Joint */
-		//Eigen::Matrix2f mOrientation;
 		
 		Eigen::Quaternionf mQDefault;
 		Eigen::Quaternionf mQLocal; /*!< Joint local orientation */
@@ -195,6 +210,9 @@ class Joint
 		Eigen::Translation3f mDefaultOffset;
 		Eigen::Translation3f mLocalOffset;/*!< Joint relative position to parent */
 		//float mCurrentOffset;
+		
+		std::string mOffsetConst; /*!< Constraint on offset */
+		std::string mOrientationConst; /*!< Constraint on orientation */
 };
 
 #endif

@@ -14,7 +14,9 @@ Joint::Joint(string name, Joint *parent, vector<float> offset, Eigen::Quaternion
 		
 	mDefaultOffset = mLocalOffset;
 	mQDefault = mQLocal;
-
+	
+	mOffsetConst = OFFSET_CONST_FREE;
+	mOrientationConst = ORIENT_CONST_FREE;
 }
 
 Joint::Joint(const Joint& jtCopy)
@@ -170,6 +172,12 @@ Joint* Joint::addChild(Joint* jt)
 void Joint::setOrientation(Eigen::Quaternionf quat)
 {
 	mQLocal = quat;
+}
+
+void Joint::setConstraints(const std::string offset, const std::string orientation)
+{
+	mOffsetConst = offset;
+	mOrientationConst = orientation;
 }
 
 Eigen::Quaternionf* Joint::getOrientation()
