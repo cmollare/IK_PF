@@ -36,7 +36,7 @@ void IKSolverPF::initFilter()
 			quat.setIdentity();
 			bool valide = true;
 			Eigen::Vector3f offs = mOffsetVec[i][j]->vector();
-			while(valide)
+			/*while(valide)
 			{
 				valide = false;
 				(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 1, 1);//A modifier suivant les contraintes
@@ -49,7 +49,7 @@ void IKSolverPF::initFilter()
 				valide |= ((mOffsetVec[i][j]->x() == std::numeric_limits<float>::infinity()) || (mOffsetVec[i][j]->y() == std::numeric_limits<float>::infinity()) || (mOffsetVec[i][j]->z() == std::numeric_limits<float>::infinity()));
 				valide |= ((mOffsetVec[i][j]->x() == -std::numeric_limits<float>::infinity()) || (mOffsetVec[i][j]->y() == -std::numeric_limits<float>::infinity()) || (mOffsetVec[i][j]->z() == -std::numeric_limits<float>::infinity()));
 				valide |= (mOrientationVec[i][j]->w() != mOrientationVec[i][j]->w());
-			}
+			}*/
 			
 			
 		}

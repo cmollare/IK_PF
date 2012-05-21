@@ -185,10 +185,10 @@ class Joint
 		Eigen::Vector3i mColors; /*!< Color of the Joint */
 		//Eigen::Matrix2f mOrientation;
 		
-		//Eigen::Matrix2f mQDefault;
+		Eigen::Quaternionf mQDefault;
 		Eigen::Quaternionf mQLocal; /*!< Joint local orientation */
 		//Eigen::Matrix2f mQCurrent;
-		//float mDefaultOffset;
+		Eigen::Translation3f mDefaultOffset;
 		Eigen::Translation3f mLocalOffset;/*!< Joint relative position to parent */
 		//float mCurrentOffset;
 };

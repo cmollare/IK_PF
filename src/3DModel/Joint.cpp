@@ -11,6 +11,9 @@ Joint::Joint(string name, Joint *parent, vector<float> offset, Eigen::Quaternion
 		mLocalOffset = Eigen::Translation3f(offset[0], offset[1], offset[2]);
 	else
 		mLocalOffset = Eigen::Translation3f(0, 0, 0);
+		
+	mDefaultOffset = mLocalOffset;
+	mQDefault = mQLocal;
 
 }
 
@@ -19,10 +22,10 @@ Joint::Joint(const Joint& jtCopy)
 	mName = jtCopy.mName;
 	mColors = jtCopy.mColors;
 	//mOrientation = jtCopy.mOrientation;
-	//mQDefault = jtCopy.mQDefault;
+	mQDefault = jtCopy.mQDefault;
 	mQLocal = jtCopy.mQLocal;
 	//mQCurrent = jtCopy.mQCurrent;
-	//mDefaultOffset = jtCopy.mDefaultOffset;
+	mDefaultOffset = jtCopy.mDefaultOffset;
 	mLocalOffset = jtCopy.mLocalOffset;
 	//mCurrentOffset = jtCopy.mCurrentOffset;
 	
