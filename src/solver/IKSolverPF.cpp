@@ -37,24 +37,51 @@ void IKSolverPF::initFilter()
 	{
 		for (int j=0 ; j < mOrientationVec[i].size() ; j++)
 		{
-			Eigen::Quaternionf quat;
-			quat.setIdentity();
+			Eigen::Quaternionf quat = mDefaultOrientationVec[i][j];
+			//quat.setIdentity();
 			bool valide = true;
-			Eigen::Vector3f offs = mOffsetVec[i][j]->vector();
-			/*while(valide)
+			Eigen::Vector3f offs = mDefaultOffsetVec[i][j].vector();
+			while(valide)
 			{
 				valide = false;
-				(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 1, 1);//A modifier suivant les contraintes
+				if (mConstOrientVec[i][j] == ORIENT_CONST_FREE)
+				{
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 1, 1);//A modifier suivant les contraintes
+				}
+				else if(mConstOrientVec[i][j] == ORIENT_CONST_TWIST)
+				{
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 0.1, 0.05);
+				}
+				else if(mConstOrientVec[i][j] == ORIENT_CONST_FLEX)
+				{
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 0.1, 1, 0.05);
+				}
+				else if(mConstOrientVec[i][j] == ORIENT_CONST_TFLEX)
+				{
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 1, 0.1);
+				}
+				else if(mConstOrientVec[i][j] == ORIENT_CONST_BIFLEX)
+				{
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 0.1, 1, 1);
+				}
+				else if(mConstOrientVec[i][j] == ORIENT_CONST_FIXED)
+				{
+					(*mOrientationVec[i][j]) = (*mOrientationVec[i][j]);
+				}
+				else
+				{
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 1, 1);
+				}
 				
 				Eigen::Vector3f tempo = Eigen::Vector3f(this->randn()*0.01, this->randn()*0.01, this->randn()*0.01);
-				//tempo+=offs;
+				tempo+=offs;
 				(*mOffsetVec[i][j])=Eigen::Translation3f(tempo);//A modifier suivant les contraintes
 
 				//To avoid infinite and NaN cases
 				valide |= ((mOffsetVec[i][j]->x() == std::numeric_limits<float>::infinity()) || (mOffsetVec[i][j]->y() == std::numeric_limits<float>::infinity()) || (mOffsetVec[i][j]->z() == std::numeric_limits<float>::infinity()));
 				valide |= ((mOffsetVec[i][j]->x() == -std::numeric_limits<float>::infinity()) || (mOffsetVec[i][j]->y() == -std::numeric_limits<float>::infinity()) || (mOffsetVec[i][j]->z() == -std::numeric_limits<float>::infinity()));
 				valide |= (mOrientationVec[i][j]->w() != mOrientationVec[i][j]->w());
-			}*/
+			}//*/
 			
 			
 		}
@@ -103,16 +130,59 @@ void IKSolverPF::step()
 		for (int j=0 ; j < mOrientationVec[i].size() ; j++)
 		{
 			bool valide = true;
-			Eigen::Quaternionf quat = (*mOrientationVec[i][j]);
-			Eigen::Vector3f offs = mOffsetVec[i][j]->vector();
+			Eigen::Quaternionf quat = mDefaultOrientationVec[i][j];
+			Eigen::Vector3f offs;
+			if (mConstOffsetVec[i][j] == OFFSET_CONST_FREE)
+			{
+				offs = mOffsetVec[i][j]->vector();
+				cout << mConstOffsetVec[i][j] << endl;
+			}
+			else
+			{
+				offs = mDefaultOffsetVec[i][j].vector();
+			}
 			while(valide)
 			{
 				valide = false;
-				(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 1, 1);//A modifier suivant les contraintes
-				
-				Eigen::Vector3f tempo = Eigen::Vector3f(this->randn()*0.01, this->randn()*0.01, this->randn()*0.01);
-				//if (j==0)
-					tempo+=offs;
+				if (mConstOrientVec[i][j] == ORIENT_CONST_FREE)
+				{
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 1, 1);//A modifier suivant les contraintes
+				}
+				else if(mConstOrientVec[i][j] == ORIENT_CONST_TWIST)
+				{
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 0.1, 0.05);
+				}
+				else if(mConstOrientVec[i][j] == ORIENT_CONST_FLEX)
+				{
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 0.1, 1, 0.05);
+				}
+				else if(mConstOrientVec[i][j] == ORIENT_CONST_TFLEX)
+				{
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 1, 0.1);
+				}
+				else if(mConstOrientVec[i][j] == ORIENT_CONST_BIFLEX)
+				{
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 0.1, 1, 1);
+				}
+				else if(mConstOrientVec[i][j] == ORIENT_CONST_FIXED)
+				{
+					(*mOrientationVec[i][j]) = (*mOrientationVec[i][j]);
+				}
+				else
+				{
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 1, 1);
+				}
+
+				Eigen::Vector3f tempo;
+				if (mConstOffsetVec[i][j] == OFFSET_CONST_FREE)
+				{
+					tempo = Eigen::Vector3f(this->randn()*0.01, this->randn()*0.01, this->randn()*0.01);
+				}
+				else if (mConstOffsetVec[i][j] == OFFSET_CONST_BONE)
+				{
+					tempo = Eigen::Vector3f(this->randn()*0.01, 0, 0);
+				}
+				tempo+=offs;
 				(*mOffsetVec[i][j])=Eigen::Translation3f(tempo);//A modifier suivant les contraintes
 
 				//To avoid infinite and NaN cases

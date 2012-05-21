@@ -30,6 +30,8 @@ Joint::Joint(const Joint& jtCopy)
 	mDefaultOffset = jtCopy.mDefaultOffset;
 	mLocalOffset = jtCopy.mLocalOffset;
 	//mCurrentOffset = jtCopy.mCurrentOffset;
+	mOffsetConst = jtCopy.mOffsetConst;
+	mOrientationConst = jtCopy.mOrientationConst;
 	
 	//Dynamics allocations
 	
@@ -176,8 +178,8 @@ void Joint::setOrientation(Eigen::Quaternionf quat)
 
 void Joint::setConstraints(const std::string offset, const std::string orientation)
 {
-	mOffsetConst = offset;
-	mOrientationConst = orientation;
+	this->mOffsetConst = offset;
+	this->mOrientationConst = orientation;
 	//cout << mName << " " << mOffsetConst << " " << mOrientationConst << endl;
 }
 
