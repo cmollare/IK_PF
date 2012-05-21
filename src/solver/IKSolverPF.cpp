@@ -135,7 +135,6 @@ void IKSolverPF::step()
 			if (mConstOffsetVec[i][j] == OFFSET_CONST_FREE)
 			{
 				offs = mOffsetVec[i][j]->vector();
-				cout << mConstOffsetVec[i][j] << endl;
 			}
 			else
 			{
@@ -180,7 +179,7 @@ void IKSolverPF::step()
 				}
 				else if (mConstOffsetVec[i][j] == OFFSET_CONST_BONE)
 				{
-					tempo = Eigen::Vector3f(this->randn()*0.01, 0, 0);
+					tempo = Eigen::Vector3f(this->randn()*0.1, 0, 0);
 				}
 				tempo+=offs;
 				(*mOffsetVec[i][j])=Eigen::Translation3f(tempo);//A modifier suivant les contraintes
