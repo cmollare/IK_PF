@@ -50,7 +50,11 @@ class IKSolver
 		std::vector<S3DModel*> mModels;
 		std::vector<std::vector<Eigen::Quaternionf*, Eigen::aligned_allocator<Eigen::Quaternionf*> > > mOrientationVec;
 		std::vector<std::vector<Eigen::Translation3f*, Eigen::aligned_allocator<Eigen::Translation3f*> > > mOffsetVec;
+		std::vector<std::vector<Eigen::Quaternionf, Eigen::aligned_allocator<Eigen::Quaternionf> > > mDefaultOrientationVec;
+		std::vector<std::vector<Eigen::Translation3f, Eigen::aligned_allocator<Eigen::Translation3f> > > mDefaultOffsetVec;
 		std::vector<std::vector<std::string> > mNameVec;
+		std::vector<std::vector<std::string> > mConstOffsetVec;
+		std::vector<std::vector<std::string> > mConstOrientVec;
 		
 		std::vector<std::vector<double> > mCurrentFrame;
 		Eigen::VectorXf mCurrentDistances;

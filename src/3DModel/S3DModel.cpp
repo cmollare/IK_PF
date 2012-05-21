@@ -17,6 +17,7 @@ S3DModel::S3DModel(const Joint* jt, unsigned int id)
 	createOffsetVec();
 	createNameVec();
 	createConstraintVecs();
+	createDefaultVecs();
 	std::cout << "S3DModel : model index successfully created !" << std::endl;
 }
 
@@ -30,6 +31,7 @@ S3DModel::S3DModel(const S3DModel& model)
 	createOffsetVec();
 	createNameVec();
 	createConstraintVecs();
+	createDefaultVecs();
 	std::cout << "S3DModel : model index successfully created !" << std::endl;
 }
 
@@ -84,9 +86,29 @@ vector<Eigen::Translation3f*, Eigen::aligned_allocator<Eigen::Translation3f*> > 
 	return mOffsetVec;
 }
 
+vector<Eigen::Quaternionf, Eigen::aligned_allocator<Eigen::Quaternionf> > S3DModel::getDefaultOrientationVec()
+{
+	return mDefaultOrientationVec;
+}
+		
+vector<Eigen::Translation3f, Eigen::aligned_allocator<Eigen::Translation3f> > S3DModel::getDefaultOffsetVector()
+{
+	return mDefaultOffsetVec;
+}
+
 vector<std::string> S3DModel::getNameVec()
 {
 	return mNameVec;
+}
+
+vector<std::string> S3DModel::getConstOffsetVec()
+{
+	return mConstOffsetVec;
+}
+
+vector<std::string> S3DModel::getConstOrientVec()
+{
+	return mConstOrientVec;
 }
 
 void S3DModel::createMaps(vector<Joint*>& jts)
@@ -150,6 +172,18 @@ void S3DModel::createConstraintVecs()
 		{
 			mConstOffsetVec.push_back(mIntToJoint[i]->getOffsetConstraint());
 			mConstOrientVec.push_back(mIntToJoint[i]->getOrientationConstraint());
+		}
+	}
+}
+
+void S3DModel::createDefaultVecs()
+{
+	if (mNbJoints != -1)
+	{
+		for (int i=0 ; i<=mNbJoints ; i++)
+		{
+			mDefaultOrientationVec.push_back(mIntToJoint[i]->getDefaultOrientation());
+			mDefaultOffsetVec.push_back(mIntToJoint[i]->getDefaultOffset());
 		}
 	}
 }

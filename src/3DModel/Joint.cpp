@@ -178,7 +178,7 @@ void Joint::setConstraints(const std::string offset, const std::string orientati
 {
 	mOffsetConst = offset;
 	mOrientationConst = orientation;
-	cout << mName << " " << mOffsetConst << " " << mOrientationConst << endl;
+	//cout << mName << " " << mOffsetConst << " " << mOrientationConst << endl;
 }
 
 Eigen::Quaternionf* Joint::getOrientation()

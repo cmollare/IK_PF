@@ -25,7 +25,12 @@ void IKSolverPF::initFilter()
 	{
 		mOrientationVec.push_back(mModels[i]->getOrientationVec());
 		mOffsetVec.push_back(mModels[i]->getOffsetVector());
+		mDefaultOrientationVec.push_back(mModels[i]->getDefaultOrientationVec());
+		mDefaultOffsetVec.push_back(mModels[i]->getDefaultOffsetVector());
 		mNameVec.push_back(mModels[i]->getNameVec());
+		mConstOffsetVec.push_back(mModels[i]->getConstOffsetVec());
+		mConstOrientVec.push_back(mModels[i]->getConstOrientVec());
+		
 	}
 	
 	for (int i=0 ; i<mModels.size() ; i++)
