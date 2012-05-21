@@ -218,3 +218,13 @@ Eigen::Transform<float, 3, Eigen::Projective> Joint::getTransformationMatrix()
 {
 	return mLocalOffset*mQLocal;
 }
+
+std::string Joint::getOffsetConstraint()
+{
+	return mOffsetConst;
+}
+
+std::string Joint::getOrientationConstraint()
+{
+	return mOrientationConst;
+}

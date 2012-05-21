@@ -197,6 +197,9 @@ class Joint
 		 */
 		Eigen::Transform<float, 3, Eigen::Projective> getTransformationMatrix();
 		
+		std::string getOffsetConstraint();
+		std::string getOrientationConstraint();
+		
 	private:
 	
 		std::string mName; /*!< Joint unique name */
