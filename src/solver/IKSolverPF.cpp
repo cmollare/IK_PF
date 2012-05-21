@@ -127,6 +127,7 @@ void IKSolverPF::step()
 {
 	for (int i=0 ; i<mModels.size() ; i++)
 	{
+		mModels[i]->setPrincipal(true);
 		for (int j=0 ; j < mOrientationVec[i].size() ; j++)
 		{
 			bool valide = true;

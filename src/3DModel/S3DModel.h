@@ -103,6 +103,8 @@ class S3DModel
 		vector<std::string> getConstOffsetVec();
 		vector<std::string> getConstOrientVec();
 		
+		void setPrincipal(bool isPrincipal=true);
+		
 		void debug()//fonction temporaire
 		{
 			for (int i=0 ; i<mOrientationVec.size() ; i++)
@@ -153,6 +155,7 @@ class S3DModel
 		
 		unsigned int mId; /*!< id of the model */
 		Joint *mRootJoint; /*!< pointer on the root Joint */
+		bool mIsPrincipal;
 		
 		std::map<std::string, Joint*> mStringToJoint; /*!< mapping from Joints name to Joint pointers (for speed) */
 		std::map<std::string, int> mStringToInt; /*!< mapping from Joints name to Joint indexes (for speed) */

@@ -256,7 +256,8 @@ void S3DViewer::initModels(std::vector<Joint*>& jts, SceneNode *node, int modelN
 				oss2 << "Line_" << oss.str();
 				Line3D *line = new Line3D(oss2.str());
 				mLine3DToSNName[line] = oss.str();//mapping
-				line->setLine(childNode->getPosition(), Vector3(0,0,0));
+				mLine3DToJoint[line] = jts[i];
+				line->setLine(childNode->getPosition(), Vector3(0,0,0), jts[i]->getColor());
 				node->attachObject(line);
 			}
 			if (jts[i]->hasChildren())
@@ -325,13 +326,13 @@ ManualObject* S3DViewer::createAxis(const std::string& strName, float scale)
 
 void S3DViewer::updateLine3D()
 {
-	std::map<Line3D*, std::string>::iterator it;//cout << "lol2" << endl;
+	std::map<Line3D*, std::string>::iterator it;
 	for (it = mLine3DToSNName.begin() ; it != mLine3DToSNName.end() ; it++)
 	{
 		Line3D* line = (*it).first;
 		Ogre::SceneNode* node = line->getParentSceneNode();
 		Ogre::SceneNode* childNode = mSceneMgr->getSceneNode((*it).second);
-		line->setLine(childNode->getPosition(), Ogre::Vector3(0, 0, 0));
+		line->setLine(childNode->getPosition(), Ogre::Vector3(0, 0, 0), mLine3DToJoint[line]->getColor());
 	}
 }
 

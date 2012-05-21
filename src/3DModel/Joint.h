@@ -199,13 +199,16 @@ class Joint
 		
 		std::string getOffsetConstraint();
 		std::string getOrientationConstraint();
+		void setPrincipal(bool isPrincipal);
+		std::vector<float> getColor();
 		
 	private:
 	
 		std::string mName; /*!< Joint unique name */
 		Joint *mParentJoint; /*!< parent Joint, NULL if root */
 		std::vector<Joint*> mChildrenJoint; /*!< vector of child Joints */
-		Eigen::Vector3i mColors; /*!< Color of the Joint */
+		std::vector<float> mColors; /*!< Color of the Joint */
+		bool mIsPrincipal;
 		
 		Eigen::Quaternionf mQDefault;
 		Eigen::Quaternionf mQLocal; /*!< Joint local orientation */

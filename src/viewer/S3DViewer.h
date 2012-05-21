@@ -130,6 +130,7 @@ private:
 	
 	//Mapping
 	std::map<Line3D*, std::string> mLine3DToSNName;
+	std::map<Line3D*, Joint*> mLine3DToJoint;
 	std::vector<std::map<std::string, std::string> > mModelSNNames;
 	std::vector<std::string> mObservationSNNames;
 	//End mapping
