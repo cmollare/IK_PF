@@ -153,11 +153,15 @@ class Joint
 		 */
 		Eigen::Quaternionf* getOrientation();
 		
+		const Eigen::Quaternionf getDefaultOrientation();
+		
 		/*!
 		 * \brief Get relative position from parent
 		 * \return Translation vector
 		 */
 		Eigen::Translation3f* getOffset();
+		
+		const Eigen::Translation3f getDefaultOffset();
 		
 		/*!
 		 * \brief Get world position

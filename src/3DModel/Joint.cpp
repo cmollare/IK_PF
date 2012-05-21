@@ -177,9 +177,19 @@ Eigen::Quaternionf* Joint::getOrientation()
 	return &mQLocal;
 }
 
+const Eigen::Quaternionf Joint::getDefaultOrientation()
+{
+	return mQDefault;
+}
+
 Eigen::Translation3f* Joint::getOffset()
 {
 	return &mLocalOffset;
+}
+
+const Eigen::Translation3f Joint::getDefaultOffset()
+{
+	return mDefaultOffset;
 }
 
 const Eigen::Vector3f Joint::getXYZVect()
