@@ -16,10 +16,10 @@ void Line3D::setLine(const Ogre::Vector3& start, const Ogre::Vector3& stop, std:
 
 		position(start[0], start[1], start[2]);
 		//colour(0.0f, 0.0f, 1.0f, 0.0f);
-		colour(color[0], color[1], color[2], 0.01);
+		colour(color[0], color[1], color[2], color[3]);
 
 		position(stop[0], stop[1], stop[2]);
-		colour(color[0], color[1], color[2], 0.01);
+		colour(color[0], color[1], color[2], color[3]);
 
 	end();
 }

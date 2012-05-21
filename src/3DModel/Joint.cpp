@@ -20,6 +20,7 @@ Joint::Joint(string name, Joint *parent, vector<float> offset, Eigen::Quaternion
 	mColors.push_back(1);
 	mColors.push_back(0);
 	mColors.push_back(1);
+	mColors.push_back(0);
 	
 	mIsPrincipal=false;
 }
@@ -246,12 +247,14 @@ void Joint::setPrincipal(bool isPrincipal)
 		mColors[0] = 0;
 		mColors[1] = 1;
 		mColors[2] = 1;
+		mColors[3] = 0;
 	}
 	else
 	{
 		mColors[0] = 1;
 		mColors[1] = 0;
 		mColors[2] = 1;
+		mColors[3] = 1;
 	}
 }
 

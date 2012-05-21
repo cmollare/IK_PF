@@ -269,7 +269,7 @@ void S3DViewer::initModels(std::vector<Joint*>& jts, SceneNode *node, int modelN
 }
 
 void S3DViewer::defineMaterials()
-{
+{	
 	ResourceGroupManager::getSingleton().createResourceGroup("axis");
 	MaterialPtr myManualObjectMaterial = MaterialManager::getSingleton().create("Red","axis", true);
 	myManualObjectMaterial->setReceiveShadows(false); 
@@ -299,6 +299,10 @@ void S3DViewer::defineMaterials()
 	myManualObjectMaterial->getTechnique(0)->getPass(0)->setDiffuse(1,0,1,0); 
 	myManualObjectMaterial->getTechnique(0)->getPass(0)->setAmbient(1,0,1); 
 	myManualObjectMaterial->getTechnique(0)->getPass(0)->setSelfIllumination(1,0,1);
+	
+	myManualObjectMaterial = MaterialManager::getSingleton().getByName("BaseWhiteNoLighting");
+	myManualObjectMaterial->setTransparencyCastsShadows(true);
+	myManualObjectMaterial->setSceneBlending(SBF_SOURCE_ALPHA, SBF_ONE);
 }
 
 ManualObject* S3DViewer::createAxis(const std::string& strName, float scale)

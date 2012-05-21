@@ -20,6 +20,7 @@ int main()
 	Joint* model = ymlBJ.getModel();//temporary model
 	
 	S3DViewer viewer;//Declaration of viewer
+	viewer.setOptions(true, false, true);
 	
 	//******************************************
 	//*************INITIALISATION***************

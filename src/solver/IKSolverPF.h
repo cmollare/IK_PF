@@ -20,4 +20,5 @@ class IKSolverPF : public IKSolver
 		void resample();
 		
 		Eigen::VectorXf mCurrentWeights;
+		int mMaxWeightIndex;
 };

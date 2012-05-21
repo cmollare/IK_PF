@@ -13,6 +13,7 @@ IKSolverPF::IKSolverPF(std::vector<S3DModel*> mods, std::vector<std::string> pos
 		else
 			mJointNameToPos[jtNames[i]]=i;
 	}
+	mMaxWeightIndex=0;
 }
 
 void IKSolverPF::initFilter()
@@ -211,14 +212,29 @@ void IKSolverPF::updateWeights()
 {
 	float sum=0;
 	this->computeLikelihood();
+	mModels[mMaxWeightIndex]->setPrincipal(false);
 	
 	for (int i=0 ; i<mCurrentLikelihood.size() ; i++)
 	{
 		mCurrentWeights[i] = mCurrentWeights[i]*mCurrentLikelihood[i];
 		sum+=mCurrentWeights[i];
+		
+		/*if(mCurrentWeights[i]>=mCurrentWeights[mMaxWeightIndex])
+		{
+			mMaxWeightIndex=i;
+		}*/
 	}
+	for (int i=0 ; i<mCurrentLikelihood.size() ; i++)
+	{
+		if(mCurrentWeights[i]>=mCurrentWeights[mMaxWeightIndex])
+		{
+			mMaxWeightIndex=i;
+		}
+	}
+	
 	mCurrentWeights/=sum;
-	//cout << mCurrentWeights << endl;
+	mModels[mMaxWeightIndex]->setPrincipal(true);
+	cout << mMaxWeightIndex << endl;
 }
 
 void IKSolverPF::resample()
