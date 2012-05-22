@@ -221,6 +221,92 @@ void IKSolverPF::step()
 		this->resample();
 }
 
+void IKSolverPF::stepAlt()
+{
+	for (int i=0 ; i<mModels.size() ; i++)
+	{
+		mModels[i]->setPrincipal(true);
+		for (int j=0 ; j < mOrientationVec[i].size() ; j++)
+		{
+			bool valide = true;
+			//Eigen::Quaterniond quat = mDefaultOrientationVec[i][j];
+			Eigen::Quaterniond quat = (*mOrientationVec[i][j]);
+			Eigen::Vector3d offs;
+			if (mConstOffsetVec[i][j] == OFFSET_CONST_FREE)
+			{
+				offs = mOffsetVec[i][j]->vector();
+			}
+			else
+			{
+				offs = mOffsetVec[i][j]->vector();
+				//offs = mDefaultOffsetVec[i][j].vector();
+			}
+			while(valide)
+			{
+				valide = false;
+				if (mConstOrientVec[i][j] == ORIENT_CONST_FREE)
+				{
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 1, 1, 1, 1);//A modifier suivant les contraintes
+				}
+				else if(mConstOrientVec[i][j] == ORIENT_CONST_TWIST)
+				{
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 0.5, 0.1, 0.05);
+				}
+				else if(mConstOrientVec[i][j] == ORIENT_CONST_FLEX)
+				{
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 0.1, 1, 0.05);
+				}
+				else if(mConstOrientVec[i][j] == ORIENT_CONST_TFLEX)
+				{
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 1, 0.1);
+				}
+				else if(mConstOrientVec[i][j] == ORIENT_CONST_BIFLEX)
+				{
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 0.1, 1, 1);
+				}
+				else if(mConstOrientVec[i][j] == ORIENT_CONST_FIXED)
+				{
+					(*mOrientationVec[i][j]) = (*mOrientationVec[i][j]);
+				}
+				else
+				{
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 1, 1);
+				}
+				mOrientationVec[i][j]->normalize();
+
+				Eigen::Vector3d tempo;
+				if (mConstOffsetVec[i][j] == OFFSET_CONST_FREE)
+				{
+					tempo = Eigen::Vector3d(this->randn()*0.01, this->randn()*0.01, this->randn()*0.01);
+				}
+				else if (mConstOffsetVec[i][j] == OFFSET_CONST_BONE)
+				{
+					tempo = Eigen::Vector3d(this->randn()*0.01, 0, 0);
+				}
+				else if (mConstOffsetVec[i][j] == OFFSET_CONST_FIXED)
+				{
+					tempo = Eigen::Vector3d(0, 0, 0);
+				}
+				tempo+=offs;
+				(*mOffsetVec[i][j])=Eigen::Translation3d(tempo);//A modifier suivant les contraintes
+
+				//To avoid infinite and NaN cases
+				valide |= ((mOffsetVec[i][j]->x() == std::numeric_limits<double>::infinity()) || (mOffsetVec[i][j]->y() == std::numeric_limits<double>::infinity()) || (mOffsetVec[i][j]->z() == std::numeric_limits<double>::infinity()));
+				valide |= ((mOffsetVec[i][j]->x() == -std::numeric_limits<double>::infinity()) || (mOffsetVec[i][j]->y() == -std::numeric_limits<double>::infinity()) || (mOffsetVec[i][j]->z() == -std::numeric_limits<double>::infinity()));
+				valide |= (mOrientationVec[i][j]->w() != mOrientationVec[i][j]->w());
+			}
+			
+			
+		}
+	}
+	
+	this->updateWeights();
+	double Neff = this->computeNeff();;
+	//cout << Neff << "****" << endl;
+	if (Neff < 1.5 || Neff < mModels.size()*0.1)
+		this->resample();
+}
+
 double IKSolverPF::computeNeff()
 {
 	return 1./(mCurrentWeights.dot(mCurrentWeights));
