@@ -85,19 +85,19 @@ BJoints:
      Parent: HipLeft
      Offset: {X: 0.1, Y: 0.0, Z: 0.0}
      Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-     ConstOff: Fixed
+     ConstOff: Bone
      ConstOrient: Fixed
    - Joint: AnkleLeft
      Parent: KneeLeft
      Offset: {X: 0.1, Y: 0.0, Z: 0.0}
      Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-     ConstOff: Fixed
+     ConstOff: Bone
      ConstOrient: Fixed
    - Joint: FootLeft
      Parent: AnkleLeft
      Offset: {X: 0.1, Y: 0.0, Z: 0.0}
      Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-     ConstOff: Fixed
+     ConstOff: Bone
      ConstOrient: Fixed
    - Joint: HipRight
      Parent: HipCenter
@@ -109,19 +109,19 @@ BJoints:
      Parent: HipRight
      Offset: {X: 0.1, Y: 0.0, Z: 0.0}
      Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-     ConstOff: Fixed
+     ConstOff: Bone
      ConstOrient: Fixed
    - Joint: AnkleRight
      Parent: KneeRight
      Offset: {X: 0.1, Y: 0.0, Z: 0.0}
      Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-     ConstOff: Fixed
+     ConstOff: Bone
      ConstOrient: Fixed
    - Joint: FootRight
      Parent: AnkleRight
      Offset: {X: 0.1, Y: 0.0, Z: 0.0}
      Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-     ConstOff: Fixed
+     ConstOff: Bone
      ConstOrient: Fixed
 BPartsColors:
    - {b: 0, g: 0, r: 0}
