@@ -222,19 +222,35 @@ Eigen::Transform<double, 3, Eigen::Affine> Joint::getTransformationMatrix()
 
 Eigen::Transform<double, 3, Eigen::Affine> Joint::getGlobalTransformationMatrix()
 {
+	std::vector<std::string> names;
 	Joint* jt = this;
 	Eigen::Transform<double, 3, Eigen::Affine> result = jt->getTransformationMatrix();
+	Eigen::Transform<double, 3, Eigen::Affine> resultBis;
+	resultBis.setIdentity();
 	
+	names.push_back(jt->getName());
 	while(jt->getParent() != NULL)
 	{
 		jt = jt->getParent();
 		result = jt->getTransformationMatrix()*result;
+		names.push_back(jt->getName());
 		//cout << result.matrix() << endl;
 		/*cout << jt->getTransformationMatrix().translation() << endl;
 		cout << jt->getTransformationMatrix().rotation() << endl;//*/
 		//cout << "******** "<< jt->getName() <<" *****" << endl;//*/
 	}
 	
+	/*for(int i=names.size()-1 ; i>=0 ; i--)
+	{
+		//cout << names[i] << endl;
+		resultBis = resultBis*jt->getJointFromName(names[i])->getTransformationMatrix();
+		//cout << names[i] << endl;
+	}*/
+	
+	//cout << result.matrix() << endl;
+	//cout << resultBis.matrix() << endl;
+	//cout << "***********" << endl;
+	//cout << resultBis.rotation() << endl;
 	return result;
 }
 

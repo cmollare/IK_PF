@@ -144,24 +144,18 @@ void S3DViewer::initModels(std::vector<S3DModel*>& models)
 			oss << jt->getName() << "_" << i;
 			
 			//Orientation of Joint
-			//Eigen::Quaternionf vQuat = *(jt->getOrientation());
-			Eigen::Matrix3d temp = jt->getGlobalTransformationMatrix().rotation();
-			Eigen::Quaterniond vQuat(temp);
+			Eigen::Quaterniond vQuat = *(jt->getOrientation());
 			Ogre::Quaternion quat(vQuat.w(), vQuat.x(), vQuat.y(), vQuat.z());
 
 			//offset
-			//Eigen::Translation3f vOff = *(jt->getOffset());
-			Eigen::Translation3d vOff(jt->getGlobalTransformationMatrix().translation());
+			Eigen::Translation3d vOff = *(jt->getOffset());
 			Vector3 offset(vOff.x(), vOff.y(), vOff.z());
 			
 			//Creation of sceneNode with orientation and offset
-			//SceneNode *node = mSceneMgr->getSceneNode("Particles")->createChildSceneNode(oss.str(), offset, quat);
-			//au choix
-			SceneNode *node = mSceneMgr->getSceneNode("Particles")->createChildSceneNode(oss.str());
-			node->_setDerivedOrientation(quat);
-			node->_setDerivedPosition(offset);
+			SceneNode *node = mSceneMgr->getSceneNode("Particles")->createChildSceneNode(oss.str(), offset, quat);
+
 			//cout << oss.str() << " " << node->_getDerivedPosition() << endl;
-			//cout << oss.str() << " " << node->_getFullTransform() << endl;
+			//cout << oss.str() << " " << node->_getDerivedOrientation() << endl;
 
 			snNames[jt->getName()]=oss.str();
 
@@ -179,13 +173,13 @@ void S3DViewer::initModels(std::vector<S3DModel*>& models)
 			mModelSNNames.push_back(snNames);
 		}
 	}
-	cout << "pouet" << endl;
-	Eigen::Vector3d vec = models[0]->getRootJoint()->getJointFromName("HandLeft")->getXYZVect();
+	
+	/*cout << "pouet" << endl;
+	Eigen::Vector3d vec = models[0]->getRootJoint()->getJointFromName("HandRight")->getXYZVect();
 	cout << vec << endl;
-	cout << models[0]->getRootJoint()->getJointFromName("HandLeft")->getGlobalTransformationMatrix().matrix();
 	Ogre::SceneNode *node = mSceneMgr->getSceneNode("Debug")->createChildSceneNode("lol", Ogre::Vector3(vec[0], vec[1], vec[2]));
 	node->attachObject(createAxis("Axis_lol",0.1));
-	cout << "pouetfin" << endl;
+	cout << "pouetfin" << endl;//*/
 	
 	/*for(int i=0 ; i<mModelSNNames.size() ; i++)
 	{
@@ -227,7 +221,7 @@ void S3DViewer::update(std::vector<S3DModel*>& models)
 		for (int j=0 ; j<nameVec.size() ; j++)
 		{
 			Eigen::Quaterniond vQuat = *(models[i]->getJoint(nameVec[j])->getOrientation());
-			Ogre::Quaternion quat((float)vQuat.w(), (float)vQuat.x(), (float)vQuat.y(), (float)vQuat.z());
+			Ogre::Quaternion quat((double)vQuat.w(), (double)vQuat.x(), (double)vQuat.y(), (double)vQuat.z());
 			Eigen::Translation3d vOff = *(models[i]->getJoint(nameVec[j])->getOffset());
 			
 			Vector3 offset(vOff.x(), vOff.y(), vOff.z());
@@ -249,25 +243,26 @@ void S3DViewer::initModels(std::vector<Joint*>& jts, SceneNode *node, int modelN
 			ostringstream oss;
 			oss << jts[i]->getName() << "_" << modelNum;
 			
-			//Eigen::Quaternionf vQuat = *(jts[i]->getOrientation());
-			Eigen::Matrix3d temp = jts[i]->getGlobalTransformationMatrix().rotation();
-			Eigen::Quaterniond vQuat(temp);
+			Eigen::Quaterniond vQuat = *(jts[i]->getOrientation());
+			//Eigen::Matrix3d temp = jts[i]->getGlobalTransformationMatrix().rotation();
+			//Eigen::Quaterniond vQuat(temp);//*/
+			//cout << vQuat.w() << " " << vQuat.x() << " " << vQuat.y() << " " << vQuat.z() << endl;
 			Ogre::Quaternion quat(vQuat.w(), vQuat.x(), vQuat.y(), vQuat.z());
 			
 			//offset
-			//Eigen::Translation3f vOff = *(jts[i]->getOffset());
-			Eigen::Translation3d vOff(jts[i]->getGlobalTransformationMatrix().translation());
+			Eigen::Translation3d vOff = *(jts[i]->getOffset());
+			//Eigen::Translation3d vOff(jts[i]->getGlobalTransformationMatrix().translation());
 			Vector3 offset(vOff.x(), vOff.y(), vOff.z());
 			
 			//Creation of node with orientation and offset
-			//SceneNode *childNode = node->createChildSceneNode(oss.str(), offset, quat);
+			SceneNode *childNode = node->createChildSceneNode(oss.str(), offset, quat);
 			//au choix
-			SceneNode *childNode = node->createChildSceneNode(oss.str());
+			/*SceneNode *childNode = node->createChildSceneNode(oss.str());
 			childNode->_setDerivedOrientation(quat);
-			childNode->_setDerivedPosition(offset);
+			childNode->_setDerivedPosition(offset);//*/
 			
-			cout << oss.str() << " " << childNode->_getDerivedPosition() << endl;
-			cout << oss.str() << " " << childNode->_getFullTransform() << endl;
+			//cout << oss.str() << " " << childNode->_getDerivedPosition() << endl;
+			//cout << oss.str() << " " << childNode->_getDerivedOrientation() << endl;
 			snNames[jts[i]->getName()]=oss.str();
 			
 			if (mDisplayAxis)//option to display axis

@@ -96,6 +96,7 @@ void operator >> (const YAML::Node& node, vector<SBJoints, Eigen::aligned_alloca
 void operator>> (const YAML::Node& node, Eigen::Quaterniond& quat)
 {
 	quat = Eigen::Quaterniond(node["W"].to<double>(), node["X"].to<double>(), node["Y"].to<double>(), node["Z"].to<double>());
+	quat.normalize();
 }
 
 void operator>> (const YAML::Node& node, vector<double>& Offset)

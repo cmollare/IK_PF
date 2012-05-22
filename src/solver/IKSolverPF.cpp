@@ -73,6 +73,7 @@ void IKSolverPF::initFilter()
 				{
 					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 1, 1);
 				}
+				mOrientationVec[i][j]->normalize();
 				
 				Eigen::Vector3d tempo;
 				if (mConstOffsetVec[i][j] == OFFSET_CONST_FREE)
@@ -185,6 +186,7 @@ void IKSolverPF::step()
 				{
 					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 1, 1);
 				}
+				mOrientationVec[i][j]->normalize();
 
 				Eigen::Vector3d tempo;
 				if (mConstOffsetVec[i][j] == OFFSET_CONST_FREE)
