@@ -30,7 +30,7 @@ class IKSolver
 		virtual void initFilter()=0;
 		virtual void computeLikelihood()=0;
 		virtual void step()=0;
-		Eigen::Quaternionf sampleQuTEM(Eigen::Quaternionf mean, float sigma, float sigma1=1, float sigma2=1, float sigma3=1);
+		Eigen::Quaterniond sampleQuTEM(Eigen::Quaterniond mean, double sigma, double sigma1=1, double sigma2=1, double sigma3=1);
 		
 	protected:
 		virtual void computeDistance()=0;
@@ -40,18 +40,18 @@ class IKSolver
 		 * \brief Sampling from a normal distribution using the Box-Muller algorithm
 		 * \return A float sampled following a normal distribution.
 		 */
-		float randn();
-		float randUnif(float sup=1.0);
+		double randn();
+		double randUnif(double sup=1.0);
 		
 		std::map<std::string, std::string> mJointNameToPosName; /*!< Map between Joint Names file and animation file */
 		std::map<std::string, int> mJointNameToPos;
 		std::map<std::string, int> mJointNameToInt; /*!< Name of the Joint to its position in the orientation vector */
 		
 		std::vector<S3DModel*> mModels;
-		std::vector<std::vector<Eigen::Quaternionf*, Eigen::aligned_allocator<Eigen::Quaternionf*> > > mOrientationVec;
-		std::vector<std::vector<Eigen::Translation3f*, Eigen::aligned_allocator<Eigen::Translation3f*> > > mOffsetVec;
-		std::vector<std::vector<Eigen::Quaternionf, Eigen::aligned_allocator<Eigen::Quaternionf> > > mDefaultOrientationVec;
-		std::vector<std::vector<Eigen::Translation3f, Eigen::aligned_allocator<Eigen::Translation3f> > > mDefaultOffsetVec;
+		std::vector<std::vector<Eigen::Quaterniond*, Eigen::aligned_allocator<Eigen::Quaterniond*> > > mOrientationVec;
+		std::vector<std::vector<Eigen::Translation3d*, Eigen::aligned_allocator<Eigen::Translation3d*> > > mOffsetVec;
+		std::vector<std::vector<Eigen::Quaterniond, Eigen::aligned_allocator<Eigen::Quaterniond> > > mDefaultOrientationVec;
+		std::vector<std::vector<Eigen::Translation3d, Eigen::aligned_allocator<Eigen::Translation3d> > > mDefaultOffsetVec;
 		std::vector<std::vector<std::string> > mNameVec;
 		std::vector<std::vector<std::string> > mConstOffsetVec;
 		std::vector<std::vector<std::string> > mConstOrientVec;

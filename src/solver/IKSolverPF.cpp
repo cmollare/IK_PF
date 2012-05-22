@@ -38,10 +38,10 @@ void IKSolverPF::initFilter()
 	{
 		for (int j=0 ; j < mOrientationVec[i].size() ; j++)
 		{
-			Eigen::Quaternionf quat = mDefaultOrientationVec[i][j];
+			Eigen::Quaterniond quat = mDefaultOrientationVec[i][j];
 			//quat.setIdentity();
 			bool valide = true;
-			Eigen::Vector3f offs = mDefaultOffsetVec[i][j].vector();
+			Eigen::Vector3d offs = mDefaultOffsetVec[i][j].vector();
 			while(valide)
 			{
 				valide = false;
@@ -74,13 +74,25 @@ void IKSolverPF::initFilter()
 					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 1, 1);
 				}
 				
-				Eigen::Vector3f tempo = Eigen::Vector3f(this->randn()*0.01, this->randn()*0.01, this->randn()*0.01);
+				Eigen::Vector3d tempo;
+				if (mConstOffsetVec[i][j] == OFFSET_CONST_FREE)
+				{
+					tempo = Eigen::Vector3d(this->randn()*0.01, this->randn()*0.01, this->randn()*0.01);
+				}
+				else if (mConstOffsetVec[i][j] == OFFSET_CONST_BONE)
+				{
+					tempo = Eigen::Vector3d(this->randn()*0.1, 0, 0);
+				}
+				else if (mConstOffsetVec[i][j] == OFFSET_CONST_FIXED)
+				{
+					tempo = Eigen::Vector3d(0, 0, 0);
+				}
 				tempo+=offs;
-				(*mOffsetVec[i][j])=Eigen::Translation3f(tempo);//A modifier suivant les contraintes
+				(*mOffsetVec[i][j])=Eigen::Translation3d(tempo);//A modifier suivant les contraintes
 
 				//To avoid infinite and NaN cases
-				valide |= ((mOffsetVec[i][j]->x() == std::numeric_limits<float>::infinity()) || (mOffsetVec[i][j]->y() == std::numeric_limits<float>::infinity()) || (mOffsetVec[i][j]->z() == std::numeric_limits<float>::infinity()));
-				valide |= ((mOffsetVec[i][j]->x() == -std::numeric_limits<float>::infinity()) || (mOffsetVec[i][j]->y() == -std::numeric_limits<float>::infinity()) || (mOffsetVec[i][j]->z() == -std::numeric_limits<float>::infinity()));
+				valide |= ((mOffsetVec[i][j]->x() == std::numeric_limits<double>::infinity()) || (mOffsetVec[i][j]->y() == std::numeric_limits<double>::infinity()) || (mOffsetVec[i][j]->z() == std::numeric_limits<double>::infinity()));
+				valide |= ((mOffsetVec[i][j]->x() == -std::numeric_limits<double>::infinity()) || (mOffsetVec[i][j]->y() == -std::numeric_limits<double>::infinity()) || (mOffsetVec[i][j]->z() == -std::numeric_limits<double>::infinity()));
 				valide |= (mOrientationVec[i][j]->w() != mOrientationVec[i][j]->w());
 			}//*/
 			
@@ -95,15 +107,15 @@ void IKSolverPF::computeDistance()
 	std::map<std::string, int>::iterator it;
 	for (int i=0 ; i<mModels.size() ; i++)
 	{
-		float distance=0;
+		double distance=0;
 		for (it = mJointNameToPos.begin() ; it != mJointNameToPos.end() ; it++)
 		{
 			if ((*it).second != -1)
 			{
-				Eigen::Vector3f jtPos = mModels[i]->getJoint((*it).first)->getXYZVect();
-				Eigen::Vector3f jtObs(mCurrentFrame[(*it).second][1], mCurrentFrame[(*it).second][2], mCurrentFrame[(*it).second][3]);
-				Eigen::Vector3f diff = jtPos - jtObs;
-				Eigen::Matrix3f cov;
+				Eigen::Vector3d jtPos = mModels[i]->getJoint((*it).first)->getXYZVect();
+				Eigen::Vector3d jtObs(mCurrentFrame[(*it).second][1], mCurrentFrame[(*it).second][2], mCurrentFrame[(*it).second][3]);
+				Eigen::Vector3d diff = jtPos - jtObs;
+				Eigen::Matrix3d cov;
 				cov.setIdentity();
 				distance += diff.transpose()*(cov*diff);
 			}
@@ -132,8 +144,8 @@ void IKSolverPF::step()
 		for (int j=0 ; j < mOrientationVec[i].size() ; j++)
 		{
 			bool valide = true;
-			Eigen::Quaternionf quat = mDefaultOrientationVec[i][j];
-			Eigen::Vector3f offs;
+			Eigen::Quaterniond quat = mDefaultOrientationVec[i][j];
+			Eigen::Vector3d offs;
 			if (mConstOffsetVec[i][j] == OFFSET_CONST_FREE)
 			{
 				offs = mOffsetVec[i][j]->vector();
@@ -147,11 +159,11 @@ void IKSolverPF::step()
 				valide = false;
 				if (mConstOrientVec[i][j] == ORIENT_CONST_FREE)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 1, 1);//A modifier suivant les contraintes
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 1, 1, 1, 1);//A modifier suivant les contraintes
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_TWIST)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 0.1, 0.05);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 0.5, 0.1, 0.05);
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_FLEX)
 				{
@@ -174,21 +186,25 @@ void IKSolverPF::step()
 					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 1, 1);
 				}
 
-				Eigen::Vector3f tempo;
+				Eigen::Vector3d tempo;
 				if (mConstOffsetVec[i][j] == OFFSET_CONST_FREE)
 				{
-					tempo = Eigen::Vector3f(this->randn()*0.01, this->randn()*0.01, this->randn()*0.01);
+					tempo = Eigen::Vector3d(this->randn()*0.01, this->randn()*0.01, this->randn()*0.01);
 				}
 				else if (mConstOffsetVec[i][j] == OFFSET_CONST_BONE)
 				{
-					tempo = Eigen::Vector3f(this->randn()*0.1, 0, 0);
+					tempo = Eigen::Vector3d(this->randn()*0.01, 0, 0);
+				}
+				else if (mConstOffsetVec[i][j] == OFFSET_CONST_FIXED)
+				{
+					tempo = Eigen::Vector3d(0, 0, 0);
 				}
 				tempo+=offs;
-				(*mOffsetVec[i][j])=Eigen::Translation3f(tempo);//A modifier suivant les contraintes
+				(*mOffsetVec[i][j])=Eigen::Translation3d(tempo);//A modifier suivant les contraintes
 
 				//To avoid infinite and NaN cases
-				valide |= ((mOffsetVec[i][j]->x() == std::numeric_limits<float>::infinity()) || (mOffsetVec[i][j]->y() == std::numeric_limits<float>::infinity()) || (mOffsetVec[i][j]->z() == std::numeric_limits<float>::infinity()));
-				valide |= ((mOffsetVec[i][j]->x() == -std::numeric_limits<float>::infinity()) || (mOffsetVec[i][j]->y() == -std::numeric_limits<float>::infinity()) || (mOffsetVec[i][j]->z() == -std::numeric_limits<float>::infinity()));
+				valide |= ((mOffsetVec[i][j]->x() == std::numeric_limits<double>::infinity()) || (mOffsetVec[i][j]->y() == std::numeric_limits<double>::infinity()) || (mOffsetVec[i][j]->z() == std::numeric_limits<double>::infinity()));
+				valide |= ((mOffsetVec[i][j]->x() == -std::numeric_limits<double>::infinity()) || (mOffsetVec[i][j]->y() == -std::numeric_limits<double>::infinity()) || (mOffsetVec[i][j]->z() == -std::numeric_limits<double>::infinity()));
 				valide |= (mOrientationVec[i][j]->w() != mOrientationVec[i][j]->w());
 			}
 			
@@ -197,20 +213,20 @@ void IKSolverPF::step()
 	}
 	
 	this->updateWeights();
-	float Neff = this->computeNeff();;
+	double Neff = this->computeNeff();;
 	//cout << Neff << "****" << endl;
 	if (Neff < 1.5 || Neff < mModels.size()*0.1)
 		this->resample();
 }
 
-float IKSolverPF::computeNeff()
+double IKSolverPF::computeNeff()
 {
 	return 1./(mCurrentWeights.dot(mCurrentWeights));
 }
 
 void IKSolverPF::updateWeights()
 {
-	float sum=0;
+	double sum=0;
 	this->computeLikelihood();
 	mModels[mMaxWeightIndex]->setPrincipal(false);
 	
@@ -239,7 +255,7 @@ void IKSolverPF::updateWeights()
 
 void IKSolverPF::resample()
 {
-	float invNbSamp = 1./mModels.size();
+	double invNbSamp = 1./mModels.size();
 	Eigen::VectorXf cdf(mModels.size());
 	cdf[0]=mCurrentWeights[0];
 	for (int i=1 ; i<mModels.size() ; i++)
@@ -248,7 +264,7 @@ void IKSolverPF::resample()
 	}
 	
 	int i=0;
-	float u = randUnif(invNbSamp);
+	double u = randUnif(invNbSamp);
 	for (int j=0 ; j<mModels.size() ; j++)
 	{
 		while(u>cdf[i])

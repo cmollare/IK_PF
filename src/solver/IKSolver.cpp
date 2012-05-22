@@ -6,9 +6,9 @@ IKSolver::IKSolver(std::vector<S3DModel*> mods)
 	mModels = mods;
 }
 
-Eigen::Quaternionf IKSolver::sampleQuTEM(Eigen::Quaternionf mean, float sigma, float sigma1, float sigma2, float sigma3)
+Eigen::Quaterniond IKSolver::sampleQuTEM(Eigen::Quaterniond mean, double sigma, double sigma1, double sigma2, double sigma3)
 {
-	Eigen::Vector4f axis(0, this->randn(), this->randn(), this->randn());
+	Eigen::Vector4d axis(0, this->randn(), this->randn(), this->randn());
 	
 	//N
 	axis.normalize();
@@ -17,37 +17,37 @@ Eigen::Quaternionf IKSolver::sampleQuTEM(Eigen::Quaternionf mean, float sigma, f
 	axis[3]=axis[3]*sigma3;
 	
 	//theta
-	float theta = this->randn()*sigma;
+	double theta = this->randn()*sigma;
 	
 	//exp(N*theta)
-	axis=axis*sin(theta);
-	axis[0]=cos(theta);
+	axis=axis*(double)sin(theta);
+	axis[0]=(double)cos(theta);
 	
 	//to quaternion
-	Eigen::Quaternionf quat(axis[0], axis[1], axis[2], axis[3]);
+	Eigen::Quaterniond quat(axis[0], axis[1], axis[2], axis[3]);
 	quat = mean*quat;
 	
 	return quat;
 }
 
-float IKSolver::randn()
+double IKSolver::randn()
 {
 	/*int U1int = rand()%10001;
 	int U2int = rand()%10001;
 	float U1 = (float)U1int / 10001.;
 	float U2 = (float)U2int / 10001.;*/
-	float U1 = randUnif();
-	float U2 = randUnif();
+	double U1 = randUnif();
+	double U2 = randUnif();
 	
-	float X = sqrt(-2*log(U1))*cos(2*3.14*U2);
-	float Y = sqrt(-2*log(U1))*sin(2*3.14*U2);
+	double X = sqrt(-2*log(U1))*cos(2*3.14*U2);
+	double Y = sqrt(-2*log(U1))*sin(2*3.14*U2);
 	return X;
 }
 
-float IKSolver::randUnif(float sup)
+double IKSolver::randUnif(double sup)
 {
 	int Uint = rand()%10001;
-	float U = (float)Uint / 10001.;
+	double U = (double)Uint / 10001.;
 	U*=sup;
 	return U;
 }

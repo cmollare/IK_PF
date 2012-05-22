@@ -12,7 +12,7 @@ class IKSolverPF : public IKSolver
 		virtual void initFilter();
 		virtual void computeLikelihood();
 		virtual void step();
-		float computeNeff();
+		double computeNeff();
 		
 	protected:
 		virtual void computeDistance();

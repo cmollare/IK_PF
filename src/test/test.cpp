@@ -6,7 +6,7 @@
 #include "../viewer/S3DViewer.h"
 #include "../solver/IKSolverPF.h"
 
-#define NBMODELS 100
+#define NBMODELS 1
 
 using namespace std;
 
@@ -20,7 +20,7 @@ int main()
 	Joint* model = ymlBJ.getModel();//temporary model
 	
 	S3DViewer viewer;//Declaration of viewer
-	viewer.setOptions(true, false, true);
+	viewer.setOptions(true, true, true);
 	
 	//******************************************
 	//*************INITIALISATION***************
@@ -71,8 +71,8 @@ int main()
 	while (continuer)
 	{
 		//for(int i=0 ; i<200000 ; i++){cout << "lol" << endl;}
-		iksol.step();
-		viewer.update(mods);
+		//iksol.step();
+		//viewer.update(mods);
 		continuer = viewer.isRendering();
 	}
 	

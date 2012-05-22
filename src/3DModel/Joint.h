@@ -50,7 +50,7 @@ class Joint
 		 * \param offset Position relative to the parent joint.
 		 * \param quat Local orientation of the joint.
 		 */
-		Joint(string name, Joint *parent=NULL, vector<float> offset=vector<float>(3,0), Eigen::Quaternionf quat=Eigen::Quaternionf(1,0,0,0));
+		Joint(string name, Joint *parent=NULL, vector<double> offset=vector<double>(3,0), Eigen::Quaterniond quat=Eigen::Quaterniond(1,0,0,0));
 		
 		/*!
 		 * \brief Joint copy constructor
@@ -142,7 +142,7 @@ class Joint
 		 * \param quat Local orientation of the Joint.
 		 * \return Pointer on the new created Joint.
 		 */
-		Joint* addChild(std::string name, vector<float> offset=vector<float>(3,0), Eigen::Quaternionf quat=Eigen::Quaternionf(1,0,0,0));
+		Joint* addChild(std::string name, vector<double> offset=vector<double>(3,0), Eigen::Quaterniond quat=Eigen::Quaterniond(1,0,0,0));
 		
 		/*!
 		 * \brief Add a child to this Joint
@@ -159,7 +159,7 @@ class Joint
 		 * \brief Set the Joint new local orientation
 		 * \param quat Joint local orientation.
 		 */
-		void setOrientation(const Eigen::Quaternionf quat);
+		void setOrientation(const Eigen::Quaterniond quat);
 		
 		void setConstraints(const std::string offset=OFFSET_CONST_FREE, const std::string orientation=ORIENT_CONST_FREE);
 		
@@ -167,17 +167,17 @@ class Joint
 		 * \brief Get the Joint local orientation.
 		 * \return Quaternion of Joint local orientation.
 		 */
-		Eigen::Quaternionf* getOrientation();
+		Eigen::Quaterniond* getOrientation();
 		
-		const Eigen::Quaternionf getDefaultOrientation();
+		const Eigen::Quaterniond getDefaultOrientation();
 		
 		/*!
 		 * \brief Get relative position from parent
 		 * \return Translation vector
 		 */
-		Eigen::Translation3f* getOffset();
+		Eigen::Translation3d* getOffset();
 		
-		const Eigen::Translation3f getDefaultOffset();
+		const Eigen::Translation3d getDefaultOffset();
 		
 		/*!
 		 * \brief Get world position
@@ -186,7 +186,7 @@ class Joint
 		 * 
 		 * \return A vector of (X,Y,Z) position.
 		 */
-		const Eigen::Vector3f getXYZVect();
+		const Eigen::Vector3d getXYZVect();
 		
 		/*!
 		 * \brief Get the transformation Matrix
@@ -195,7 +195,9 @@ class Joint
 		 * 
 		 * \return Return the 4x4 transformation Matrix.
 		 */
-		Eigen::Transform<float, 3, Eigen::Projective> getTransformationMatrix();
+		Eigen::Transform<double, 3, Eigen::Affine> getTransformationMatrix();
+		
+		Eigen::Transform<double, 3, Eigen::Affine> getGlobalTransformationMatrix();
 		
 		std::string getOffsetConstraint();
 		std::string getOrientationConstraint();
@@ -210,11 +212,11 @@ class Joint
 		std::vector<float> mColors; /*!< Color of the Joint */
 		bool mIsPrincipal;
 		
-		Eigen::Quaternionf mQDefault;
-		Eigen::Quaternionf mQLocal; /*!< Joint local orientation */
+		Eigen::Quaterniond mQDefault;
+		Eigen::Quaterniond mQLocal; /*!< Joint local orientation */
 		//Eigen::Matrix2f mQCurrent;
-		Eigen::Translation3f mDefaultOffset;
-		Eigen::Translation3f mLocalOffset;/*!< Joint relative position to parent */
+		Eigen::Translation3d mDefaultOffset;
+		Eigen::Translation3d mLocalOffset;/*!< Joint relative position to parent */
 		//float mCurrentOffset;
 		
 		std::string mOffsetConst; /*!< Constraint on offset */

@@ -1,6 +1,6 @@
 #include "Joint.h"
 
-Joint::Joint(string name, Joint *parent, vector<float> offset, Eigen::Quaternionf quat)
+Joint::Joint(string name, Joint *parent, vector<double> offset, Eigen::Quaterniond quat)
 {
 	mParentJoint = parent;
 	mName = name;
@@ -8,9 +8,9 @@ Joint::Joint(string name, Joint *parent, vector<float> offset, Eigen::Quaternion
 	mQLocal = quat;
 
 	if (offset.size() == 3)
-		mLocalOffset = Eigen::Translation3f(offset[0], offset[1], offset[2]);
+		mLocalOffset = Eigen::Translation3d(offset[0], offset[1], offset[2]);
 	else
-		mLocalOffset = Eigen::Translation3f(0, 0, 0);
+		mLocalOffset = Eigen::Translation3d(0, 0, 0);
 		
 	mDefaultOffset = mLocalOffset;
 	mQDefault = mQLocal;
@@ -20,7 +20,7 @@ Joint::Joint(string name, Joint *parent, vector<float> offset, Eigen::Quaternion
 	mColors.push_back(1);
 	mColors.push_back(0);
 	mColors.push_back(1);
-	mColors.push_back(0);
+	mColors.push_back(1);
 	
 	mIsPrincipal=false;
 }
@@ -165,7 +165,7 @@ std::vector<Joint*>& Joint::getChildren()
 	return mChildrenJoint;
 }
 
-Joint* Joint::addChild(std::string name, vector<float> offset, Eigen::Quaternionf quat)
+Joint* Joint::addChild(std::string name, vector<double> offset, Eigen::Quaterniond quat)
 {
 	Joint *jt = new Joint(name, this, offset, quat);
 	mChildrenJoint.push_back(jt);
@@ -178,7 +178,7 @@ Joint* Joint::addChild(Joint* jt)
 	return jt;
 }
 
-void Joint::setOrientation(Eigen::Quaternionf quat)
+void Joint::setOrientation(Eigen::Quaterniond quat)
 {
 	mQLocal = quat;
 }
@@ -190,43 +190,52 @@ void Joint::setConstraints(const std::string offset, const std::string orientati
 	//cout << mName << " " << mOffsetConst << " " << mOrientationConst << endl;
 }
 
-Eigen::Quaternionf* Joint::getOrientation()
+Eigen::Quaterniond* Joint::getOrientation()
 {
 	return &mQLocal;
 }
 
-const Eigen::Quaternionf Joint::getDefaultOrientation()
+const Eigen::Quaterniond Joint::getDefaultOrientation()
 {
 	return mQDefault;
 }
 
-Eigen::Translation3f* Joint::getOffset()
+Eigen::Translation3d* Joint::getOffset()
 {
 	return &mLocalOffset;
 }
 
-const Eigen::Translation3f Joint::getDefaultOffset()
+const Eigen::Translation3d Joint::getDefaultOffset()
 {
 	return mDefaultOffset;
 }
 
-const Eigen::Vector3f Joint::getXYZVect()
+const Eigen::Vector3d Joint::getXYZVect()
+{
+	return this->getGlobalTransformationMatrix().translation();
+}
+
+Eigen::Transform<double, 3, Eigen::Affine> Joint::getTransformationMatrix()
+{
+	return mLocalOffset*mQLocal;
+}
+
+Eigen::Transform<double, 3, Eigen::Affine> Joint::getGlobalTransformationMatrix()
 {
 	Joint* jt = this;
-	Eigen::Transform<float, 3, Eigen::Projective> result = jt->getTransformationMatrix();
+	Eigen::Transform<double, 3, Eigen::Affine> result = jt->getTransformationMatrix();
 	
 	while(jt->getParent() != NULL)
 	{
 		jt = jt->getParent();
 		result = jt->getTransformationMatrix()*result;
+		//cout << result.matrix() << endl;
+		/*cout << jt->getTransformationMatrix().translation() << endl;
+		cout << jt->getTransformationMatrix().rotation() << endl;//*/
+		//cout << "******** "<< jt->getName() <<" *****" << endl;//*/
 	}
 	
-	return result.translation();
-}
-
-Eigen::Transform<float, 3, Eigen::Projective> Joint::getTransformationMatrix()
-{
-	return mLocalOffset*mQLocal;
+	return result;
 }
 
 std::string Joint::getOffsetConstraint()
@@ -247,7 +256,7 @@ void Joint::setPrincipal(bool isPrincipal)
 		mColors[0] = 0;
 		mColors[1] = 1;
 		mColors[2] = 1;
-		mColors[3] = 0;
+		mColors[3] = 1;
 	}
 	else
 	{

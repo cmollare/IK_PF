@@ -85,13 +85,13 @@ class S3DModel
 		 * 
 		 * \return A vector of Eigen::quaternionf
 		 */
-		vector<Eigen::Quaternionf*, Eigen::aligned_allocator<Eigen::Quaternionf*> > getOrientationVec();
+		vector<Eigen::Quaterniond*, Eigen::aligned_allocator<Eigen::Quaterniond*> > getOrientationVec();
 		
-		vector<Eigen::Translation3f*, Eigen::aligned_allocator<Eigen::Translation3f*> > getOffsetVector();
+		vector<Eigen::Translation3d*, Eigen::aligned_allocator<Eigen::Translation3d*> > getOffsetVector();
 		
-		vector<Eigen::Quaternionf, Eigen::aligned_allocator<Eigen::Quaternionf> > getDefaultOrientationVec();
+		vector<Eigen::Quaterniond, Eigen::aligned_allocator<Eigen::Quaterniond> > getDefaultOrientationVec();
 		
-		vector<Eigen::Translation3f, Eigen::aligned_allocator<Eigen::Translation3f> > getDefaultOffsetVector();
+		vector<Eigen::Translation3d, Eigen::aligned_allocator<Eigen::Translation3d> > getDefaultOffsetVector();
 		
 		/*!
 		 * \fn vector<std::string> getNameVec()
@@ -110,7 +110,7 @@ class S3DModel
 			for (int i=0 ; i<mOrientationVec.size() ; i++)
 			{
 				cout << "****************" << endl;
-				cout << Eigen::Matrix3f(*mOrientationVec[i]) << endl;
+				cout << Eigen::Matrix3d(*mOrientationVec[i]) << endl;
 				cout << "****************" << endl;
 			}
 		}
@@ -162,10 +162,10 @@ class S3DModel
 		std::map<int, Joint*> mIntToJoint; /*!< mapping from Joints index to Joint pointers (for speed) */
 		int mNbJoints; /*!< total number of Joints */
 		
-		vector<Eigen::Quaternionf*, Eigen::aligned_allocator<Eigen::Quaternionf*> > mOrientationVec; /*!< Orientation vector */
-		vector<Eigen::Translation3f*, Eigen::aligned_allocator<Eigen::Translation3f*> > mOffsetVec;
-		vector<Eigen::Quaternionf, Eigen::aligned_allocator<Eigen::Quaternionf> > mDefaultOrientationVec;
-		vector<Eigen::Translation3f, Eigen::aligned_allocator<Eigen::Translation3f> > mDefaultOffsetVec;
+		vector<Eigen::Quaterniond*, Eigen::aligned_allocator<Eigen::Quaterniond*> > mOrientationVec; /*!< Orientation vector */
+		vector<Eigen::Translation3d*, Eigen::aligned_allocator<Eigen::Translation3d*> > mOffsetVec;
+		vector<Eigen::Quaterniond, Eigen::aligned_allocator<Eigen::Quaterniond> > mDefaultOrientationVec;
+		vector<Eigen::Translation3d, Eigen::aligned_allocator<Eigen::Translation3d> > mDefaultOffsetVec;
 		vector<std::string> mNameVec; /*!< Vector of Joint names */
 		vector<std::string> mConstOffsetVec;
 		vector<std::string> mConstOrientVec;

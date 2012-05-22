@@ -79,22 +79,22 @@ Joint* S3DModel::getJoint(std::string jtName)
 	return mStringToJoint[jtName];
 }
 
-vector<Eigen::Quaternionf*, Eigen::aligned_allocator<Eigen::Quaternionf*> > S3DModel::getOrientationVec()
+vector<Eigen::Quaterniond*, Eigen::aligned_allocator<Eigen::Quaterniond*> > S3DModel::getOrientationVec()
 {
 	return mOrientationVec;
 }
 
-vector<Eigen::Translation3f*, Eigen::aligned_allocator<Eigen::Translation3f*> > S3DModel::getOffsetVector()
+vector<Eigen::Translation3d*, Eigen::aligned_allocator<Eigen::Translation3d*> > S3DModel::getOffsetVector()
 {
 	return mOffsetVec;
 }
 
-vector<Eigen::Quaternionf, Eigen::aligned_allocator<Eigen::Quaternionf> > S3DModel::getDefaultOrientationVec()
+vector<Eigen::Quaterniond, Eigen::aligned_allocator<Eigen::Quaterniond> > S3DModel::getDefaultOrientationVec()
 {
 	return mDefaultOrientationVec;
 }
 		
-vector<Eigen::Translation3f, Eigen::aligned_allocator<Eigen::Translation3f> > S3DModel::getDefaultOffsetVector()
+vector<Eigen::Translation3d, Eigen::aligned_allocator<Eigen::Translation3d> > S3DModel::getDefaultOffsetVector()
 {
 	return mDefaultOffsetVec;
 }

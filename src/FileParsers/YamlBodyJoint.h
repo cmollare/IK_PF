@@ -22,8 +22,8 @@ typedef struct SBJoints
 	EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 	std::string Joint; /*!< Name of the Joint */
 	std::string Parent; /*!< Name of the parent = "_Root" if this Joint is the root */ 
-	vector<float> Offset; /*!< Position of the Joint relative to its parent */
-	Eigen::Quaternionf Orientation; /*!< Local orientation of the Joint */
+	vector<double> Offset; /*!< Position of the Joint relative to its parent */
+	Eigen::Quaterniond Orientation; /*!< Local orientation of the Joint */
 	std::string ConstOff; /*!< Constraint on the local offset of the Joint */
 	std::string ConstOrient; /*!< Constraint on the local orientation of the Joint */
 }SBJoints;
@@ -117,7 +117,7 @@ void operator>> (const YAML::Node& node, vector<SBJoints, Eigen::aligned_allocat
  * \param node Node to extract from.
  * \param quat Where to store the result.
  */
-void operator>> (const YAML::Node& node, Eigen::Quaternionf& quat);
+void operator>> (const YAML::Node& node, Eigen::Quaterniond& quat);
 
 /*!
  * \fn void operator>> (const YAML::Node& node, vector<float>& Offset)
@@ -125,6 +125,6 @@ void operator>> (const YAML::Node& node, Eigen::Quaternionf& quat);
  * \param node Node to extract from.
  * \param Offset Where to store the result.
  */
-void operator>> (const YAML::Node& node, vector<float>& Offset);
+void operator>> (const YAML::Node& node, vector<double>& Offset);
 
 #endif

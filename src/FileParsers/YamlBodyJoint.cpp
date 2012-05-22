@@ -93,15 +93,15 @@ void operator >> (const YAML::Node& node, vector<SBJoints, Eigen::aligned_alloca
 	}
 }
 
-void operator>> (const YAML::Node& node, Eigen::Quaternionf& quat)
+void operator>> (const YAML::Node& node, Eigen::Quaterniond& quat)
 {
-	quat = Eigen::Quaternionf(node["W"].to<float>(), node["X"].to<float>(), node["Y"].to<float>(), node["Z"].to<float>());
+	quat = Eigen::Quaterniond(node["W"].to<double>(), node["X"].to<double>(), node["Y"].to<double>(), node["Z"].to<double>());
 }
 
-void operator>> (const YAML::Node& node, vector<float>& Offset)
+void operator>> (const YAML::Node& node, vector<double>& Offset)
 {
-	Offset.push_back(node["X"].to<float>());
-	Offset.push_back(node["Y"].to<float>());
-	Offset.push_back(node["Z"].to<float>());
+	Offset.push_back(node["X"].to<double>());
+	Offset.push_back(node["Y"].to<double>());
+	Offset.push_back(node["Z"].to<double>());
 }
 
