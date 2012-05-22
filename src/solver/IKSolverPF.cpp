@@ -252,7 +252,7 @@ void IKSolverPF::updateWeights()
 	
 	mCurrentWeights/=sum;
 	mModels[mMaxWeightIndex]->setPrincipal(true);
-	cout << mMaxWeightIndex << endl;
+	//cout << mMaxWeightIndex << endl;
 }
 
 void IKSolverPF::resample()
