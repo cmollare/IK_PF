@@ -85,15 +85,31 @@ void IKSolverPF::initFilter()
 				}
 				else if (mConstOffsetVec[i][j] == OFFSET_CONST_PLANARXY)
 				{
-					tempo = Eigen::Vector3d(this->randn(0.01), this->randn(0.01), 0) + offs;
+					int i=0;
+					do
+					{
+						if (i>100)
+							break;
+						i++;
+						tempo = Eigen::Vector3d(this->randn(0.01), this->randn(0.01), 0) + offs;
+					}
+					while((isPositive(tempo[0]) != isPositive(offs[0])) || (isPositive(tempo[1]) != isPositive(offs[1])));
 				}
 				else if (mConstOffsetVec[i][j] == OFFSET_CONST_PLANARYZ)
 				{
-					tempo = Eigen::Vector3d(0, this->randn(0.01), this->randn(0.01)) + offs;
+					do
+					{
+						tempo = Eigen::Vector3d(0, this->randn(0.01), this->randn(0.01)) + offs;
+					}
+					while((isPositive(tempo[2]) != isPositive(offs[2])) || (isPositive(tempo[1]) != isPositive(offs[1])));
 				}
 				else if (mConstOffsetVec[i][j] == OFFSET_CONST_PLANARXZ)
 				{
-					tempo = Eigen::Vector3d(this->randn(0.01), 0, this->randn(0.01)) + offs;
+					do
+					{
+						tempo = Eigen::Vector3d(this->randn(0.01), 0, this->randn(0.01)) + offs;
+					}
+					while((isPositive(tempo[0]) != isPositive(offs[0])) || (isPositive(tempo[2]) != isPositive(offs[2])));
 				}
 				else if (mConstOffsetVec[i][j] == OFFSET_CONST_FIXED)
 				{
@@ -328,15 +344,27 @@ void IKSolverPF::stepAlt()
 				}
 				else if (mConstOffsetVec[i][j] == OFFSET_CONST_PLANARXY)
 				{
-					tempo = Eigen::Vector3d(this->randn(0.01), this->randn(0.01), 0)*variance + offs;
+					do
+					{
+						tempo = Eigen::Vector3d(this->randn(0.01), this->randn(0.01), 0)*variance + offs;
+					}
+					while((isPositive(tempo[0]) != isPositive(offs[0])) || (isPositive(tempo[1]) != isPositive(offs[1])));
 				}
 				else if (mConstOffsetVec[i][j] == OFFSET_CONST_PLANARYZ)
 				{
-					tempo = Eigen::Vector3d(0, this->randn(0.01), this->randn(0.01))*variance + offs;
+					do
+					{
+						tempo = Eigen::Vector3d(0, this->randn(0.01), this->randn(0.01))*variance + offs;
+					}
+					while((isPositive(tempo[2]) != isPositive(offs[2])) || (isPositive(tempo[1]) != isPositive(offs[1])));
 				}
 				else if (mConstOffsetVec[i][j] == OFFSET_CONST_PLANARXZ)
 				{
-					tempo = Eigen::Vector3d(this->randn(0.01), 0, this->randn(0.01))*variance + offs;
+					do
+					{
+						tempo = Eigen::Vector3d(this->randn(0.01), 0, this->randn(0.01))*variance + offs;
+					}
+					while((isPositive(tempo[0]) != isPositive(offs[0])) || (isPositive(tempo[2]) != isPositive(offs[2])));
 				}
 				else if (mConstOffsetVec[i][j] == OFFSET_CONST_FIXED)
 				{

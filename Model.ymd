@@ -23,7 +23,7 @@ BJoints:
      ConstOrient: Fixed
    - Joint: ShoulderLeft
      Parent: ShoulderCenter
-     Offset: {X: -0.1, Y: 0.0, Z: 0.0}
+     Offset: {X: -0.1, Y: -0.05, Z: 0.0}
      Orientation: {W: 0.0, X: 0.0, Y: 1.0, Z: 0.0}
      ConstOff: PlanarXY
      ConstOrient: Fixed
@@ -47,7 +47,7 @@ BJoints:
      ConstOrient: Fixed
    - Joint: ShoulderRight
      Parent: ShoulderCenter
-     Offset: {X: 0.1, Y: 0.0, Z: 0.0}
+     Offset: {X: 0.1, Y: -0.05, Z: 0.0}
      Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
      ConstOff: PlanarXY
      ConstOrient: Fixed
@@ -77,7 +77,7 @@ BJoints:
      ConstOrient: Fixed
    - Joint: HipLeft
      Parent: HipCenter
-     Offset: {X: -0.1, Y: 0.0, Z: 0.0}
+     Offset: {X: -0.1, Y: -0.05, Z: 0.0}
      Orientation: {W: 0.0, X: 0.707, Y: -0.707, Z: 0.0}
      ConstOff: PlanarXY
      ConstOrient: Fixed
@@ -101,7 +101,7 @@ BJoints:
      ConstOrient: Fixed
    - Joint: HipRight
      Parent: HipCenter
-     Offset: {X: 0.1, Y: 0.0, Z: 0.0}
+     Offset: {X: 0.1, Y: -0.05, Z: 0.0}
      Orientation: {W: 0.707, X: 0.0, Y: 0.0, Z: -0.707}
      ConstOff: PlanarXY
      ConstOrient: Fixed

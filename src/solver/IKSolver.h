@@ -34,6 +34,7 @@ class IKSolver
 		
 	protected:
 		virtual void computeDistance()=0;
+		virtual bool isPositive(double num);
 		
 		/*!
 		 * \fn float randn()

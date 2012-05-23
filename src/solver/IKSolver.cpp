@@ -59,3 +59,8 @@ double IKSolver::randUnif(double sup)
 	return U;
 }
 
+bool IKSolver::isPositive(double num)
+{
+	return num >= 0;
+}
+
