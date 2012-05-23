@@ -253,7 +253,7 @@ void Joint::setPrincipal(bool isPrincipal)
 		mColors[0] = 0;
 		mColors[1] = 1;
 		mColors[2] = 1;
-		mColors[3] = 1;
+		mColors[3] = 0.1;
 	}
 	else
 	{

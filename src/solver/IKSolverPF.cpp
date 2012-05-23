@@ -30,6 +30,7 @@ void IKSolverPF::initFilter()
 	{
 		for (int j=0 ; j < mOrientationVec[i].size() ; j++)
 		{
+			
 			Eigen::Quaterniond quat = mDefaultOrientationVec[i][j];
 			//quat.setIdentity();
 			bool invalide = false;
@@ -255,6 +256,16 @@ void IKSolverPF::stepAlt()
 		mModels[i]->setPrincipal(true);
 		for (int j=0 ; j < mOrientationVec[i].size() ; j++)
 		{
+			//double variance = log(1+mCurrentDistances[i])*5;
+			//double variance = (exp(mCurrentDistances[i])-1)/10.;
+			double variance = mCurrentDistances[i];
+			//variance=10;
+			cout << mCurrentDistances[i] << endl;
+			if (variance>100)
+			{
+				cout << "lol" << endl;
+				variance = 1;
+			}
 			bool invalide = false;
 			//Eigen::Quaterniond quat = mDefaultOrientationVec[i][j];
 			Eigen::Quaterniond quat = (*mOrientationVec[i][j]);
@@ -304,28 +315,28 @@ void IKSolverPF::stepAlt()
 				Eigen::Vector3d tempo;
 				if (mConstOffsetVec[i][j] == OFFSET_CONST_FREE)
 				{
-					tempo = Eigen::Vector3d(this->randn()*0.01, this->randn()*0.01, this->randn()*0.01) + offs;
+					tempo = Eigen::Vector3d(this->randn()*0.01, this->randn()*0.01, this->randn()*0.01)*variance + offs;
 				}
 				else if (mConstOffsetVec[i][j] == OFFSET_CONST_BONE)
 				{
 
 					do
 					{
-						tempo = Eigen::Vector3d(this->randn(0.01), 0, 0) + offs;
+						tempo = Eigen::Vector3d(this->randn(0.01), 0, 0)*variance + offs;
 					}
 					while (tempo[0] <= 0);
 				}
 				else if (mConstOffsetVec[i][j] == OFFSET_CONST_PLANARXY)
 				{
-					tempo = Eigen::Vector3d(this->randn(0.01), this->randn(0.01), 0) + offs;
+					tempo = Eigen::Vector3d(this->randn(0.01), this->randn(0.01), 0)*variance + offs;
 				}
 				else if (mConstOffsetVec[i][j] == OFFSET_CONST_PLANARYZ)
 				{
-					tempo = Eigen::Vector3d(0, this->randn(0.01), this->randn(0.01)) + offs;
+					tempo = Eigen::Vector3d(0, this->randn(0.01), this->randn(0.01))*variance + offs;
 				}
 				else if (mConstOffsetVec[i][j] == OFFSET_CONST_PLANARXZ)
 				{
-					tempo = Eigen::Vector3d(this->randn(0.01), 0, this->randn(0.01)) + offs;
+					tempo = Eigen::Vector3d(this->randn(0.01), 0, this->randn(0.01))*variance + offs;
 				}
 				else if (mConstOffsetVec[i][j] == OFFSET_CONST_FIXED)
 				{
