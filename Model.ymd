@@ -26,21 +26,21 @@ BJoints:
      Offset: {X: -0.1, Y: 0.0, Z: 0.0}
      Orientation: {W: 0.0, X: 0.0, Y: 1.0, Z: 0.0}
      ConstOff: Bone
-     ConstOrient: Free
+     ConstOrient: TFlex
    - Joint: ElbowLeft
      Parent: ShoulderLeft
      Offset: {X: 0.1, Y: 0.0, Z: 0.0}
      Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
      ConstOff: Bone
      ConstOrient: TFlex
-   - Joint: WristleLeft
+   - Joint: WristLeft
      Parent: ElbowLeft
      Offset: {X: 0.1, Y: 0.0, Z: 0.0}
      Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
      ConstOff: Bone
      ConstOrient: TFlex
    - Joint: HandLeft
-     Parent: WristleLeft
+     Parent: WristLeft
      Offset: {X: 0.1, Y: 0.0, Z: 0.0}
      Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
      ConstOff: Bone
@@ -50,7 +50,7 @@ BJoints:
      Offset: {X: 0.1, Y: 0.0, Z: 0.0}
      Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
      ConstOff: Bone
-     ConstOrient: Free
+     ConstOrient: TFlex
    - Joint: ElbowRight
      Parent: ShoulderRight
      Offset: {X: 0.1, Y: 0.0, Z: 0.0}

@@ -2,6 +2,8 @@
 #include "../3DModel/S3DModel.h"
 #include <vector>
 
+#define PI 0.1
+
 using namespace std;
 
 class IKSolverPF : public IKSolver
@@ -14,6 +16,7 @@ class IKSolverPF : public IKSolver
 		virtual void step();
 		virtual void stepAlt();
 		double computeNeff();
+		void mapJointToObs(std::map<std::string, std::string> jointNameToPosName);
 		
 	protected:
 		virtual void computeDistance();

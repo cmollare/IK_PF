@@ -6,7 +6,7 @@
 #include "../viewer/S3DViewer.h"
 #include "../solver/IKSolverPF.h"
 
-#define NBMODELS 100
+#define NBMODELS 2
 
 using namespace std;
 
@@ -33,8 +33,31 @@ int main()
 	}
 	
 	std::vector<std::vector<double> >& frame = fileParser->getFirstFrame();
+	std::map<std::string, std::string> jtsToPos; //A mettre dans un fichier
+	jtsToPos["Spine"] = "Spine";
+	jtsToPos["Head"] = "Head";
+	jtsToPos["ShoulderCenter"] = "ShoulderCenter";
+	jtsToPos["ShoulderLeft"] = "NULL";
+	jtsToPos["ShoulderRight"] = "NULL";
+	jtsToPos["ElbowLeft"] = "NULL";
+	jtsToPos["ElbowRight"] = "NULL";
+	jtsToPos["WristLeft"] = "NULL";
+	jtsToPos["WristRight"] = "NULL";
+	jtsToPos["HandLeft"] = "HandLeft";
+	jtsToPos["HandRight"] = "HandRight";
+	jtsToPos["HipCenter"] = "HipCenter";
+	jtsToPos["HipLeft"] = "NULL";
+	jtsToPos["HipRight"] = "NULL";
+	jtsToPos["KneeLeft"] = "NULL";
+	jtsToPos["KneeRight"] = "NULL";
+	jtsToPos["AnkleLeft"] = "NULL";
+	jtsToPos["AnkleRight"] = "NULL";
+	jtsToPos["FootLeft"] = "FootLeft";
+	jtsToPos["FootRight"] = "FootRight";
+	
 	
 	IKSolverPF iksol(mods, fileParser->getJointNames(), frame);//Declaration of solver
+	iksol.mapJointToObs(jtsToPos);
 	iksol.initFilter();
 	viewer.init();
 	viewer.initModels(mods);

@@ -2,17 +2,9 @@
 
 IKSolverPF::IKSolverPF(std::vector<S3DModel*> mods, std::vector<std::string> posNames, std::vector<std::vector<double> > jointsXYZPositions) : IKSolver(mods)
 {
-	vector<std::string> jtNames = mModels[0]->getNameVec();
 	mCurrentFrame = jointsXYZPositions;
-	for (int i=0 ; i < jtNames.size() ; i++)
-	{
-		mJointNameToPosName[jtNames[i]] = posNames[i];
-		mJointNameToInt[jtNames[i]] = i;
-		if (posNames[i]=="NULL")
-			mJointNameToPos[jtNames[i]]=-1;
-		else
-			mJointNameToPos[jtNames[i]]=i;
-	}
+	mPosNames = posNames;
+	
 	mMaxWeightIndex=0;
 }
 
@@ -47,23 +39,23 @@ void IKSolverPF::initFilter()
 				valide = false;
 				if (mConstOrientVec[i][j] == ORIENT_CONST_FREE)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 1, 1);//A modifier suivant les contraintes
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI, 1, 1, 1);//A modifier suivant les contraintes
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_TWIST)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 0.1, 0.05);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI, 1, 0.1, 0.05);
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_FLEX)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 0.1, 1, 0.05);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI, 0.1, 1, 0.05);
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_TFLEX)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 1, 0.1);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI, 1, 1, 0.1);
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_BIFLEX)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 0.1, 1, 1);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI, 0.1, 1, 1);
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_FIXED)
 				{
@@ -71,7 +63,7 @@ void IKSolverPF::initFilter()
 				}
 				else
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 3.14, 1, 1, 1);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI, 1, 1, 1);
 				}
 				mOrientationVec[i][j]->normalize();
 				
@@ -111,6 +103,7 @@ void IKSolverPF::computeDistance()
 		double distance=0;
 		for (it = mJointNameToPos.begin() ; it != mJointNameToPos.end() ; it++)
 		{
+			//cout << (*it).first << endl;
 			if ((*it).second != -1)
 			{
 				Eigen::Vector3d jtPos = mModels[i]->getJoint((*it).first)->getXYZVect();
@@ -119,6 +112,16 @@ void IKSolverPF::computeDistance()
 				Eigen::Matrix3d cov;
 				cov.setIdentity();
 				distance += diff.transpose()*(cov*diff);
+				//cout << (*it).first << endl;
+				if((*it).first == "Head")
+				{
+					cout << "********" << endl;
+					/*cout << jtPos << endl;
+					cout << "*" << endl;
+					cout << jtObs << endl;//*/
+					cout << diff.transpose()*(cov*diff) << endl;
+					cout << "********" << endl;
+				}
 			}
 		}
 		mCurrentDistances[i] = sqrt(distance);
@@ -366,6 +369,36 @@ void IKSolverPF::resample()
 		}
 		mCurrentWeights[j]=invNbSamp;
 		u=u+invNbSamp;
+	}
+}
+
+void IKSolverPF::mapJointToObs(std::map<std::string, std::string> jointNameToPosName)
+{
+	vector<std::string> jtNames = mModels[0]->getNameVec();
+	mJointNameToPosName = jointNameToPosName;
+	for (int i=0 ; i < jtNames.size() ; i++)
+	{
+		bool found=false;
+		mJointNameToInt[jtNames[i]] = i;
+
+		for (int j=0 ; j<mPosNames.size() ; j++)
+		{
+			if(mJointNameToPosName[jtNames[i]] == mPosNames[j])
+			{
+				found = true;
+				mJointNameToPos[jtNames[i]]=j;
+				break;
+			}
+			else if (mJointNameToPosName[jtNames[i]] == "NULL")
+			{
+				found = true;
+				mJointNameToPos[jtNames[i]]=-1;
+				break;
+			}
+		}
+		if (!found)
+			cout << jtNames[i] <<" : No match found" << endl;
+		
 	}
 }
 

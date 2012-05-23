@@ -46,6 +46,7 @@ class IKSolver
 		std::map<std::string, std::string> mJointNameToPosName; /*!< Map between Joint Names file and animation file */
 		std::map<std::string, int> mJointNameToPos;
 		std::map<std::string, int> mJointNameToInt; /*!< Name of the Joint to its position in the orientation vector */
+		std::vector<std::string> mPosNames;
 		
 		std::vector<S3DModel*> mModels;
 		std::vector<std::vector<Eigen::Quaterniond*, Eigen::aligned_allocator<Eigen::Quaterniond*> > > mOrientationVec;
