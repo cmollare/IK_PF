@@ -118,7 +118,7 @@ void S3DModel::setPrincipal(bool isPrincipal)
 {
 	mIsPrincipal = isPrincipal;
 
-	for(int i=0 ; i<mNbJoints ; i++)
+	for(int i=0 ; i<=mNbJoints ; i++)
 	{
 		mIntToJoint[i]->setPrincipal(mIsPrincipal);
 	}
