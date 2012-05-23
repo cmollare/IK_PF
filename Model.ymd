@@ -13,32 +13,32 @@ BJoints:
      Parent: Spine
      Offset: {X: 0.0, Y: 0.1, Z: 0.0}
      Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-     ConstOff: Bone
+     ConstOff: Free
      ConstOrient: Fixed
    - Joint: Head
      Parent: ShoulderCenter
      Offset: {X: 0.0, Y: 0.05, Z: 0.0}
      Orientation: {W: 0.707, X: 0.0, Y: 0.0, Z: 0.707}
-     ConstOff: Bone
+     ConstOff: Free
      ConstOrient: Fixed
    - Joint: ShoulderLeft
      Parent: ShoulderCenter
      Offset: {X: -0.1, Y: 0.0, Z: 0.0}
      Orientation: {W: 0.0, X: 0.0, Y: 1.0, Z: 0.0}
-     ConstOff: Bone
-     ConstOrient: TFlex
+     ConstOff: Free
+     ConstOrient: Fixed
    - Joint: ElbowLeft
      Parent: ShoulderLeft
      Offset: {X: 0.1, Y: 0.0, Z: 0.0}
      Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
      ConstOff: Bone
-     ConstOrient: TFlex
+     ConstOrient: Fixed
    - Joint: WristLeft
      Parent: ElbowLeft
      Offset: {X: 0.1, Y: 0.0, Z: 0.0}
      Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
      ConstOff: Bone
-     ConstOrient: TFlex
+     ConstOrient: Fixed
    - Joint: HandLeft
      Parent: WristLeft
      Offset: {X: 0.1, Y: 0.0, Z: 0.0}
@@ -49,22 +49,22 @@ BJoints:
      Parent: ShoulderCenter
      Offset: {X: 0.1, Y: 0.0, Z: 0.0}
      Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-     ConstOff: Bone
-     ConstOrient: TFlex
+     ConstOff: Free
+     ConstOrient: Fixed
    - Joint: ElbowRight
      Parent: ShoulderRight
      Offset: {X: 0.1, Y: 0.0, Z: 0.0}
      Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
      ConstOff: Bone
-     ConstOrient: TFlex
-   - Joint: WristleRight
+     ConstOrient: Fixed
+   - Joint: WristRight
      Parent: ElbowRight
      Offset: {X: 0.1, Y: 0.0, Z: 0.0}
      Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
      ConstOff: Bone
-     ConstOrient: TFlex
+     ConstOrient: Fixed
    - Joint: HandRight
-     Parent: WristleRight
+     Parent: WristRight
      Offset: {X: 0.1, Y: 0.0, Z: 0.0}
      Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
      ConstOff: Bone
@@ -73,7 +73,7 @@ BJoints:
      Parent: Spine
      Offset: {X: 0.0, Y: -0.1, Z: 0.0}
      Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-     ConstOff: Bone
+     ConstOff: Free
      ConstOrient: Fixed
    - Joint: HipLeft
      Parent: HipCenter

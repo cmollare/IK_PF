@@ -6,7 +6,7 @@
 #include "../viewer/S3DViewer.h"
 #include "../solver/IKSolverPF.h"
 
-#define NBMODELS 2
+#define NBMODELS 100
 
 using namespace std;
 
@@ -37,21 +37,21 @@ int main()
 	jtsToPos["Spine"] = "Spine";
 	jtsToPos["Head"] = "Head";
 	jtsToPos["ShoulderCenter"] = "ShoulderCenter";
-	jtsToPos["ShoulderLeft"] = "NULL";
-	jtsToPos["ShoulderRight"] = "NULL";
-	jtsToPos["ElbowLeft"] = "NULL";
-	jtsToPos["ElbowRight"] = "NULL";
-	jtsToPos["WristLeft"] = "NULL";
-	jtsToPos["WristRight"] = "NULL";
+	jtsToPos["ShoulderLeft"] = "ShoulderLeft";
+	jtsToPos["ShoulderRight"] = "ShoulderRight";
+	jtsToPos["ElbowLeft"] = "ElbowLeft";
+	jtsToPos["ElbowRight"] = "ElbowRight";
+	jtsToPos["WristLeft"] = "WristLeft";
+	jtsToPos["WristRight"] = "WristRight";
 	jtsToPos["HandLeft"] = "HandLeft";
 	jtsToPos["HandRight"] = "HandRight";
 	jtsToPos["HipCenter"] = "HipCenter";
-	jtsToPos["HipLeft"] = "NULL";
-	jtsToPos["HipRight"] = "NULL";
-	jtsToPos["KneeLeft"] = "NULL";
-	jtsToPos["KneeRight"] = "NULL";
-	jtsToPos["AnkleLeft"] = "NULL";
-	jtsToPos["AnkleRight"] = "NULL";
+	jtsToPos["HipLeft"] = "HipLeft";
+	jtsToPos["HipRight"] = "HipRight";
+	jtsToPos["KneeLeft"] = "KneeLeft";
+	jtsToPos["KneeRight"] = "KneeRight";
+	jtsToPos["AnkleLeft"] = "AnkleLeft";
+	jtsToPos["AnkleRight"] = "AnkleRight";
 	jtsToPos["FootLeft"] = "FootLeft";
 	jtsToPos["FootRight"] = "FootRight";
 	

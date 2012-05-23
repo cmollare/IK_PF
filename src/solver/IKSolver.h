@@ -40,7 +40,7 @@ class IKSolver
 		 * \brief Sampling from a normal distribution using the Box-Muller algorithm
 		 * \return A float sampled following a normal distribution.
 		 */
-		double randn();
+		double randn(double sigma=1);
 		double randUnif(double sup=1.0);
 		
 		std::map<std::string, std::string> mJointNameToPosName; /*!< Map between Joint Names file and animation file */

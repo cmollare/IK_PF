@@ -152,13 +152,15 @@ void S3DViewer::initModels(std::vector<S3DModel*>& models)
 			Vector3 offset(vOff.x(), vOff.y(), vOff.z());
 			
 			//Creation of sceneNode with orientation and offset
-			SceneNode *node = mSceneMgr->getSceneNode("Particles")->createChildSceneNode(oss.str(), offset, quat);
+			SceneNode *node = mSceneMgr->getSceneNode("Particles")->createChildSceneNode(oss.str());
+			node->setPosition(offset);
+			node->setOrientation(quat);
+			node->_updateBounds();
 
 			//cout << oss.str() << " " << node->_getDerivedPosition() << endl;
 			//cout << oss.str() << " " << node->_getDerivedOrientation() << endl;
 
 			snNames[jt->getName()]=oss.str();
-
 			
 			if (mDisplayAxis)//option to display axis
 			{
@@ -225,7 +227,7 @@ void S3DViewer::update(std::vector<S3DModel*>& models)
 			Eigen::Translation3d vOff = *(models[i]->getJoint(nameVec[j])->getOffset());
 			
 			Vector3 offset(vOff.x(), vOff.y(), vOff.z());
-			
+
 			Ogre::SceneNode *node = mSceneMgr->getSceneNode(mModelSNNames[i][nameVec[j]]);
 			node->setOrientation(quat);
 			node->setPosition(offset);

@@ -30,17 +30,24 @@ Eigen::Quaterniond IKSolver::sampleQuTEM(Eigen::Quaterniond mean, double sigma, 
 	return quat;
 }
 
-double IKSolver::randn()
+double IKSolver::randn(double sigma)
 {
 	/*int U1int = rand()%10001;
 	int U2int = rand()%10001;
 	float U1 = (float)U1int / 10001.;
 	float U2 = (float)U2int / 10001.;*/
-	double U1 = randUnif();
-	double U2 = randUnif();
-	
-	double X = sqrt(-2*log(U1))*cos(2*3.14*U2);
-	double Y = sqrt(-2*log(U1))*sin(2*3.14*U2);
+	double U1, U2, X, Y;
+	do
+	{
+		U1 = randUnif();
+		U2 = randUnif();
+		
+		X = sqrt(-2*log(U1))*cos(2*3.14*U2);
+		Y = sqrt(-2*log(U1))*sin(2*3.14*U2);
+		X *= sigma;
+		Y *= sigma;
+	}
+	while(X != X);
 	return X;
 }
 
