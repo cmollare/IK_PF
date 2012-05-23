@@ -82,6 +82,18 @@ void IKSolverPF::initFilter()
 					}
 					while (tempo[0] <= 0);
 				}
+				else if (mConstOffsetVec[i][j] == OFFSET_CONST_PLANARXY)
+				{
+					tempo = Eigen::Vector3d(this->randn(0.01), this->randn(0.01), 0) + offs;
+				}
+				else if (mConstOffsetVec[i][j] == OFFSET_CONST_PLANARYZ)
+				{
+					tempo = Eigen::Vector3d(0, this->randn(0.01), this->randn(0.01)) + offs;
+				}
+				else if (mConstOffsetVec[i][j] == OFFSET_CONST_PLANARXZ)
+				{
+					tempo = Eigen::Vector3d(this->randn(0.01), 0, this->randn(0.01)) + offs;
+				}
 				else if (mConstOffsetVec[i][j] == OFFSET_CONST_FIXED)
 				{
 					tempo = Eigen::Vector3d(0, 0, 0) + offs;
@@ -302,6 +314,18 @@ void IKSolverPF::stepAlt()
 						tempo = Eigen::Vector3d(this->randn(0.01), 0, 0) + offs;
 					}
 					while (tempo[0] <= 0);
+				}
+				else if (mConstOffsetVec[i][j] == OFFSET_CONST_PLANARXY)
+				{
+					tempo = Eigen::Vector3d(this->randn(0.01), this->randn(0.01), 0) + offs;
+				}
+				else if (mConstOffsetVec[i][j] == OFFSET_CONST_PLANARYZ)
+				{
+					tempo = Eigen::Vector3d(0, this->randn(0.01), this->randn(0.01)) + offs;
+				}
+				else if (mConstOffsetVec[i][j] == OFFSET_CONST_PLANARXZ)
+				{
+					tempo = Eigen::Vector3d(this->randn(0.01), 0, this->randn(0.01)) + offs;
 				}
 				else if (mConstOffsetVec[i][j] == OFFSET_CONST_FIXED)
 				{

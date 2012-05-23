@@ -25,6 +25,9 @@ using namespace std;//A supprimer
 #define OFFSET_CONST_FREE "Free"
 #define OFFSET_CONST_BONE "Bone"
 #define OFFSET_CONST_FIXED "Fixed"
+#define OFFSET_CONST_PLANARXY "PlanarXY"
+#define OFFSET_CONST_PLANARYZ "PlanarYZ"
+#define OFFSET_CONST_PLANARXZ "PlanarXZ"
 
 
 /*!

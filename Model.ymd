@@ -13,19 +13,19 @@ BJoints:
      Parent: Spine
      Offset: {X: 0.0, Y: 0.1, Z: 0.0}
      Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-     ConstOff: Free
+     ConstOff: PlanarXY
      ConstOrient: Fixed
    - Joint: Head
      Parent: ShoulderCenter
      Offset: {X: 0.0, Y: 0.05, Z: 0.0}
      Orientation: {W: 0.707, X: 0.0, Y: 0.0, Z: 0.707}
-     ConstOff: Free
+     ConstOff: PlanarXY
      ConstOrient: Fixed
    - Joint: ShoulderLeft
      Parent: ShoulderCenter
      Offset: {X: -0.1, Y: 0.0, Z: 0.0}
      Orientation: {W: 0.0, X: 0.0, Y: 1.0, Z: 0.0}
-     ConstOff: Free
+     ConstOff: PlanarXY
      ConstOrient: Fixed
    - Joint: ElbowLeft
      Parent: ShoulderLeft
@@ -49,7 +49,7 @@ BJoints:
      Parent: ShoulderCenter
      Offset: {X: 0.1, Y: 0.0, Z: 0.0}
      Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-     ConstOff: Free
+     ConstOff: PlanarXY
      ConstOrient: Fixed
    - Joint: ElbowRight
      Parent: ShoulderRight
@@ -73,13 +73,13 @@ BJoints:
      Parent: Spine
      Offset: {X: 0.0, Y: -0.1, Z: 0.0}
      Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-     ConstOff: Free
+     ConstOff: PlanarXY
      ConstOrient: Fixed
    - Joint: HipLeft
      Parent: HipCenter
      Offset: {X: -0.1, Y: 0.0, Z: 0.0}
      Orientation: {W: 0.0, X: 0.707, Y: -0.707, Z: 0.0}
-     ConstOff: Fixed
+     ConstOff: PlanarXY
      ConstOrient: Fixed
    - Joint: KneeLeft
      Parent: HipLeft
@@ -103,7 +103,7 @@ BJoints:
      Parent: HipCenter
      Offset: {X: 0.1, Y: 0.0, Z: 0.0}
      Orientation: {W: 0.707, X: 0.0, Y: 0.0, Z: -0.707}
-     ConstOff: Fixed
+     ConstOff: PlanarXY
      ConstOrient: Fixed
    - Joint: KneeRight
      Parent: HipRight
