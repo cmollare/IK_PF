@@ -10,6 +10,19 @@
 #include <fstream>
 #include <string>
 
+
+typedef struct SOffset
+{
+	vector<double> Mean; /*!< Position of the Joint relative to its parent */
+	std::string Dof; /*!< Constraint on the local offset of the Joint */
+}SOffset;
+
+typedef struct SOrientation
+{
+	Eigen::Quaterniond Mean; /*!< Local orientation of the Joint */
+	std::string Dof; /*!< Constraint on the local orientation of the Joint */
+}SOrientation;
+
 /*!
  * \struct SBJoints
  * \brief Structure reprensenting a Joint
@@ -22,10 +35,8 @@ typedef struct SBJoints
 	EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 	std::string Joint; /*!< Name of the Joint */
 	std::string Parent; /*!< Name of the parent = "_Root" if this Joint is the root */ 
-	vector<double> Offset; /*!< Position of the Joint relative to its parent */
-	Eigen::Quaterniond Orientation; /*!< Local orientation of the Joint */
-	std::string ConstOff; /*!< Constraint on the local offset of the Joint */
-	std::string ConstOrient; /*!< Constraint on the local orientation of the Joint */
+	SOffset Offset;
+	SOrientation Orientation;
 }SBJoints;
 			
 /*!
@@ -110,6 +121,10 @@ void operator>> (const YAML::Node& node, SYmdFile& YmdFile);
  * \param BJoints Where to store the result.
  */
 void operator>> (const YAML::Node& node, vector<SBJoints, Eigen::aligned_allocator<SBJoints> >& BJoints);
+
+void operator>> (const YAML::Node& node, SOffset& Offset);
+
+void operator>> (const YAML::Node& node, SOrientation& Orientation);
 
 /*!
  * \fn void operator>> (const YAML::Node& node, Eigen::Quaternionf& quat)

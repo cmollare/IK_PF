@@ -32,8 +32,8 @@ void YamlBodyJoint::createModel()
 	
 	if (mParsedFile.BJoints[0].Parent == "_Root")
 	{
-		mModel = new Joint(mParsedFile.BJoints[0].Joint, NULL, mParsedFile.BJoints[0].Offset, mParsedFile.BJoints[0].Orientation);
-		mModel->setConstraints(mParsedFile.BJoints[0].ConstOff, mParsedFile.BJoints[0].ConstOrient);
+		mModel = new Joint(mParsedFile.BJoints[0].Joint, NULL, mParsedFile.BJoints[0].Offset.Mean, mParsedFile.BJoints[0].Orientation.Mean);
+		mModel->setConstraints(mParsedFile.BJoints[0].Offset.Dof, mParsedFile.BJoints[0].Orientation.Dof);
 		
 		for (int i=1 ; i<mParsedFile.BJoints.size() ; i++)
 		{
@@ -41,7 +41,7 @@ void YamlBodyJoint::createModel()
 			Joint* parent = mModel->getJointFromName(mParsedFile.BJoints[i].Parent);
 			if (parent != NULL)
 			{
-				parent->addChild(mParsedFile.BJoints[i].Joint, mParsedFile.BJoints[i].Offset, mParsedFile.BJoints[i].Orientation)->setConstraints(mParsedFile.BJoints[i].ConstOff, mParsedFile.BJoints[i].ConstOrient);//Create Children
+				parent->addChild(mParsedFile.BJoints[i].Joint, mParsedFile.BJoints[i].Offset.Mean, mParsedFile.BJoints[i].Orientation.Mean)->setConstraints(mParsedFile.BJoints[i].Offset.Dof, mParsedFile.BJoints[i].Orientation.Dof);//Create Children
 				cout << mParsedFile.BJoints[i].Joint << " added to " << parent->getName() << endl;
 			}
 			else
@@ -81,8 +81,6 @@ void operator >> (const YAML::Node& node, vector<SBJoints, Eigen::aligned_alloca
 		joint["Parent"] >> BJoints[i].Parent;
 		joint["Offset"] >> BJoints[i].Offset;
 		joint["Orientation"] >> BJoints[i].Orientation;
-		joint["ConstOff"] >> BJoints[i].ConstOff;
-		joint["ConstOrient"] >> BJoints[i].ConstOrient;
 		
 		if (i==0 && (BJoints[i].Parent != "_Root"))
 		{
@@ -104,5 +102,17 @@ void operator>> (const YAML::Node& node, vector<double>& Offset)
 	Offset.push_back(node["X"].to<double>());
 	Offset.push_back(node["Y"].to<double>());
 	Offset.push_back(node["Z"].to<double>());
+}
+
+void operator>> (const YAML::Node& node, SOffset& Offset)
+{
+	node["Mean"] >> Offset.Mean;
+	node["Dof"] >> Offset.Dof;
+}
+
+void operator>> (const YAML::Node& node, SOrientation& Orientation)
+{
+	node["Mean"] >> Orientation.Mean;
+	node["Dof"] >> Orientation.Dof;
 }
 
