@@ -29,6 +29,11 @@ using namespace std;//A supprimer
 #define OFFSET_CONST_PLANARYZ "PlanarYZ"
 #define OFFSET_CONST_PLANARXZ "PlanarXZ"
 
+//Signs constraints
+#define CONST_POSITIVE "Pos"
+#define CONST_NEGATIVE "Neg"
+#define CONST_NONE "NULL"
+
 
 /*!
  * \class Joint
@@ -164,7 +169,11 @@ class Joint
 		 */
 		void setOrientation(const Eigen::Quaterniond quat);
 		
-		void setConstraints(const std::string offset=OFFSET_CONST_FREE, const std::string orientation=ORIENT_CONST_FREE);
+		Joint* setConstraints(const std::string offset=OFFSET_CONST_FREE, const std::string orientation=ORIENT_CONST_FREE);
+		
+		Joint* setLimits(const std::vector<std::string>& signConst);
+		
+		bool checkValidity(const Eigen::Vector3d& offset);
 		
 		/*!
 		 * \brief Get the Joint local orientation.
@@ -223,6 +232,7 @@ class Joint
 		//float mCurrentOffset;
 		
 		std::string mOffsetConst; /*!< Constraint on offset */
+		std::vector<std::string> mOffsetSignConst; /*!< Sign constraints */
 		std::string mOrientationConst; /*!< Constraint on orientation */
 };
 

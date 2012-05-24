@@ -183,11 +183,52 @@ void Joint::setOrientation(Eigen::Quaterniond quat)
 	mQLocal = quat;
 }
 
-void Joint::setConstraints(const std::string offset, const std::string orientation)
+Joint* Joint::setConstraints(const std::string offset, const std::string orientation)
 {
 	this->mOffsetConst = offset;
 	this->mOrientationConst = orientation;
-	//cout << mName << " " << mOffsetConst << " " << mOrientationConst << endl;
+	return this;
+}
+
+Joint* Joint::setLimits(const std::vector<std::string>& signConst)
+{
+	mOffsetSignConst = signConst;
+	for (int i=0 ; i<mOffsetSignConst.size() ; i++)
+	{
+		if ((mOffsetSignConst[i] != CONST_POSITIVE) && (mOffsetSignConst[i] != CONST_NEGATIVE) && (mOffsetSignConst[i] != CONST_NONE))
+		{
+			cout << "Error in Sign constraint definition, set to NULL" << endl;
+			mOffsetSignConst[i] = CONST_NONE;
+		}
+	}
+	return this;
+}
+
+bool Joint::checkValidity(const Eigen::Vector3d& offset)
+{
+	for (int i=0 ; i<mOffsetSignConst.size() ; i++)
+	{
+		std::string signConst = mOffsetSignConst[i];
+		
+		if (signConst == CONST_POSITIVE)
+		{
+			if (offset[i] < 0)
+				return false;
+		}
+		else if (signConst == CONST_NEGATIVE)
+		{
+			if (offset[i] > 0)
+				return false;
+		}
+		else if (signConst == CONST_NONE)
+		{
+		}
+		else
+		{
+			cout << "Joint class : Error" << endl;
+		}
+	}
+	return true;
 }
 
 Eigen::Quaterniond* Joint::getOrientation()
