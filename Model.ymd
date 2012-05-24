@@ -5,124 +5,184 @@ FirstIndex: 1
 BJoints:
    - Joint: Spine
      Parent: _Root
-     Offset: {X: 0.0, Y: 0.0, Z: 0.0}
-     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-     ConstOff: Free
-     ConstOrient: Fixed
+     Offset: 
+        Mean: {X: 0.0, Y: 0.0, Z: 0.0}
+        Const: Free
+     Orientation: 
+        Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
+        Const: Fixed
+
    - Joint: ShoulderCenter
      Parent: Spine
-     Offset: {X: 0.0, Y: 0.1, Z: 0.0}
-     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-     ConstOff: PlanarXY
-     ConstOrient: Fixed
+     Offset: 
+        Mean: {X: 0.0, Y: 0.1, Z: 0.0}
+        Const: PlanarXY
+     Orientation: 
+        Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
+        Const: Fixed
+
    - Joint: Head
      Parent: ShoulderCenter
-     Offset: {X: 0.0, Y: 0.05, Z: 0.0}
-     Orientation: {W: 0.707, X: 0.0, Y: 0.0, Z: 0.707}
-     ConstOff: PlanarXY
-     ConstOrient: Fixed
+     Offset: 
+        Mean: {X: 0.0, Y: 0.05, Z: 0.0}
+        Const: PlanarXY
+     Orientation: 
+        Mean: {W: 0.707, X: 0.0, Y: 0.0, Z: 0.707}
+        Const: Fixed
+ 
    - Joint: ShoulderLeft
      Parent: ShoulderCenter
-     Offset: {X: -0.1, Y: -0.05, Z: 0.0}
-     Orientation: {W: 0.0, X: 0.0, Y: 1.0, Z: 0.0}
-     ConstOff: PlanarXY
-     ConstOrient: Fixed
+     Offset: 
+        Mean: {X: -0.1, Y: -0.05, Z: 0.0}
+        Const: PlanarXY
+     Orientation: 
+		Mean: {W: 0.0, X: 0.0, Y: 1.0, Z: 0.0}
+        Const: Free
+
    - Joint: ElbowLeft
      Parent: ShoulderLeft
-     Offset: {X: 0.1, Y: 0.0, Z: 0.0}
-     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-     ConstOff: Bone
-     ConstOrient: Fixed
+     Offset:
+        Mean: {X: 0.1, Y: 0.0, Z: 0.0}
+        ConstOff: Bone
+     Orientation:
+        Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
+        ConstOrient: Fixed
+
    - Joint: WristLeft
      Parent: ElbowLeft
-     Offset: {X: 0.1, Y: 0.0, Z: 0.0}
-     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-     ConstOff: Bone
-     ConstOrient: Fixed
+     Offset:
+        Mean: {X: 0.1, Y: 0.0, Z: 0.0}
+        ConstOff: Bone
+     Orientation:
+        Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
+        ConstOrient: Fixed
+
    - Joint: HandLeft
      Parent: WristLeft
-     Offset: {X: 0.1, Y: 0.0, Z: 0.0}
-     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-     ConstOff: Bone
-     ConstOrient: Fixed
+     Offset:
+        Mean: {X: 0.1, Y: 0.0, Z: 0.0}
+        ConstOff: Bone
+     Orientation:
+        Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
+        ConstOrient: Fixed
+
    - Joint: ShoulderRight
      Parent: ShoulderCenter
-     Offset: {X: 0.1, Y: -0.05, Z: 0.0}
-     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-     ConstOff: PlanarXY
-     ConstOrient: Fixed
+     Offset:
+        Mean: {X: 0.1, Y: -0.05, Z: 0.0}
+        ConstOff: PlanarXY
+     Orientation:
+        Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
+        ConstOrient: Free
+
    - Joint: ElbowRight
      Parent: ShoulderRight
-     Offset: {X: 0.1, Y: 0.0, Z: 0.0}
-     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-     ConstOff: Bone
-     ConstOrient: Fixed
+     Offset:
+	    Mean: {X: 0.1, Y: 0.0, Z: 0.0}
+	    ConstOff: Bone
+     Orientation:
+        Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
+        ConstOrient: Fixed
+
    - Joint: WristRight
      Parent: ElbowRight
-     Offset: {X: 0.1, Y: 0.0, Z: 0.0}
-     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-     ConstOff: Bone
-     ConstOrient: Fixed
+     Offset:
+        Mean: {X: 0.1, Y: 0.0, Z: 0.0}
+        ConstOff: Bone
+     Orientation:
+        Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
+        ConstOrient: Fixed
+
    - Joint: HandRight
      Parent: WristRight
-     Offset: {X: 0.1, Y: 0.0, Z: 0.0}
-     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-     ConstOff: Bone
-     ConstOrient: Fixed
+     Offset:
+        Mean: {X: 0.1, Y: 0.0, Z: 0.0}
+        ConstOff: Bone
+     Orientation:
+        Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
+        ConstOrient: Fixed
+
    - Joint: HipCenter
      Parent: Spine
-     Offset: {X: 0.0, Y: -0.1, Z: 0.0}
-     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-     ConstOff: PlanarXY
-     ConstOrient: Fixed
+     Offset:
+        Mean: {X: 0.0, Y: -0.1, Z: 0.0}
+        ConstOff: PlanarXY
+     Orientation:
+        Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
+        ConstOrient: Fixed
+
    - Joint: HipLeft
      Parent: HipCenter
-     Offset: {X: -0.1, Y: -0.05, Z: 0.0}
-     Orientation: {W: 0.0, X: 0.707, Y: -0.707, Z: 0.0}
-     ConstOff: PlanarXY
-     ConstOrient: Fixed
+     Offset:
+        Mean: {X: -0.1, Y: -0.05, Z: 0.0}
+        ConstOff: PlanarXY
+     Orientation:
+        Mean: {W: 0.0, X: 0.707, Y: -0.707, Z: 0.0}
+        ConstOrient: Fixed
+
    - Joint: KneeLeft
      Parent: HipLeft
-     Offset: {X: 0.1, Y: 0.0, Z: 0.0}
-     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-     ConstOff: Bone
-     ConstOrient: Fixed
+     Offset:
+        Mean: {X: 0.1, Y: 0.0, Z: 0.0}
+        ConstOff: Bone
+     Orientation:
+        Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
+        ConstOrient: Fixed
+
    - Joint: AnkleLeft
      Parent: KneeLeft
-     Offset: {X: 0.1, Y: 0.0, Z: 0.0}
-     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-     ConstOff: Bone
-     ConstOrient: Fixed
+     Offset:
+        Mean: {X: 0.1, Y: 0.0, Z: 0.0}
+        ConstOff: Bone
+     Orientation:
+        Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
+        ConstOrient: Fixed
+
    - Joint: FootLeft
      Parent: AnkleLeft
-     Offset: {X: 0.1, Y: 0.0, Z: 0.0}
-     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-     ConstOff: Bone
-     ConstOrient: Fixed
+     Offset:
+        Mean: {X: 0.1, Y: 0.0, Z: 0.0}
+        ConstOff: Bone
+     Orientation:
+        Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
+        ConstOrient: Fixed
+
    - Joint: HipRight
      Parent: HipCenter
-     Offset: {X: 0.1, Y: -0.05, Z: 0.0}
-     Orientation: {W: 0.707, X: 0.0, Y: 0.0, Z: -0.707}
-     ConstOff: PlanarXY
-     ConstOrient: Fixed
+     Offset:
+        Mean: {X: 0.1, Y: -0.05, Z: 0.0}
+        ConstOff: PlanarXY
+     Orientation:
+        Mean: {W: 0.707, X: 0.0, Y: 0.0, Z: -0.707}
+        ConstOrient: Fixed
+
    - Joint: KneeRight
      Parent: HipRight
-     Offset: {X: 0.1, Y: 0.0, Z: 0.0}
-     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-     ConstOff: Bone
-     ConstOrient: Fixed
+     Offset:
+        Mean: {X: 0.1, Y: 0.0, Z: 0.0}
+        ConstOff: Bone
+     Orientation:
+        Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
+        ConstOrient: Fixed
+
    - Joint: AnkleRight
      Parent: KneeRight
-     Offset: {X: 0.1, Y: 0.0, Z: 0.0}
-     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-     ConstOff: Bone
-     ConstOrient: Fixed
+     Offset:
+        Mean: {X: 0.1, Y: 0.0, Z: 0.0}
+        ConstOff: Bone
+     Orientation:
+        Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
+        ConstOrient: Fixed
+
    - Joint: FootRight
      Parent: AnkleRight
-     Offset: {X: 0.1, Y: 0.0, Z: 0.0}
-     Orientation: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-     ConstOff: Bone
-     ConstOrient: Fixed
+     Offset:
+        Mean: {X: 0.1, Y: 0.0, Z: 0.0}
+        ConstOff: Bone
+     Orientation:
+        Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
+        ConstOrient: Fixed
+
 BPartsColors:
    - {b: 0, g: 0, r: 0}
    - {b: 0, g: 0, r: 0}
