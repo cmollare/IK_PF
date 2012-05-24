@@ -35,7 +35,6 @@ void IKSolverPF::initFilter()
 			//quat.setIdentity();
 			bool invalide = false;
 			Eigen::Vector3d offs = mDefaultOffsetVec[i][j].vector();
-			
 			do
 			{
 				invalide = false;
@@ -81,19 +80,16 @@ void IKSolverPF::initFilter()
 					{
 						tempo = Eigen::Vector3d(this->randn(0.1), 0, 0) + offs;
 					}
-					while (tempo[0] <= 0);
+					while(!mModels[i]->getJoint(mNameVec[i][j])->checkValidity(tempo));
 				}
 				else if (mConstOffsetVec[i][j] == OFFSET_CONST_PLANARXY)
 				{
 					int i=0;
 					do
 					{
-						if (i>100)
-							break;
-						i++;
 						tempo = Eigen::Vector3d(this->randn(0.01), this->randn(0.01), 0) + offs;
 					}
-					while((isPositive(tempo[0]) != isPositive(offs[0])) || (isPositive(tempo[1]) != isPositive(offs[1])));
+					while(!mModels[i]->getJoint(mNameVec[i][j])->checkValidity(tempo));
 				}
 				else if (mConstOffsetVec[i][j] == OFFSET_CONST_PLANARYZ)
 				{
@@ -101,7 +97,7 @@ void IKSolverPF::initFilter()
 					{
 						tempo = Eigen::Vector3d(0, this->randn(0.01), this->randn(0.01)) + offs;
 					}
-					while((isPositive(tempo[2]) != isPositive(offs[2])) || (isPositive(tempo[1]) != isPositive(offs[1])));
+					while(!mModels[i]->getJoint(mNameVec[i][j])->checkValidity(tempo));
 				}
 				else if (mConstOffsetVec[i][j] == OFFSET_CONST_PLANARXZ)
 				{
@@ -109,7 +105,7 @@ void IKSolverPF::initFilter()
 					{
 						tempo = Eigen::Vector3d(this->randn(0.01), 0, this->randn(0.01)) + offs;
 					}
-					while((isPositive(tempo[0]) != isPositive(offs[0])) || (isPositive(tempo[2]) != isPositive(offs[2])));
+					while(!mModels[i]->getJoint(mNameVec[i][j])->checkValidity(tempo));
 				}
 				else if (mConstOffsetVec[i][j] == OFFSET_CONST_FIXED)
 				{
@@ -300,7 +296,7 @@ void IKSolverPF::stepAlt()
 				invalide = false;
 				if (mConstOrientVec[i][j] == ORIENT_CONST_FREE)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, 1, 1, 1, 1);//A modifier suivant les contraintes
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI, 1, 1, 1);//A modifier suivant les contraintes
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_TWIST)
 				{
@@ -340,7 +336,7 @@ void IKSolverPF::stepAlt()
 					{
 						tempo = Eigen::Vector3d(this->randn(0.01), 0, 0)*variance + offs;
 					}
-					while (tempo[0] <= 0);
+					while(!mModels[i]->getJoint(mNameVec[i][j])->checkValidity(tempo));
 				}
 				else if (mConstOffsetVec[i][j] == OFFSET_CONST_PLANARXY)
 				{
@@ -348,7 +344,7 @@ void IKSolverPF::stepAlt()
 					{
 						tempo = Eigen::Vector3d(this->randn(0.01), this->randn(0.01), 0)*variance + offs;
 					}
-					while((isPositive(tempo[0]) != isPositive(offs[0])) || (isPositive(tempo[1]) != isPositive(offs[1])));
+					while(!mModels[i]->getJoint(mNameVec[i][j])->checkValidity(tempo));
 				}
 				else if (mConstOffsetVec[i][j] == OFFSET_CONST_PLANARYZ)
 				{
@@ -356,7 +352,7 @@ void IKSolverPF::stepAlt()
 					{
 						tempo = Eigen::Vector3d(0, this->randn(0.01), this->randn(0.01))*variance + offs;
 					}
-					while((isPositive(tempo[2]) != isPositive(offs[2])) || (isPositive(tempo[1]) != isPositive(offs[1])));
+					while(!mModels[i]->getJoint(mNameVec[i][j])->checkValidity(tempo));
 				}
 				else if (mConstOffsetVec[i][j] == OFFSET_CONST_PLANARXZ)
 				{
@@ -364,7 +360,7 @@ void IKSolverPF::stepAlt()
 					{
 						tempo = Eigen::Vector3d(this->randn(0.01), 0, this->randn(0.01))*variance + offs;
 					}
-					while((isPositive(tempo[0]) != isPositive(offs[0])) || (isPositive(tempo[2]) != isPositive(offs[2])));
+					while(!mModels[i]->getJoint(mNameVec[i][j])->checkValidity(tempo));
 				}
 				else if (mConstOffsetVec[i][j] == OFFSET_CONST_FIXED)
 				{

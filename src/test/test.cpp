@@ -56,6 +56,7 @@ int main()
 	jtsToPos["FootLeft"] = "FootLeft";
 	jtsToPos["FootRight"] = "FootRight";//*/
 	
+	//*	
 	jtsToPos["Spine"] = "Spine";
 	jtsToPos["Head"] = "Head";
 	jtsToPos["ShoulderCenter"] = "ShoulderCenter";
@@ -75,7 +76,7 @@ int main()
 	jtsToPos["AnkleLeft"] = "AnkleLeft";
 	jtsToPos["AnkleRight"] = "AnkleRight";
 	jtsToPos["FootLeft"] = "FootLeft";
-	jtsToPos["FootRight"] = "FootRight";
+	jtsToPos["FootRight"] = "FootRight";//*/
 	
 	
 	IKSolverPF iksol(mods, fileParser->getJointNames(), frame);//Declaration of solver

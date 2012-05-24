@@ -39,6 +39,7 @@ Joint::Joint(const Joint& jtCopy)
 	//mCurrentOffset = jtCopy.mCurrentOffset;
 	mOffsetConst = jtCopy.mOffsetConst;
 	mOrientationConst = jtCopy.mOrientationConst;
+	mOffsetSignConst = jtCopy.mOffsetSignConst;
 	
 	//Dynamics allocations
 	

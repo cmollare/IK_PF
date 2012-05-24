@@ -12,6 +12,7 @@ BJoints:
      Orientation: 
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
         Dof: Fixed
+        
    - Joint: ShoulderCenter
      Parent: Spine
      Offset: 
@@ -21,6 +22,7 @@ BJoints:
      Orientation: 
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
         Dof: Fixed
+        
    - Joint: Head
      Parent: ShoulderCenter
      Offset:
@@ -30,6 +32,7 @@ BJoints:
      Orientation: 
         Mean: {W: 0.707, X: 0.0, Y: 0.0, Z: 0.707}
         Dof: Fixed
+        
    - Joint: ShoulderLeft
      Parent: ShoulderCenter
      Offset: 
@@ -39,6 +42,7 @@ BJoints:
      Orientation: 
         Mean: {W: 0.0, X: 0.0, Y: 1.0, Z: 0.0}
         Dof: Free
+        
    - Joint: ElbowLeft
      Parent: ShoulderLeft
      Offset:
@@ -48,6 +52,7 @@ BJoints:
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
         Dof: Fixed
+        
    - Joint: WristLeft
      Parent: ElbowLeft
      Offset:
@@ -57,6 +62,7 @@ BJoints:
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
         Dof: Fixed
+        
    - Joint: HandLeft
      Parent: WristLeft
      Offset:
@@ -66,6 +72,7 @@ BJoints:
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
         Dof: Fixed
+        
    - Joint: ShoulderRight
      Parent: ShoulderCenter
      Offset:
@@ -75,6 +82,7 @@ BJoints:
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
         Dof: Free
+        
    - Joint: ElbowRight
      Parent: ShoulderRight
      Offset:
@@ -84,6 +92,7 @@ BJoints:
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
         Dof: Fixed
+        
    - Joint: WristRight
      Parent: ElbowRight
      Offset:
@@ -93,6 +102,7 @@ BJoints:
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
         Dof: Fixed
+        
    - Joint: HandRight
      Parent: WristRight
      Offset:
@@ -102,6 +112,7 @@ BJoints:
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
         Dof: Fixed
+        
    - Joint: HipCenter
      Parent: Spine
      Offset:
@@ -111,6 +122,7 @@ BJoints:
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
         Dof: Fixed
+        
    - Joint: HipLeft
      Parent: HipCenter
      Offset:
@@ -120,6 +132,7 @@ BJoints:
      Orientation:
         Mean: {W: 0.0, X: 0.707, Y: -0.707, Z: 0.0}
         Dof: Fixed
+        
    - Joint: KneeLeft
      Parent: HipLeft
      Offset:
@@ -129,6 +142,7 @@ BJoints:
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
         Dof: Fixed
+        
    - Joint: AnkleLeft
      Parent: KneeLeft
      Offset:
@@ -138,6 +152,7 @@ BJoints:
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
         Dof: Fixed
+        
    - Joint: FootLeft
      Parent: AnkleLeft
      Offset:
@@ -147,6 +162,7 @@ BJoints:
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
         Dof: Fixed
+        
    - Joint: HipRight
      Parent: HipCenter
      Offset:
@@ -156,6 +172,7 @@ BJoints:
      Orientation:
         Mean: {W: 0.707, X: 0.0, Y: 0.0, Z: -0.707}
         Dof: Fixed
+        
    - Joint: KneeRight
      Parent: HipRight
      Offset:
@@ -165,6 +182,7 @@ BJoints:
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
         Dof: Fixed
+        
    - Joint: AnkleRight
      Parent: KneeRight
      Offset:
@@ -174,6 +192,7 @@ BJoints:
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
         Dof: Fixed
+        
    - Joint: FootRight
      Parent: AnkleRight
      Offset:
@@ -183,6 +202,7 @@ BJoints:
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
         Dof: Fixed
+        
 BPartsColors:
    - {b: 0, g: 0, r: 0}
    - {b: 0, g: 0, r: 0}

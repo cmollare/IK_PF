@@ -33,7 +33,7 @@ void YamlBodyJoint::createModel()
 	if (mParsedFile.BJoints[0].Parent == "_Root")
 	{
 		mModel = new Joint(mParsedFile.BJoints[0].Joint, NULL, mParsedFile.BJoints[0].Offset.Mean, mParsedFile.BJoints[0].Orientation.Mean);
-		mModel->setConstraints(mParsedFile.BJoints[0].Offset.Dof, mParsedFile.BJoints[0].Orientation.Dof);
+		mModel->setConstraints(mParsedFile.BJoints[0].Offset.Dof, mParsedFile.BJoints[0].Orientation.Dof)->setLimits(mParsedFile.BJoints[0].Offset.SignConst);
 		
 		for (int i=1 ; i<mParsedFile.BJoints.size() ; i++)
 		{
@@ -41,7 +41,8 @@ void YamlBodyJoint::createModel()
 			Joint* parent = mModel->getJointFromName(mParsedFile.BJoints[i].Parent);
 			if (parent != NULL)
 			{
-				parent->addChild(mParsedFile.BJoints[i].Joint, mParsedFile.BJoints[i].Offset.Mean, mParsedFile.BJoints[i].Orientation.Mean)->setConstraints(mParsedFile.BJoints[i].Offset.Dof, mParsedFile.BJoints[i].Orientation.Dof);//Create Children
+				parent->addChild(mParsedFile.BJoints[i].Joint, mParsedFile.BJoints[i].Offset.Mean, mParsedFile.BJoints[i].Orientation.Mean)->setConstraints(mParsedFile.BJoints[i].Offset.Dof, mParsedFile.BJoints[i].Orientation.Dof)
+																																		   ->setLimits(mParsedFile.BJoints[i].Offset.SignConst);//Create Children
 				cout << mParsedFile.BJoints[i].Joint << " added to " << parent->getName() << endl;
 			}
 			else
