@@ -276,7 +276,7 @@ void IKSolverPF::stepAlt()
 			//double variance = (exp(mCurrentDistances[i])-1)/10.;
 			double variance = mCurrentDistances[i];
 			//variance=10;
-			cout << mCurrentDistances[i] << endl;
+			//cout << mCurrentDistances[i] << endl;
 			if (variance>100)
 			{
 				cout << "lol" << endl;

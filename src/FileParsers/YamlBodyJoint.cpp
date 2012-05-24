@@ -108,11 +108,19 @@ void operator>> (const YAML::Node& node, SOffset& Offset)
 {
 	node["Mean"] >> Offset.Mean;
 	node["Dof"] >> Offset.Dof;
+	node["SignConst"] >> Offset.SignConst;
 }
 
 void operator>> (const YAML::Node& node, SOrientation& Orientation)
 {
 	node["Mean"] >> Orientation.Mean;
 	node["Dof"] >> Orientation.Dof;
+}
+
+void operator>> (const YAML::Node& node, vector<std::string>& SignConst)
+{
+	SignConst.push_back(node["X"].to<std::string>());
+	SignConst.push_back(node["Y"].to<std::string>());
+	SignConst.push_back(node["Z"].to<std::string>());
 }
 

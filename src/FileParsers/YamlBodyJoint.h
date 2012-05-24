@@ -15,6 +15,7 @@ typedef struct SOffset
 {
 	vector<double> Mean; /*!< Position of the Joint relative to its parent */
 	std::string Dof; /*!< Constraint on the local offset of the Joint */
+	vector<std::string> SignConst;
 }SOffset;
 
 typedef struct SOrientation
@@ -141,5 +142,7 @@ void operator>> (const YAML::Node& node, Eigen::Quaterniond& quat);
  * \param Offset Where to store the result.
  */
 void operator>> (const YAML::Node& node, vector<double>& Offset);
+
+void operator>> (const YAML::Node& node, vector<std::string>& SignConst);
 
 #endif
