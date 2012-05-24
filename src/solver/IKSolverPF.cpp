@@ -268,19 +268,22 @@ void IKSolverPF::stepAlt()
 		mModels[i]->setPrincipal(true);
 		for (int j=0 ; j < mOrientationVec[i].size() ; j++)
 		{
+			double variance;
 			//double variance = log(1+mCurrentDistances[i])*5;
-			//double variance = (exp(mCurrentDistances[i])-1)/10.;
-			double variance = mCurrentDistances[i];
+			//if (mCurrentDistances[i] < 2)
+			//	variance = (exp(mCurrentDistances[i])-1)/10.;
+			//else
+			variance = mCurrentDistances[i];
 			//variance=10;
-			//cout << mCurrentDistances[i] << endl;
+			cout << mCurrentDistances[i] << endl;
 			if (variance>100)
 			{
 				cout << "lol" << endl;
 				variance = 1;
 			}
 			bool invalide = false;
-			Eigen::Quaterniond quat = mDefaultOrientationVec[i][j];
-			//Eigen::Quaterniond quat = (*mOrientationVec[i][j]);
+			//Eigen::Quaterniond quat = mDefaultOrientationVec[i][j];
+			Eigen::Quaterniond quat = (*mOrientationVec[i][j]);
 			Eigen::Vector3d offs;
 			if (mConstOffsetVec[i][j] == OFFSET_CONST_FREE)
 			{

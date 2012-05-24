@@ -2,7 +2,7 @@
 #include "../3DModel/S3DModel.h"
 #include <vector>
 
-#define PI 0.785
+#define PI 0.1
 
 using namespace std;
 

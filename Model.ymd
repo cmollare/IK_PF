@@ -17,7 +17,7 @@ BJoints:
      Parent: Spine
      Offset: 
         Mean: {X: 0.0, Y: 0.1, Z: 0.0}
-        Dof: PlanarXY
+        Dof: PlanarYZ
         SignConst: {X: NULL, Y: Pos, Z: NULL}
      Orientation: 
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
@@ -36,7 +36,7 @@ BJoints:
    - Joint: ShoulderLeft
      Parent: ShoulderCenter
      Offset: 
-        Mean: {X: -0.1, Y: 0.0, Z: 0.0}
+        Mean: {X: -0.05, Y: 0.0, Z: 0.0}
         Dof: PlanarXY
         SignConst: {X: Neg, Y: Neg, Z: NULL}
      Orientation: 
@@ -51,7 +51,7 @@ BJoints:
         SignConst: {X: Pos, Y: NULL, Z: NULL}
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-        Dof: Fixed
+        Dof: TFlex
         
    - Joint: WristLeft
      Parent: ElbowLeft
@@ -61,7 +61,7 @@ BJoints:
         SignConst: {X: Pos, Y: NULL, Z: NULL}
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-        Dof: Fixed
+        Dof: TFlex
         
    - Joint: HandLeft
      Parent: WristLeft
@@ -76,7 +76,7 @@ BJoints:
    - Joint: ShoulderRight
      Parent: ShoulderCenter
      Offset:
-        Mean: {X: 0.1, Y: -0.05, Z: 0.0}
+        Mean: {X: 0.05, Y: -0.05, Z: 0.0}
         Dof: PlanarXY
         SignConst: {X: Pos, Y: Neg, Z: NULL}
      Orientation:
@@ -91,7 +91,7 @@ BJoints:
         SignConst: {X: Pos, Y: NULL, Z: NULL}
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-        Dof: Fixed
+        Dof: TFlex
         
    - Joint: WristRight
      Parent: ElbowRight
@@ -101,7 +101,7 @@ BJoints:
         SignConst: {X: Pos, Y: NULL, Z: NULL}
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-        Dof: Fixed
+        Dof: TFlex
         
    - Joint: HandRight
      Parent: WristRight
@@ -116,8 +116,8 @@ BJoints:
    - Joint: HipCenter
      Parent: Spine
      Offset:
-        Mean: {X: 0.0, Y: -0.1, Z: 0.0}
-        Dof: PlanarXY
+        Mean: {X: 0.0, Y: -0.05, Z: 0.0}
+        Dof: PlanarYZ
         SignConst: {X: NULL, Y: Neg, Z: NULL}
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
@@ -131,7 +131,7 @@ BJoints:
         SignConst: {X: Neg, Y: Neg, Z: NULL}
      Orientation:
         Mean: {W: 0.0, X: 0.707, Y: -0.707, Z: 0.0}
-        Dof: Fixed
+        Dof: Free
         
    - Joint: KneeLeft
      Parent: HipLeft
@@ -141,7 +141,7 @@ BJoints:
         SignConst: {X: Pos, Y: NULL, Z: NULL}
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-        Dof: Fixed
+        Dof: TFlex
         
    - Joint: AnkleLeft
      Parent: KneeLeft
@@ -151,7 +151,7 @@ BJoints:
         SignConst: {X: Pos, Y: NULL, Z: NULL}
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-        Dof: Fixed
+        Dof: TFlex
         
    - Joint: FootLeft
      Parent: AnkleLeft
@@ -171,7 +171,7 @@ BJoints:
         SignConst: {X: Pos, Y: Neg, Z: NULL}
      Orientation:
         Mean: {W: 0.707, X: 0.0, Y: 0.0, Z: -0.707}
-        Dof: Fixed
+        Dof: Free
         
    - Joint: KneeRight
      Parent: HipRight
@@ -181,7 +181,7 @@ BJoints:
         SignConst: {X: Pos, Y: NULL, Z: NULL}
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-        Dof: Fixed
+        Dof: TFlex
         
    - Joint: AnkleRight
      Parent: KneeRight
@@ -191,7 +191,7 @@ BJoints:
         SignConst: {X: Pos, Y: NULL, Z: NULL}
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-        Dof: Fixed
+        Dof: TFlex
         
    - Joint: FootRight
      Parent: AnkleRight
