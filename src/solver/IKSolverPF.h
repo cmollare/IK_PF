@@ -20,6 +20,7 @@ class IKSolverPF : public IKSolver
 		
 	protected:
 		virtual void computeDistance();
+		virtual void computeDistanceHiera();
 		void updateWeights();
 		void resample();
 		

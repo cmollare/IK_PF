@@ -127,6 +127,8 @@ class Joint
 		 */
 		std::string getName();
 		
+		int getHieraLevel();
+		
 		/*!
 		 * \brief Test for children
 		 * \return True if the Joint has children, false otherwise.
@@ -223,6 +225,7 @@ class Joint
 		std::vector<Joint*> mChildrenJoint; /*!< vector of child Joints */
 		std::vector<float> mColors; /*!< Color of the Joint */
 		bool mIsPrincipal;
+		int mHieraLevel; /*!< index of hierarchy level : 1 for the root */
 		
 		Eigen::Quaterniond mQDefault;
 		Eigen::Quaterniond mQLocal; /*!< Joint local orientation */

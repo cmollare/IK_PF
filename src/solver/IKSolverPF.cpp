@@ -158,10 +158,45 @@ void IKSolverPF::computeDistance()
 	}
 }
 
+void IKSolverPF::computeDistanceHiera()
+{	
+	//ajouter plus de poids au root ???
+	std::map<std::string, int>::iterator it;
+	for (int i=0 ; i<mModels.size() ; i++)
+	{
+		double distance=0;
+		for (it = mJointNameToPos.begin() ; it != mJointNameToPos.end() ; it++)
+		{
+			if ((*it).second != -1)
+			{
+				Eigen::Vector3d jtPos = mModels[i]->getJoint((*it).first)->getXYZVect();
+				Eigen::Vector3d jtObs(mCurrentFrame[(*it).second][1], mCurrentFrame[(*it).second][2], mCurrentFrame[(*it).second][3]);
+				Eigen::Vector3d diff = jtPos - jtObs;
+				Eigen::Matrix3d cov;
+				cov.setIdentity();
+				double tempo = diff.transpose()*(cov*diff);
+				//distance += tempo*(5./(double)mModels[i]->getJoint((*it).first)->getHieraLevel());
+				distance += tempo/log((double)mModels[i]->getJoint((*it).first)->getHieraLevel()*6);
+				//cout << (*it).first << endl;
+				/*if((*it).first == "Head")
+				{
+					cout << "********" << endl;
+					/*cout << jtPos << endl;
+					cout << "*" << endl;
+					cout << jtObs << endl;//
+					cout << diff.transpose()*(cov*diff) << endl;
+					cout << "********" << endl;
+				}*/
+			}
+		}
+		mCurrentDistances[i] = sqrt(distance);
+	}
+}
+
 void IKSolverPF::computeLikelihood()
 {	
 	//contraintes a ajouter
-	this->computeDistance();
+	this->computeDistanceHiera();
 	
 	for (int i=0 ; i<mCurrentDistances.size() ; i++)
 	{
@@ -263,6 +298,7 @@ void IKSolverPF::step()
 
 void IKSolverPF::stepAlt()
 {
+	cout << mCurrentDistances[mMaxWeightIndex] << endl;
 	for (int i=0 ; i<mModels.size() ; i++)
 	{
 		mModels[i]->setPrincipal(true);
@@ -273,9 +309,11 @@ void IKSolverPF::stepAlt()
 			//if (mCurrentDistances[i] < 2)
 			//	variance = (exp(mCurrentDistances[i])-1)/10.;
 			//else
-			variance = mCurrentDistances[i];
+				variance = mCurrentDistances[i];
+			if (randUnif(1000)<10)
+				variance = 2;
 			//variance=10;
-			cout << mCurrentDistances[i] << endl;
+			//cout << mCurrentDistances[i] << endl;
 			if (variance>100)
 			{
 				cout << "lol" << endl;
@@ -299,23 +337,23 @@ void IKSolverPF::stepAlt()
 				invalide = false;
 				if (mConstOrientVec[i][j] == ORIENT_CONST_FREE)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI, 1, 1, 1);//A modifier suivant les contraintes
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI*variance, 1, 1, 1);//A modifier suivant les contraintes
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_TWIST)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI, 0.5, 0.1, 0.05);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI*variance, 0.5, 0.1, 0.05);
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_FLEX)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI, 0.1, 1, 0.05);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI*variance, 0.1, 1, 0.05);
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_TFLEX)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI, 1, 1, 0.1);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI*variance, 1, 1, 0.1);
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_BIFLEX)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI, 0.1, 1, 1);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI*variance, 0.1, 1, 1);
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_FIXED)
 				{
@@ -323,7 +361,7 @@ void IKSolverPF::stepAlt()
 				}
 				else
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI, 1, 1, 1);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI*variance, 1, 1, 1);
 				}
 				mOrientationVec[i][j]->normalize();
 				

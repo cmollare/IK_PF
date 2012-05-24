@@ -5,6 +5,11 @@ Joint::Joint(string name, Joint *parent, vector<double> offset, Eigen::Quaternio
 	mParentJoint = parent;
 	mName = name;
 	
+	if (parent == NULL)
+		mHieraLevel = 1;
+	else
+		mHieraLevel = parent->getHieraLevel()+1;
+	
 	mQLocal = quat;
 
 	if (offset.size() == 3)
@@ -40,6 +45,7 @@ Joint::Joint(const Joint& jtCopy)
 	mOffsetConst = jtCopy.mOffsetConst;
 	mOrientationConst = jtCopy.mOrientationConst;
 	mOffsetSignConst = jtCopy.mOffsetSignConst;
+	mHieraLevel = jtCopy.mHieraLevel;
 	
 	//Dynamics allocations
 	
@@ -52,8 +58,6 @@ Joint::Joint(const Joint& jtCopy)
 		{
 			mChildrenJoint.push_back(new Joint(*(jtCopy.mChildrenJoint[i])));
 			mChildrenJoint[i]->setParentIfChild(this);
-			//cout << "adresse : " << mChildrenJoint[i] << endl;
-			//cout << "adresse2 : " << jtCopy.mChildrenJoint[i] << endl;
 		}
 	}
 }
@@ -94,6 +98,7 @@ void Joint::setParentIfChild(Joint *jt)
 			if (parentChildren[i] == this)
 			{
 				mParentJoint = jt;
+				mHieraLevel = jt->getHieraLevel() + 1;
 				chgt = true;
 			}
 		}
@@ -151,6 +156,11 @@ Joint* Joint::getJointFromName(Joint *jt, std::string name)
 std::string Joint::getName()
 {
 	return mName;
+}
+
+int Joint::getHieraLevel()
+{
+	return mHieraLevel;
 }
 
 bool Joint::hasChildren()
