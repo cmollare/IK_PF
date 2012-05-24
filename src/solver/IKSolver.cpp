@@ -17,7 +17,12 @@ Eigen::Quaterniond IKSolver::sampleQuTEM(Eigen::Quaterniond mean, double sigma, 
 	axis[3]=axis[3]*sigma3;
 	
 	//theta
-	double theta = this->randn()*sigma;
+	double theta;
+	do
+	{
+		theta = this->randn()*sigma;
+	}
+	while(sigma < abs(theta));
 	
 	//exp(N*theta)
 	axis=axis*(double)sin(theta);

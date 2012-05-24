@@ -279,8 +279,8 @@ void IKSolverPF::stepAlt()
 				variance = 1;
 			}
 			bool invalide = false;
-			//Eigen::Quaterniond quat = mDefaultOrientationVec[i][j];
-			Eigen::Quaterniond quat = (*mOrientationVec[i][j]);
+			Eigen::Quaterniond quat = mDefaultOrientationVec[i][j];
+			//Eigen::Quaterniond quat = (*mOrientationVec[i][j]);
 			Eigen::Vector3d offs;
 			if (mConstOffsetVec[i][j] == OFFSET_CONST_FREE)
 			{
