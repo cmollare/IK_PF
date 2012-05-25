@@ -21,6 +21,7 @@ Eigen::Quaterniond IKSolver::sampleQuTEM(Eigen::Quaterniond mean, double sigma, 
 	do
 	{
 		theta = this->randn()*sigma;
+		theta = abs(theta);
 	}
 	while(sigma < abs(theta));
 	

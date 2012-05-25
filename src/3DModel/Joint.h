@@ -215,7 +215,7 @@ class Joint
 		
 		std::string getOffsetConstraint();
 		std::string getOrientationConstraint();
-		void setPrincipal(bool isPrincipal);
+		void setColor(float R=1, float G=0, float B=1, float alpha=0.1);
 		std::vector<float> getColor();
 		
 	private:

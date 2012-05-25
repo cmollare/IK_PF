@@ -5,7 +5,6 @@ S3DModel::S3DModel(int id)
 	mId = id;
 	mRootJoint = NULL;
 	mNbJoints = -1;
-	mIsPrincipal = false;
 }
 
 S3DModel::S3DModel(const Joint* jt, unsigned int id)
@@ -13,7 +12,6 @@ S3DModel::S3DModel(const Joint* jt, unsigned int id)
 	mRootJoint = new Joint(*jt);
 	mId = id;
 	mNbJoints = -1;
-	mIsPrincipal = false;
 	createMaps();
 	createOrientationVec();
 	createOffsetVec();
@@ -28,7 +26,6 @@ S3DModel::S3DModel(const S3DModel& model)
 	mRootJoint = new Joint(*(model.mRootJoint));
 	mId = -2;
 	mNbJoints = -1;
-	mIsPrincipal = false;
 	createMaps();
 	createOrientationVec();
 	createOffsetVec();
@@ -114,13 +111,11 @@ vector<std::string> S3DModel::getConstOrientVec()
 	return mConstOrientVec;
 }
 
-void S3DModel::setPrincipal(bool isPrincipal)
+void S3DModel::setColor(float R, float G, float B, float alpha)
 {
-	mIsPrincipal = isPrincipal;
-
 	for(int i=0 ; i<=mNbJoints ; i++)
 	{
-		mIntToJoint[i]->setPrincipal(mIsPrincipal);
+		mIntToJoint[i]->setColor(R, G, B, alpha);
 	}
 }
 

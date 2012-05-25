@@ -177,6 +177,7 @@ void IKSolverPF::computeDistanceHiera()
 				double tempo = diff.transpose()*(cov*diff);
 				//distance += tempo*(5./(double)mModels[i]->getJoint((*it).first)->getHieraLevel());
 				distance += tempo/log((double)mModels[i]->getJoint((*it).first)->getHieraLevel()*6);
+				//distance += tempo*(double)mModels[i]->getJoint((*it).first)->getHieraLevel()*0.1;
 				//cout << (*it).first << endl;
 				/*if((*it).first == "Head")
 				{
@@ -209,7 +210,7 @@ void IKSolverPF::step()
 {
 	for (int i=0 ; i<mModels.size() ; i++)
 	{
-		mModels[i]->setPrincipal(true);
+		mModels[i]->setColor(1,0,1,0.1);
 		for (int j=0 ; j < mOrientationVec[i].size() ; j++)
 		{
 			bool invalide = false;
@@ -301,7 +302,7 @@ void IKSolverPF::stepAlt()
 	cout << mCurrentDistances[mMaxWeightIndex] << endl;
 	for (int i=0 ; i<mModels.size() ; i++)
 	{
-		mModels[i]->setPrincipal(true);
+		mModels[i]->setColor(1,0,1,0.1);
 		for (int j=0 ; j < mOrientationVec[i].size() ; j++)
 		{
 			double variance;
@@ -310,8 +311,8 @@ void IKSolverPF::stepAlt()
 			//	variance = (exp(mCurrentDistances[i])-1)/10.;
 			//else
 				variance = mCurrentDistances[i];
-			if (randUnif(1000)<10)
-				variance = 2;
+			//if (randUnif(1000)<10)
+				//variance = 2;
 			//variance=10;
 			//cout << mCurrentDistances[i] << endl;
 			if (variance>100)
@@ -437,7 +438,7 @@ void IKSolverPF::updateWeights()
 {
 	double sum=0;
 	this->computeLikelihood();
-	mModels[mMaxWeightIndex]->setPrincipal(false);
+	mModels[mMaxWeightIndex]->setColor(1,0,1,0.1);
 	
 	for (int i=0 ; i<mCurrentLikelihood.size() ; i++)
 	{
@@ -458,7 +459,7 @@ void IKSolverPF::updateWeights()
 	}
 	
 	mCurrentWeights/=sum;
-	mModels[mMaxWeightIndex]->setPrincipal(true);
+	mModels[mMaxWeightIndex]->setColor(0,1,1,1);
 	//cout << mMaxWeightIndex << endl;
 }
 

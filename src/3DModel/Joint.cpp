@@ -22,12 +22,12 @@ Joint::Joint(string name, Joint *parent, vector<double> offset, Eigen::Quaternio
 	
 	mOffsetConst = OFFSET_CONST_FREE;
 	mOrientationConst = ORIENT_CONST_FREE;
-	mColors.push_back(1);
-	mColors.push_back(0);
-	mColors.push_back(1);
-	mColors.push_back(1);
-	
-	mIsPrincipal=false;
+	mColors = std::vector<float>(4,1);
+	//mColors.push_back(1);
+	//mColors.push_back(0);
+	//mColors.push_back(1);
+	//mColors.push_back(1);
+	setColor();
 }
 
 Joint::Joint(const Joint& jtCopy)
@@ -297,23 +297,12 @@ std::string Joint::getOrientationConstraint()
 	return mOrientationConst;
 }
 
-void Joint::setPrincipal(bool isPrincipal)
+void Joint::setColor(float R, float G, float B, float alpha)
 {
-	mIsPrincipal = isPrincipal;
-	if (mIsPrincipal)
-	{
-		mColors[0] = 0;
-		mColors[1] = 1;
-		mColors[2] = 1;
-		mColors[3] = 0.1;
-	}
-	else
-	{
-		mColors[0] = 1;
-		mColors[1] = 0;
-		mColors[2] = 1;
-		mColors[3] = 1;
-	}
+	mColors[0] = R;
+	mColors[1] = G;
+	mColors[2] = B;
+	mColors[3] = alpha;
 }
 
 std::vector<float> Joint::getColor()
