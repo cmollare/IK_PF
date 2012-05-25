@@ -197,7 +197,7 @@ void IKSolverPF::computeDistanceHiera()
 void IKSolverPF::computeLikelihood()
 {	
 	//contraintes a ajouter
-	this->computeDistanceHiera();
+	this->computeDistance();
 	
 	for (int i=0 ; i<mCurrentDistances.size() ; i++)
 	{
