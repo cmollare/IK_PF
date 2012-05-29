@@ -5,6 +5,7 @@
 #include "../FileParsers/FileParser.h"
 #include "../viewer/S3DViewer.h"
 #include "../solver/IKSolverPF.h"
+#include "../filter/PFFilter.h"
 
 #define NBMODELS 100
 

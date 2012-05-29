@@ -1,16 +1,16 @@
-#ifndef IKSOLVERPF_H
-#define IKSOLVERPF_H
+#ifndef PFFILTER_H
+#define PFFILTER_H
 
-#include "IKSolver.h"
+#include "Filter.h"
 
 #define PI 0.1
 
 using namespace std;
 
-class IKSolverPF : public IKSolver
+class PFFilter : public Filter
 {
 	public:
-		IKSolverPF(std::vector<S3DModel*> mods, std::vector<std::string> posNames, std::vector<std::vector<double> > jointsXYZPositions);
+		PFFilter(std::vector<S3DModel*> mods, std::vector<std::string> posNames, std::vector<std::vector<double> > jointsXYZPositions);
 
 		virtual void initFilter();
 		virtual void computeLikelihood();
@@ -21,7 +21,6 @@ class IKSolverPF : public IKSolver
 		
 	protected:
 		virtual void computeDistance();
-		virtual void computeDistanceHiera();
 		void updateWeights();
 		void resample();
 		
