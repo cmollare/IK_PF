@@ -33,7 +33,7 @@ int main()
 		mods.push_back(new S3DModel(model, i));
 	}
 	
-	std::vector<std::vector<double> >& frame = fileParser->getFirstFrame();
+	std::vector<std::vector<double> > frame = fileParser->getFirstFrame();
 	std::map<std::string, std::string> jtsToPos; //A mettre dans un fichier
 	/*
 	jtsToPos["Spine"] = "Spine";
@@ -118,8 +118,9 @@ int main()
 	while (continuer)
 	{
 		//for(int i=0 ; i<200000 ; i++){cout << "lol" << endl;}
+		frame = fileParser->getNextFrame();
 		iksol.stepAlt();
-		viewer.update(mods);
+		viewer.update(mods, frame);
 		continuer = viewer.isRendering();
 	}
 	

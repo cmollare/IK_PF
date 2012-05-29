@@ -215,7 +215,7 @@ void S3DViewer::initObservations(std::vector<std::string> jtNames, std::vector<s
 	}
 }
 
-void S3DViewer::update(std::vector<S3DModel*>& models)
+void S3DViewer::update(std::vector<S3DModel*>& models, std::vector<std::vector<double> >& frame)
 {
 	for (int i=0 ; i < models.size() ; i++)
 	{
@@ -234,6 +234,7 @@ void S3DViewer::update(std::vector<S3DModel*>& models)
 		}
 	}
 	this->updateLine3D();
+	this->updateObs(frame);
 }
 
 void S3DViewer::initModels(std::vector<Joint*>& jts, SceneNode *node, int modelNum, std::map<std::string, std::string>& snNames)
@@ -360,6 +361,19 @@ void S3DViewer::updateLine3D()
 		Ogre::SceneNode* node = line->getParentSceneNode();
 		Ogre::SceneNode* childNode = mSceneMgr->getSceneNode((*it).second);
 		line->setLine(childNode->getPosition(), Ogre::Vector3(0, 0, 0), mLine3DToJoint[line]->getColor());
+	}
+}
+
+void S3DViewer::updateObs(std::vector<std::vector<double> >& frame)
+{
+	mObsCurrentFrame = frame;
+	
+	Ogre::SceneNode *obsNode = mSceneMgr->getSceneNode("Observations");
+	
+	for (int i=0 ; i<mObservationSNNames.size() ; i++)
+	{
+		Ogre::SceneNode *obsNode = mSceneMgr->getSceneNode(mObservationSNNames[i]);
+		obsNode->setPosition(Ogre::Vector3(mObsCurrentFrame[i][1], mObsCurrentFrame[i][2], mObsCurrentFrame[i][3]));
 	}
 }
 

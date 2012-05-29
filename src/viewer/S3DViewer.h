@@ -78,7 +78,7 @@ public:
     
     void initObservations(std::vector<std::string> jtNames, std::vector<std::vector<double> > frame);
     
-    void update(std::vector<S3DModel*>& models);
+    void update(std::vector<S3DModel*>& models, std::vector<std::vector<double> >& frame);
     
     //debug functions
     /*!
@@ -120,6 +120,7 @@ private:
 	 */
 	void initModels(std::vector<Joint*>& jts, SceneNode *node, int modelNum, std::map<std::string, std::string>& snNames);
 	void updateLine3D();
+	void updateObs(std::vector<std::vector<double> >& frame);
 	
     Ogre::Root *mRoot; /*!< Ogre::Root */
     Ogre::RenderWindow* mWindow; /*!< Ogre::RenderWindow */
@@ -129,10 +130,10 @@ private:
 	Ogre::LogManager* mLogMgr; /*!< For Ogre.log file management */
 	
 	//Mapping
-	std::map<Line3D*, std::string> mLine3DToSNName;
-	std::map<Line3D*, Joint*> mLine3DToJoint;
-	std::vector<std::map<std::string, std::string> > mModelSNNames;
-	std::vector<std::string> mObservationSNNames;
+	std::map<Line3D*, std::string> mLine3DToSNName; /*!< Mapping from Line3D* to associated SceneNode name */
+	std::map<Line3D*, Joint*> mLine3DToJoint; /*!< Mapping from Line3D* to associated Joint* */
+	std::vector<std::map<std::string, std::string> > mModelSNNames; /*!< Mapping from S3DModel* to associated SceneNode name */
+	std::vector<std::string> mObservationSNNames; /*!< List of the observations SceneNode Names */
 	//End mapping
 	
 	//For observations
