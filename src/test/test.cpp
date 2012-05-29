@@ -125,7 +125,7 @@ int main()
 		//frame = fileParser->getNextFrame();//Observation update
 		if (step == "IK")
 		{
-			if (iksol.stepAlt() < 0.40)
+			if (iksol.stepAlt() < 0.50)
 			{
 				iksol.save();
 				step = "InitFilter";

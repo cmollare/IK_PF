@@ -10,6 +10,7 @@ PFFilter::PFFilter(std::vector<S3DModel*> mods, std::vector<std::string> posName
 
 void PFFilter::initFilter()
 {
+	mModelMMSE->setColor(0, 1, 0, 1);
 	mCurrentWeights.setConstant(mModels.size(), 1, 1./mModels.size());
 	mCurrentDistances.resize(mModels.size(), 1);
 	mCurrentLikelihood.resize(mModels.size(), 1);
@@ -265,7 +266,7 @@ void PFFilter::step()
 void PFFilter::stepAlt(std::vector<std::vector<double> > frame)
 {
 	mCurrentFrame = frame;
-	cout << mCurrentDistances[mMaxWeightIndex] << endl;
+	//cout << mCurrentDistances[mMaxWeightIndex] << endl;
 	for (int i=0 ; i<mModels.size() ; i++)
 	{
 		mModels[i]->setColor(1,0,1,0.1);

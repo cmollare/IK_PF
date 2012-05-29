@@ -299,7 +299,7 @@ void IKSolverPF::step()
 
 void IKSolverPF::stepAlt()
 {
-	cout << mCurrentDistances[mMaxWeightIndex] << endl;
+	//cout << mCurrentDistances[mMaxWeightIndex] << endl;
 	for (int i=0 ; i<mModels.size() ; i++)
 	{
 		mModels[i]->setColor(1,0,1,0.1);

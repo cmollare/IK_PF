@@ -528,6 +528,7 @@ void IKSolverPFOrient::save()
 {
 	for (int j=0 ; j<mModels.size() ; j++)
 	{
+		mModels[j]->setColor(0,1,0,1);
 		for (int k=0 ; k<mOrientationVec[j].size() ; k++)
 		{
 			if (j!=mMaxWeightIndex)

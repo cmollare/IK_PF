@@ -50,6 +50,7 @@ class Filter
 		std::vector<std::string> mPosNames; /*!< Names of observations */
 		
 		std::vector<S3DModel*> mModels;
+		S3DModel* mModelMMSE;
 		std::vector<std::vector<Eigen::Quaterniond*, Eigen::aligned_allocator<Eigen::Quaterniond*> > > mOrientationVec;
 		std::vector<std::vector<Eigen::Translation3d*, Eigen::aligned_allocator<Eigen::Translation3d*> > > mOffsetVec;
 		std::vector<std::vector<Eigen::Quaterniond, Eigen::aligned_allocator<Eigen::Quaterniond> > > mDefaultOrientationVec;
