@@ -323,7 +323,7 @@ void PFFilter::stepAlt(std::vector<std::vector<double> > frame)
 				Eigen::Vector3d tempo;
 				if (mConstOffsetVec[i][j] == OFFSET_CONST_FREE)
 				{
-					tempo = Eigen::Vector3d(this->randn()*0.001, this->randn()*0.001, this->randn()*0.001) + offs;
+					tempo = Eigen::Vector3d(this->randn()*0.01, this->randn()*0.01, this->randn()*0.01) + offs;
 				}
 				else if (mConstOffsetVec[i][j] == OFFSET_CONST_BONE)
 				{
@@ -338,7 +338,7 @@ void PFFilter::stepAlt(std::vector<std::vector<double> > frame)
 				{
 					do
 					{
-						tempo = Eigen::Vector3d(this->randn(0.001), this->randn(0.001), 0) + offs;
+						tempo = Eigen::Vector3d(this->randn(0.01), this->randn(0.01), 0) + offs;
 					}
 					while(!mModels[i]->getJoint(mNameVec[i][j])->checkValidity(tempo));
 				}
@@ -346,7 +346,7 @@ void PFFilter::stepAlt(std::vector<std::vector<double> > frame)
 				{
 					do
 					{
-						tempo = Eigen::Vector3d(0, this->randn(0.001), this->randn(0.001)) + offs;
+						tempo = Eigen::Vector3d(0, this->randn(0.01), this->randn(0.01)) + offs;
 					}
 					while(!mModels[i]->getJoint(mNameVec[i][j])->checkValidity(tempo));
 				}
@@ -354,7 +354,7 @@ void PFFilter::stepAlt(std::vector<std::vector<double> > frame)
 				{
 					do
 					{
-						tempo = Eigen::Vector3d(this->randn(0.001), 0, this->randn(0.001)) + offs;
+						tempo = Eigen::Vector3d(this->randn(0.01), 0, this->randn(0.01)) + offs;
 					}
 					while(!mModels[i]->getJoint(mNameVec[i][j])->checkValidity(tempo));
 				}

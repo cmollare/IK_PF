@@ -4,6 +4,8 @@
 /*!
  * \file IKSolver.h
  */
+ 
+#define PI 0.06
 
 #include <iostream>
 #include <stdio.h>

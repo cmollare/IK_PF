@@ -3,8 +3,6 @@
 
 #include "IKSolver.h"
 
-#define PI 0.1
-
 using namespace std;
 
 class IKSolverPF : public IKSolver

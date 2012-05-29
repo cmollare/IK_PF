@@ -17,7 +17,7 @@ BJoints:
      Parent: Spine
      Offset: 
         Mean: {X: 0.0, Y: 0.1, Z: 0.0}
-        Dof: Free
+        Dof: PlanarXY
         SignConst: {X: NULL, Y: Pos, Z: NULL}
      Orientation: 
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
@@ -117,7 +117,7 @@ BJoints:
      Parent: Spine
      Offset:
         Mean: {X: 0.0, Y: -0.05, Z: 0.0}
-        Dof: Free
+        Dof: PlanarXY
         SignConst: {X: NULL, Y: Neg, Z: NULL}
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}

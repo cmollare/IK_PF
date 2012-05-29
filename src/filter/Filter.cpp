@@ -21,7 +21,7 @@ Eigen::Quaterniond Filter::sampleQuTEM(Eigen::Quaterniond mean, double sigma, do
 	do
 	{
 		theta = this->randn()*sigma;
-		theta = abs(theta);
+		//theta = abs(theta);
 	}
 	while(sigma < abs(theta));
 	
