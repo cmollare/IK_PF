@@ -8,7 +8,7 @@
 #include "../solver/IKSolverPFOrient.h"
 #include "../filter/PFFilter.h"
 
-#define NBMODELS 100
+#define NBMODELS 10
 
 using namespace std;
 
@@ -125,7 +125,7 @@ int main()
 		//frame = fileParser->getNextFrame();//Observation update
 		if (step == "IK")
 		{
-			if (iksol.stepAlt() < 0.50)
+			if (iksol.stepAlt() < 0.90)
 			{
 				iksol.save();
 				step = "InitFilter";

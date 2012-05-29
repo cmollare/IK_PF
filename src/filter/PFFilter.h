@@ -18,6 +18,7 @@ class PFFilter : public Filter
 		virtual void stepAlt(std::vector<std::vector<double> > frame);
 		double computeNeff();
 		void mapJointToObs(std::map<std::string, std::string> jointNameToPosName);
+		S3DModel* computeMMSE();
 		
 	protected:
 		virtual void computeDistance();

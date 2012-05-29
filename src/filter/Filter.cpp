@@ -4,10 +4,8 @@ Filter::Filter(std::vector<S3DModel*> mods)
 {
 	srand (time(NULL));//Initialisation of randon numbers
 	mModels = mods;
-	cout << mModels.size() << endl;
 	mModelMMSE = mods.back();
 	mModels.pop_back();
-	cout << mModels.size() << endl;
 }
 
 Eigen::Quaterniond Filter::sampleQuTEM(Eigen::Quaterniond mean, double sigma, double sigma1, double sigma2, double sigma3)

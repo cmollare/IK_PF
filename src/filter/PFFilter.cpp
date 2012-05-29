@@ -378,6 +378,7 @@ void PFFilter::stepAlt(std::vector<std::vector<double> > frame)
 	}
 	
 	this->updateWeights();
+	this->computeMMSE();
 	double Neff = this->computeNeff();;
 	//cout << Neff << "****" << endl;
 	//if (Neff < 1.5 || Neff < mModels.size()*0.1)
@@ -474,6 +475,24 @@ void PFFilter::mapJointToObs(std::map<std::string, std::string> jointNameToPosNa
 			cout << jtNames[i] <<" : No match found" << endl;
 		
 	}
+}
+
+S3DModel* PFFilter::computeMMSE()
+{
+	std::vector<Eigen::Quaterniond*, Eigen::aligned_allocator<Eigen::Quaterniond*> > orient = mModelMMSE->getOrientationVec();
+	std::vector<Eigen::Translation3d*, Eigen::aligned_allocator<Eigen::Translation3d*> > offset = mModelMMSE->getOffsetVector();
+	for (int i=0 ; i<mOrientationVec[0].size() ; i++)
+	{
+		Eigen::Vector3d tempo(0, 0, 0);
+		for (int j=0 ; j<mModels.size() ; j++)
+		{
+			Eigen::Vector3d offs = mOffsetVec[j][i]->vector();
+			tempo += mCurrentWeights[j]*offs;
+		}
+		(*offset[i]) = Eigen::Translation3d(tempo);
+	}
+	
+	return mModelMMSE;
 }
 
 
