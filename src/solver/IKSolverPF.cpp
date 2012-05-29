@@ -369,7 +369,11 @@ void IKSolverPF::stepAlt()
 				Eigen::Vector3d tempo;
 				if (mConstOffsetVec[i][j] == OFFSET_CONST_FREE)
 				{
-					tempo = Eigen::Vector3d(this->randn()*0.01, this->randn()*0.01, this->randn()*0.01)*variance + offs;
+					do
+					{
+						tempo = Eigen::Vector3d(this->randn()*0.01, this->randn()*0.01, this->randn()*0.01)*variance + offs;
+					}
+					while(!mModels[i]->getJoint(mNameVec[i][j])->checkValidity(tempo));
 				}
 				else if (mConstOffsetVec[i][j] == OFFSET_CONST_BONE)
 				{

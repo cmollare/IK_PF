@@ -4,6 +4,7 @@ IKSolver::IKSolver(std::vector<S3DModel*> mods)
 {
 	srand (time(NULL));//Initialisation of randon numbers
 	mModels = mods;
+	mRootName = mods[0]->getRootJoint()->getName();
 }
 
 Eigen::Quaterniond IKSolver::sampleQuTEM(Eigen::Quaterniond mean, double sigma, double sigma1, double sigma2, double sigma3)

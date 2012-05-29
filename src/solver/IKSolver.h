@@ -28,6 +28,7 @@ class IKSolver
 		IKSolver(std::vector<S3DModel*> mods);
 		
 		virtual void initFilter()=0;
+		//virtual void init()=0;
 		virtual void computeLikelihood()=0;
 		virtual void step()=0;
 		Eigen::Quaterniond sampleQuTEM(Eigen::Quaterniond mean, double sigma, double sigma1=1, double sigma2=1, double sigma3=1);
@@ -48,6 +49,7 @@ class IKSolver
 		std::map<std::string, int> mJointNameToPos;
 		std::map<std::string, int> mJointNameToInt; /*!< Name of the Joint to its position in the orientation vector */
 		std::vector<std::string> mPosNames;
+		std::string mRootName;
 		
 		std::vector<S3DModel*> mModels;
 		std::vector<std::vector<Eigen::Quaterniond*, Eigen::aligned_allocator<Eigen::Quaterniond*> > > mOrientationVec;

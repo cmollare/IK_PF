@@ -5,6 +5,7 @@
 #include "../FileParsers/FileParser.h"
 #include "../viewer/S3DViewer.h"
 #include "../solver/IKSolverPF.h"
+#include "../solver/IKSolverPFOrient.h"
 #include "../filter/PFFilter.h"
 
 #define NBMODELS 100
@@ -80,13 +81,16 @@ int main()
 	jtsToPos["FootRight"] = "FootRight";//*/
 	
 	
-	IKSolverPF iksol(mods, fileParser->getJointNames(), frame);//Declaration of solver
+	IKSolverPFOrient iksol(mods, fileParser->getJointNames(), frame);//Declaration of solver
 	iksol.mapJointToObs(jtsToPos);
 	iksol.initFilter();
 	viewer.init();
 	viewer.initModels(mods);
 	viewer.initObservations(fileParser->getJointNames(), frame);
 	iksol.computeLikelihood();
+	
+	PFFilter filter(mods, fileParser->getJointNames(), frame);
+	filter.mapJointToObs(jtsToPos);
 	
 	//******************************************
 	//**********END INITIALISATION**************
@@ -115,13 +119,39 @@ int main()
 	
 	//viewer.start(); //infinite loop
 	bool continuer = true;
+	std::string step = "IK";
 	while (continuer)
 	{
-		//for(int i=0 ; i<200000 ; i++){cout << "lol" << endl;}
-		frame = fileParser->getNextFrame();
-		iksol.stepAlt();
-		viewer.update(mods, frame);
-		continuer = viewer.isRendering();
+		//frame = fileParser->getNextFrame();//Observation update
+		if (step == "IK")
+		{
+			if (iksol.stepAlt() < 0.40)
+			{
+				iksol.save();
+				step = "InitFilter";
+			}
+			viewer.update(mods, frame);
+			continuer = viewer.isRendering();
+		}
+		else if (step == "InitFilter")
+		{
+			filter.initFilter();
+			step = "Filter";
+			viewer.update(mods, frame);
+			continuer = viewer.isRendering();
+		}
+		else if (step == "Filter")
+		{
+			frame = fileParser->getNextFrame();//Observation update
+			filter.stepAlt(frame);
+			viewer.update(mods, frame);
+			continuer = viewer.isRendering();
+		}
+		else
+		{
+			cout << "State unknown" << endl;
+			continuer = viewer.isRendering();
+		}
 	}
 	
 	for (int i=0 ; i<NBMODELS ; i++)

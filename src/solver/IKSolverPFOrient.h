@@ -1,28 +1,31 @@
-#ifndef PFFILTER_H
-#define PFFILTER_H
+#ifndef IKSOLVERPFORIENT_H
+#define IKSOLVERPFORIENT_H
 
-#include "Filter.h"
+#include "IKSolver.h"
 
-#define TEMP 1
+#define PI 0.1
 
 using namespace std;
 
-class PFFilter : public Filter
+class IKSolverPFOrient : public IKSolver
 {
 	public:
-		PFFilter(std::vector<S3DModel*> mods, std::vector<std::string> posNames, std::vector<std::vector<double> > jointsXYZPositions);
+		IKSolverPFOrient(std::vector<S3DModel*> mods, std::vector<std::string> posNames, std::vector<std::vector<double> > jointsXYZPositions);
 
 		virtual void initFilter();
 		virtual void computeLikelihood();
 		virtual void step();
-		virtual void stepAlt(std::vector<std::vector<double> > frame);
+		virtual double stepAlt();
 		double computeNeff();
 		void mapJointToObs(std::map<std::string, std::string> jointNameToPosName);
+		void save();
 		
 	protected:
 		virtual void computeDistance();
+		virtual void computeDistanceHiera();
 		void updateWeights();
 		void resample();
+		
 		
 		Eigen::VectorXf mCurrentWeights;
 		int mMaxWeightIndex;

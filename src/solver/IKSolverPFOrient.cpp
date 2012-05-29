@@ -1,6 +1,6 @@
-#include "PFFilter.h"
+#include "IKSolverPFOrient.h"
 
-PFFilter::PFFilter(std::vector<S3DModel*> mods, std::vector<std::string> posNames, std::vector<std::vector<double> > jointsXYZPositions) : Filter(mods)
+IKSolverPFOrient::IKSolverPFOrient(std::vector<S3DModel*> mods, std::vector<std::string> posNames, std::vector<std::vector<double> > jointsXYZPositions) : IKSolver(mods)
 {
 	mCurrentFrame = jointsXYZPositions;
 	mPosNames = posNames;
@@ -8,7 +8,7 @@ PFFilter::PFFilter(std::vector<S3DModel*> mods, std::vector<std::string> posName
 	mMaxWeightIndex=0;
 }
 
-void PFFilter::initFilter()
+void IKSolverPFOrient::initFilter()
 {
 	mCurrentWeights.setConstant(mModels.size(), 1, 1./mModels.size());
 	mCurrentDistances.resize(mModels.size(), 1);
@@ -30,10 +30,9 @@ void PFFilter::initFilter()
 	{
 		for (int j=0 ; j < mOrientationVec[i].size() ; j++)
 		{
-			mDefaultOrientationVec[i][j] = (*mOrientationVec[i][j]);
-			mDefaultOffsetVec[i][j] = (*mOffsetVec[i][j]);
 			
 			Eigen::Quaterniond quat = mDefaultOrientationVec[i][j];
+			//quat.setIdentity();
 			bool invalide = false;
 			Eigen::Vector3d offs = mDefaultOffsetVec[i][j].vector();
 			do
@@ -41,23 +40,23 @@ void PFFilter::initFilter()
 				invalide = false;
 				if (mConstOrientVec[i][j] == ORIENT_CONST_FREE)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP, 1, 1, 1);//A modifier suivant les contraintes
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI, 1, 1, 1);//A modifier suivant les contraintes
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_TWIST)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP, 1, 0.1, 0.05);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI, 1, 0.1, 0.05);
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_FLEX)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP, 0.1, 1, 0.05);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI, 0.1, 1, 0.05);
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_TFLEX)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP, 1, 1, 0.1);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI, 1, 1, 0.1);
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_BIFLEX)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP, 0.1, 1, 1);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI, 0.1, 1, 1);
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_FIXED)
 				{
@@ -65,21 +64,48 @@ void PFFilter::initFilter()
 				}
 				else
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP, 1, 1, 1);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI, 1, 1, 1);
 				}
 				mOrientationVec[i][j]->normalize();
 				
+				
 				Eigen::Vector3d tempo;
+				if (mNameVec[i][j] == mRootName)
+				{
+					vector<double> vec = mCurrentFrame[mJointNameToPos[mNameVec[i][j]]];
+					tempo=Eigen::Vector3d(vec[1], vec[2], vec[3]);
+				}
+				else if(mJointNameToPos[mNameVec[i][j]] != -1 && mJointNameToPos[mModels[i]->getJoint(mNameVec[i][j])->getParent()->getName()] != -1)
+				{
+					std::string parentName = mModels[i]->getJoint(mNameVec[i][j])->getParent()->getName();
+					vector<double> vec = mCurrentFrame[mJointNameToPos[mNameVec[i][j]]];
+					vector<double> vecParent = mCurrentFrame[mJointNameToPos[parentName]];
+					if(mConstOffsetVec[i][j] == OFFSET_CONST_FREE || mConstOffsetVec[i][j] == OFFSET_CONST_PLANARXY || mConstOffsetVec[i][j] == OFFSET_CONST_PLANARYZ || mConstOffsetVec[i][j] == OFFSET_CONST_PLANARXZ)
+					{
+						tempo=Eigen::Vector3d(vec[1]-vecParent[1], vec[2]-vecParent[2], vec[3]-vecParent[3]);
+					}
+					else if(mConstOffsetVec[i][j] == OFFSET_CONST_BONE)
+					{
+						double dist = abs(vec[1]-vecParent[1]) + abs(vec[2]-vecParent[2]) + abs(vec[3]-vecParent[3]);
+						tempo=Eigen::Vector3d(dist, 0, 0);
+					}
+					else
+					{
+						tempo=Eigen::Vector3d(this->randn()*0.01, this->randn()*0.01, this->randn()*0.01);
+					}
+				}
+				else
+				{
 				if (mConstOffsetVec[i][j] == OFFSET_CONST_FREE)
 				{
-					tempo = Eigen::Vector3d(this->randn()*0.001, this->randn()*0.001, this->randn()*0.001) + offs;
+					tempo = Eigen::Vector3d(this->randn()*0.01, this->randn()*0.01, this->randn()*0.01) + offs;
 				}
 				else if (mConstOffsetVec[i][j] == OFFSET_CONST_BONE)
 				{
 
 					do
 					{
-						tempo = Eigen::Vector3d(this->randn(0.001), 0, 0) + offs;
+						tempo = Eigen::Vector3d(this->randn(0.1), 0, 0) + offs;
 					}
 					while(!mModels[i]->getJoint(mNameVec[i][j])->checkValidity(tempo));
 				}
@@ -88,7 +114,7 @@ void PFFilter::initFilter()
 					int i=0;
 					do
 					{
-						tempo = Eigen::Vector3d(this->randn(0.001), this->randn(0.001), 0) + offs;
+						tempo = Eigen::Vector3d(this->randn(0.01), this->randn(0.01), 0) + offs;
 					}
 					while(!mModels[i]->getJoint(mNameVec[i][j])->checkValidity(tempo));
 				}
@@ -96,7 +122,7 @@ void PFFilter::initFilter()
 				{
 					do
 					{
-						tempo = Eigen::Vector3d(0, this->randn(0.001), this->randn(0.001)) + offs;
+						tempo = Eigen::Vector3d(0, this->randn(0.01), this->randn(0.01)) + offs;
 					}
 					while(!mModels[i]->getJoint(mNameVec[i][j])->checkValidity(tempo));
 				}
@@ -104,13 +130,14 @@ void PFFilter::initFilter()
 				{
 					do
 					{
-						tempo = Eigen::Vector3d(this->randn(0.001), 0, this->randn(0.001)) + offs;
+						tempo = Eigen::Vector3d(this->randn(0.01), 0, this->randn(0.01)) + offs;
 					}
 					while(!mModels[i]->getJoint(mNameVec[i][j])->checkValidity(tempo));
 				}
 				else if (mConstOffsetVec[i][j] == OFFSET_CONST_FIXED)
 				{
 					tempo = Eigen::Vector3d(0, 0, 0) + offs;
+				}
 				}
 				(*mOffsetVec[i][j])=Eigen::Translation3d(tempo);//A modifier suivant les contraintes
 
@@ -119,14 +146,14 @@ void PFFilter::initFilter()
 				invalide |= ((mOffsetVec[i][j]->x() == -std::numeric_limits<double>::infinity()) || (mOffsetVec[i][j]->y() == -std::numeric_limits<double>::infinity()) || (mOffsetVec[i][j]->z() == -std::numeric_limits<double>::infinity()));
 				invalide |= ((mOffsetVec[i][j]->x() != mOffsetVec[i][j]->x()) || (mOffsetVec[i][j]->y() != mOffsetVec[i][j]->y()) || (mOffsetVec[i][j]->z() != mOffsetVec[i][j]->z()));
 				invalide |= (mOrientationVec[i][j]->w() != mOrientationVec[i][j]->w());
-			}
+			}//*/
 			while(invalide);
 			
 		}
 	}//*/
 }
 
-void PFFilter::computeDistance()
+void IKSolverPFOrient::computeDistance()
 {	
 	//ajouter plus de poids au root ???
 	std::map<std::string, int>::iterator it;
@@ -159,7 +186,43 @@ void PFFilter::computeDistance()
 	}
 }
 
-void PFFilter::computeLikelihood()
+void IKSolverPFOrient::computeDistanceHiera()
+{	
+	//ajouter plus de poids au root ???
+	std::map<std::string, int>::iterator it;
+	for (int i=0 ; i<mModels.size() ; i++)
+	{
+		double distance=0;
+		for (it = mJointNameToPos.begin() ; it != mJointNameToPos.end() ; it++)
+		{
+			if ((*it).second != -1)
+			{
+				Eigen::Vector3d jtPos = mModels[i]->getJoint((*it).first)->getXYZVect();
+				Eigen::Vector3d jtObs(mCurrentFrame[(*it).second][1], mCurrentFrame[(*it).second][2], mCurrentFrame[(*it).second][3]);
+				Eigen::Vector3d diff = jtPos - jtObs;
+				Eigen::Matrix3d cov;
+				cov.setIdentity();
+				double tempo = diff.transpose()*(cov*diff);
+				//distance += tempo*(5./(double)mModels[i]->getJoint((*it).first)->getHieraLevel());
+				distance += tempo/log((double)mModels[i]->getJoint((*it).first)->getHieraLevel()*6);
+				//distance += tempo*(double)mModels[i]->getJoint((*it).first)->getHieraLevel()*0.1;
+				//cout << (*it).first << endl;
+				/*if((*it).first == "Head")
+				{
+					cout << "********" << endl;
+					/*cout << jtPos << endl;
+					cout << "*" << endl;
+					cout << jtObs << endl;//
+					cout << diff.transpose()*(cov*diff) << endl;
+					cout << "********" << endl;
+				}*/
+			}
+		}
+		mCurrentDistances[i] = sqrt(distance);
+	}
+}
+
+void IKSolverPFOrient::computeLikelihood()
 {	
 	//contraintes a ajouter
 	this->computeDistance();
@@ -171,7 +234,7 @@ void PFFilter::computeLikelihood()
 	//cout << mCurrentLikelihood << "//" << endl;
 }
 
-void PFFilter::step()
+void IKSolverPFOrient::step()
 {
 	for (int i=0 ; i<mModels.size() ; i++)
 	{
@@ -195,23 +258,23 @@ void PFFilter::step()
 				invalide = false;
 				if (mConstOrientVec[i][j] == ORIENT_CONST_FREE)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP, 1, 1, 1);//A modifier suivant les contraintes
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI, 1, 1, 1);//A modifier suivant les contraintes
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_TWIST)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP, 0.5, 0.1, 0.05);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI, 0.5, 0.1, 0.05);
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_FLEX)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP, 0.1, 1, 0.05);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI, 0.1, 1, 0.05);
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_TFLEX)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP, 1, 1, 0.1);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI, 1, 1, 0.1);
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_BIFLEX)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP, 0.1, 1, 1);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI, 0.1, 1, 1);
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_FIXED)
 				{
@@ -219,7 +282,7 @@ void PFFilter::step()
 				}
 				else
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP, 1, 1, 1);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI, 1, 1, 1);
 				}
 				mOrientationVec[i][j]->normalize();
 
@@ -262,9 +325,8 @@ void PFFilter::step()
 		this->resample();
 }
 
-void PFFilter::stepAlt(std::vector<std::vector<double> > frame)
+double IKSolverPFOrient::stepAlt()
 {
-	mCurrentFrame = frame;
 	cout << mCurrentDistances[mMaxWeightIndex] << endl;
 	for (int i=0 ; i<mModels.size() ; i++)
 	{
@@ -272,43 +334,55 @@ void PFFilter::stepAlt(std::vector<std::vector<double> > frame)
 		for (int j=0 ; j < mOrientationVec[i].size() ; j++)
 		{
 			double variance;
-			variance=1;
-
+			//double variance = log(1+mCurrentDistances[i])*5;
+			//if (mCurrentDistances[i] < 2)
+			//	variance = (exp(mCurrentDistances[i])-1)/10.;
+			//else
+				variance = mCurrentDistances[i];
+			//if (randUnif(1000)<10)
+				//variance = 2;
+			//variance=10;
+			//cout << mCurrentDistances[i] << endl;
+			if (variance>100)
+			{
+				cout << "lol" << endl;
+				variance = 1;
+			}
 			bool invalide = false;
 			//Eigen::Quaterniond quat = mDefaultOrientationVec[i][j];
 			Eigen::Quaterniond quat = (*mOrientationVec[i][j]);
 			Eigen::Vector3d offs;
-			
 			if (mConstOffsetVec[i][j] == OFFSET_CONST_FREE)
 			{
 				offs = mOffsetVec[i][j]->vector();
 			}
 			else
 			{
-				offs = mDefaultOffsetVec[i][j].vector();
+				offs = mOffsetVec[i][j]->vector();
+				//offs = mDefaultOffsetVec[i][j].vector();
 			}
 			do
 			{
 				invalide = false;
 				if (mConstOrientVec[i][j] == ORIENT_CONST_FREE)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP*variance, 1, 1, 1);//A modifier suivant les contraintes
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI*variance, 1, 1, 1);//A modifier suivant les contraintes
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_TWIST)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP*variance, 0.5, 0.1, 0.05);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI*variance, 0.5, 0.1, 0.05);
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_FLEX)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP*variance, 0.1, 1, 0.05);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI*variance, 0.1, 1, 0.05);
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_TFLEX)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP*variance, 1, 1, 0.1);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI*variance, 1, 1, 0.1);
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_BIFLEX)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP*variance, 0.1, 1, 1);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI*variance, 0.1, 1, 1);
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_FIXED)
 				{
@@ -316,21 +390,25 @@ void PFFilter::stepAlt(std::vector<std::vector<double> > frame)
 				}
 				else
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP*variance, 1, 1, 1);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, PI*variance, 1, 1, 1);
 				}
 				mOrientationVec[i][j]->normalize();
 				
-				Eigen::Vector3d tempo;
+				/*Eigen::Vector3d tempo;
 				if (mConstOffsetVec[i][j] == OFFSET_CONST_FREE)
 				{
-					tempo = Eigen::Vector3d(this->randn()*0.001, this->randn()*0.001, this->randn()*0.001) + offs;
+					do
+					{
+						tempo = Eigen::Vector3d(this->randn()*0.01, this->randn()*0.01, this->randn()*0.01)*variance + offs;
+					}
+					while(!mModels[i]->getJoint(mNameVec[i][j])->checkValidity(tempo));
 				}
 				else if (mConstOffsetVec[i][j] == OFFSET_CONST_BONE)
 				{
 
 					do
 					{
-						tempo = Eigen::Vector3d(this->randn(0.001), 0, 0) + offs;
+						tempo = Eigen::Vector3d(this->randn(0.01), 0, 0)*variance + offs;
 					}
 					while(!mModels[i]->getJoint(mNameVec[i][j])->checkValidity(tempo));
 				}
@@ -338,7 +416,7 @@ void PFFilter::stepAlt(std::vector<std::vector<double> > frame)
 				{
 					do
 					{
-						tempo = Eigen::Vector3d(this->randn(0.001), this->randn(0.001), 0) + offs;
+						tempo = Eigen::Vector3d(this->randn(0.01), this->randn(0.01), 0)*variance + offs;
 					}
 					while(!mModels[i]->getJoint(mNameVec[i][j])->checkValidity(tempo));
 				}
@@ -346,7 +424,7 @@ void PFFilter::stepAlt(std::vector<std::vector<double> > frame)
 				{
 					do
 					{
-						tempo = Eigen::Vector3d(0, this->randn(0.001), this->randn(0.001)) + offs;
+						tempo = Eigen::Vector3d(0, this->randn(0.01), this->randn(0.01))*variance + offs;
 					}
 					while(!mModels[i]->getJoint(mNameVec[i][j])->checkValidity(tempo));
 				}
@@ -354,7 +432,7 @@ void PFFilter::stepAlt(std::vector<std::vector<double> > frame)
 				{
 					do
 					{
-						tempo = Eigen::Vector3d(this->randn(0.001), 0, this->randn(0.001)) + offs;
+						tempo = Eigen::Vector3d(this->randn(0.01), 0, this->randn(0.01))*variance + offs;
 					}
 					while(!mModels[i]->getJoint(mNameVec[i][j])->checkValidity(tempo));
 				}
@@ -362,12 +440,12 @@ void PFFilter::stepAlt(std::vector<std::vector<double> > frame)
 				{
 					tempo = Eigen::Vector3d(0, 0, 0) + offs;
 				}
-				(*mOffsetVec[i][j])=Eigen::Translation3d(tempo);//A modifier suivant les contraintes
+				(*mOffsetVec[i][j])=Eigen::Translation3d(tempo);//A modifier suivant les contraintes*/
 
 				//To avoid infinite and NaN cases
-				invalide |= ((mOffsetVec[i][j]->x() == std::numeric_limits<double>::infinity()) || (mOffsetVec[i][j]->y() == std::numeric_limits<double>::infinity()) || (mOffsetVec[i][j]->z() == std::numeric_limits<double>::infinity()));
-				invalide |= ((mOffsetVec[i][j]->x() == -std::numeric_limits<double>::infinity()) || (mOffsetVec[i][j]->y() == -std::numeric_limits<double>::infinity()) || (mOffsetVec[i][j]->z() == -std::numeric_limits<double>::infinity()));
-				invalide |= ((mOffsetVec[i][j]->x() != mOffsetVec[i][j]->x()) || (mOffsetVec[i][j]->y() != mOffsetVec[i][j]->y()) || (mOffsetVec[i][j]->z() != mOffsetVec[i][j]->z()));
+				//invalide |= ((mOffsetVec[i][j]->x() == std::numeric_limits<double>::infinity()) || (mOffsetVec[i][j]->y() == std::numeric_limits<double>::infinity()) || (mOffsetVec[i][j]->z() == std::numeric_limits<double>::infinity()));
+				//invalide |= ((mOffsetVec[i][j]->x() == -std::numeric_limits<double>::infinity()) || (mOffsetVec[i][j]->y() == -std::numeric_limits<double>::infinity()) || (mOffsetVec[i][j]->z() == -std::numeric_limits<double>::infinity()));
+				//invalide |= ((mOffsetVec[i][j]->x() != mOffsetVec[i][j]->x()) || (mOffsetVec[i][j]->y() != mOffsetVec[i][j]->y()) || (mOffsetVec[i][j]->z() != mOffsetVec[i][j]->z()));
 				invalide |= (mOrientationVec[i][j]->w() != mOrientationVec[i][j]->w());
 			}
 			while(invalide);
@@ -381,14 +459,15 @@ void PFFilter::stepAlt(std::vector<std::vector<double> > frame)
 	//cout << Neff << "****" << endl;
 	//if (Neff < 1.5 || Neff < mModels.size()*0.1)
 		this->resample();
+	return mCurrentDistances[mMaxWeightIndex];
 }
 
-double PFFilter::computeNeff()
+double IKSolverPFOrient::computeNeff()
 {
 	return 1./(mCurrentWeights.dot(mCurrentWeights));
 }
 
-void PFFilter::updateWeights()
+void IKSolverPFOrient::updateWeights()
 {
 	double sum=0;
 	this->computeLikelihood();
@@ -417,7 +496,7 @@ void PFFilter::updateWeights()
 	//cout << mMaxWeightIndex << endl;
 }
 
-void PFFilter::resample()
+void IKSolverPFOrient::resample()
 {
 	double invNbSamp = 1./mModels.size();
 	Eigen::VectorXf cdf(mModels.size());
@@ -445,7 +524,22 @@ void PFFilter::resample()
 	}
 }
 
-void PFFilter::mapJointToObs(std::map<std::string, std::string> jointNameToPosName)
+void IKSolverPFOrient::save()
+{
+	for (int j=0 ; j<mModels.size() ; j++)
+	{
+		for (int k=0 ; k<mOrientationVec[j].size() ; k++)
+		{
+			if (j!=mMaxWeightIndex)
+			{
+				(*mOrientationVec[j][k])=(*mOrientationVec[mMaxWeightIndex][k]);
+				(*mOffsetVec[j][k])=(*mOffsetVec[mMaxWeightIndex][k]);
+			}
+		}
+	}
+}
+
+void IKSolverPFOrient::mapJointToObs(std::map<std::string, std::string> jointNameToPosName)
 {
 	vector<std::string> jtNames = mModels[0]->getNameVec();
 	mJointNameToPosName = jointNameToPosName;
@@ -474,5 +568,4 @@ void PFFilter::mapJointToObs(std::map<std::string, std::string> jointNameToPosNa
 		
 	}
 }
-
 
