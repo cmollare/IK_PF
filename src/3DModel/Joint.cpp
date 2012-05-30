@@ -215,6 +215,23 @@ Joint* Joint::setLimits(const std::vector<std::string>& signConst)
 	return this;
 }
 
+Joint* Joint::setPartition(int offset, int orientation)
+{
+	if ((orientation < 1) || (offset < 1))
+	{
+		mOffsetPartition = 1;
+		mOrientationPartition = 1;
+		cout << "Error ! Partition index has to be > 0" << endl;
+		cout << "orientation and offset partitions set to 1" << endl;
+	}
+	else
+	{
+		mOffsetPartition = offset;
+		mOrientationPartition = orientation;
+	}
+	return this;
+}
+
 bool Joint::checkValidity(const Eigen::Vector3d& offset)
 {
 	for (int i=0 ; i<mOffsetSignConst.size() ; i++)

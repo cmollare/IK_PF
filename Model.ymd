@@ -9,9 +9,11 @@ BJoints:
         Mean: {X: 0.0, Y: 0.0, Z: 0.0}
         Dof: Free
         SignConst: {X: NULL, Y: NULL, Z: NULL}
+        Partition: 1
      Orientation: 
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
         Dof: Flex
+        Partition: 1
         
    - Joint: ShoulderCenter
      Parent: Spine
@@ -19,9 +21,11 @@ BJoints:
         Mean: {X: 0.0, Y: 0.1, Z: 0.0}
         Dof: PlanarXY
         SignConst: {X: NULL, Y: Pos, Z: NULL}
+        Partition: 1
      Orientation: 
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
         Dof: Fixed
+        Partition: 1
         
    - Joint: Head
      Parent: ShoulderCenter
@@ -29,9 +33,11 @@ BJoints:
         Mean: {X: 0.0, Y: 0.05, Z: 0.0}
         Dof: PlanarXY
         SignConst: {X: NULL, Y: Pos, Z: NULL}
+        Partition: 2
      Orientation: 
         Mean: {W: 0.707, X: 0.0, Y: 0.0, Z: 0.707}
         Dof: Fixed
+        Partition: 2
         
    - Joint: ShoulderLeft
      Parent: ShoulderCenter
@@ -39,9 +45,11 @@ BJoints:
         Mean: {X: -0.05, Y: 0.0, Z: 0.0}
         Dof: PlanarXY
         SignConst: {X: Neg, Y: Neg, Z: NULL}
+        Partition: 1
      Orientation: 
         Mean: {W: 0.0, X: 0.0, Y: 1.0, Z: 0.0}
         Dof: Free
+        Partition: 2
         
    - Joint: ElbowLeft
      Parent: ShoulderLeft
@@ -49,9 +57,11 @@ BJoints:
         Mean: {X: 0.1, Y: 0.0, Z: 0.0}
         Dof: Bone
         SignConst: {X: Pos, Y: NULL, Z: NULL}
+        Partition: 2
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
         Dof: TFlex
+        Partition: 2
         
    - Joint: WristLeft
      Parent: ElbowLeft
@@ -59,9 +69,11 @@ BJoints:
         Mean: {X: 0.1, Y: 0.0, Z: 0.0}
         Dof: Bone
         SignConst: {X: Pos, Y: NULL, Z: NULL}
+        Partition: 2
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
         Dof: TFlex
+        Partition: 2
         
    - Joint: HandLeft
      Parent: WristLeft
@@ -69,9 +81,11 @@ BJoints:
         Mean: {X: 0.1, Y: 0.0, Z: 0.0}
         Dof: Bone
         SignConst: {X: Pos, Y: NULL, Z: NULL}
+        Partition: 2
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
         Dof: Fixed
+        Partition: 2
         
    - Joint: ShoulderRight
      Parent: ShoulderCenter
@@ -79,9 +93,11 @@ BJoints:
         Mean: {X: 0.05, Y: -0.05, Z: 0.0}
         Dof: PlanarXY
         SignConst: {X: Pos, Y: Neg, Z: NULL}
+        Partition: 1
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
         Dof: Free
+        Partition: 2
         
    - Joint: ElbowRight
      Parent: ShoulderRight
@@ -89,9 +105,11 @@ BJoints:
         Mean: {X: 0.1, Y: 0.0, Z: 0.0}
         Dof: Bone
         SignConst: {X: Pos, Y: NULL, Z: NULL}
+        Partition: 2
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
         Dof: TFlex
+        Partition: 2
         
    - Joint: WristRight
      Parent: ElbowRight
@@ -99,9 +117,11 @@ BJoints:
         Mean: {X: 0.1, Y: 0.0, Z: 0.0}
         Dof: Bone
         SignConst: {X: Pos, Y: NULL, Z: NULL}
+        Partition: 2
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
         Dof: TFlex
+        Partition: 2
         
    - Joint: HandRight
      Parent: WristRight
@@ -109,9 +129,11 @@ BJoints:
         Mean: {X: 0.1, Y: 0.0, Z: 0.0}
         Dof: Bone
         SignConst: {X: Pos, Y: NULL, Z: NULL}
+        Partition: 2
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
         Dof: Fixed
+        Partition: 2
         
    - Joint: HipCenter
      Parent: Spine
@@ -119,9 +141,11 @@ BJoints:
         Mean: {X: 0.0, Y: -0.05, Z: 0.0}
         Dof: PlanarXY
         SignConst: {X: NULL, Y: Neg, Z: NULL}
+        Partition: 1
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
         Dof: Fixed
+        Partition: 1
         
    - Joint: HipLeft
      Parent: HipCenter
@@ -129,9 +153,11 @@ BJoints:
         Mean: {X: -0.1, Y: 0.0, Z: 0.0}
         Dof: PlanarXY
         SignConst: {X: Neg, Y: Neg, Z: NULL}
+        Partition: 1
      Orientation:
         Mean: {W: 0.0, X: 0.707, Y: -0.707, Z: 0.0}
         Dof: Free
+        Partition: 2
         
    - Joint: KneeLeft
      Parent: HipLeft
@@ -139,9 +165,11 @@ BJoints:
         Mean: {X: 0.1, Y: 0.0, Z: 0.0}
         Dof: Bone
         SignConst: {X: Pos, Y: NULL, Z: NULL}
+        Partition: 2
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
         Dof: Flex
+        Partition: 2
         
    - Joint: AnkleLeft
      Parent: KneeLeft
@@ -149,9 +177,11 @@ BJoints:
         Mean: {X: 0.1, Y: 0.0, Z: 0.0}
         Dof: Bone
         SignConst: {X: Pos, Y: NULL, Z: NULL}
+        Partition: 2
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
         Dof: TFlex
+        Partition: 2
         
    - Joint: FootLeft
      Parent: AnkleLeft
@@ -159,9 +189,11 @@ BJoints:
         Mean: {X: 0.1, Y: 0.0, Z: 0.0}
         Dof: Bone
         SignConst: {X: Pos, Y: NULL, Z: NULL}
+        Partition: 2
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
         Dof: Fixed
+        Partition: 2
         
    - Joint: HipRight
      Parent: HipCenter
@@ -169,9 +201,11 @@ BJoints:
         Mean: {X: 0.1, Y: 0.0, Z: 0.0}
         Dof: PlanarXY
         SignConst: {X: Pos, Y: Neg, Z: NULL}
+        Partition: 1
      Orientation:
         Mean: {W: 0.707, X: 0.0, Y: 0.0, Z: -0.707}
         Dof: Free
+        Partition: 2
         
    - Joint: KneeRight
      Parent: HipRight
@@ -179,9 +213,11 @@ BJoints:
         Mean: {X: 0.1, Y: 0.0, Z: 0.0}
         Dof: Bone
         SignConst: {X: Pos, Y: NULL, Z: NULL}
+        Partition: 2
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
         Dof: Flex
+        Partition: 2
         
    - Joint: AnkleRight
      Parent: KneeRight
@@ -189,9 +225,11 @@ BJoints:
         Mean: {X: 0.1, Y: 0.0, Z: 0.0}
         Dof: Bone
         SignConst: {X: Pos, Y: NULL, Z: NULL}
+        Partition: 2
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
         Dof: TFlex
+        Partition: 2
         
    - Joint: FootRight
      Parent: AnkleRight
@@ -199,9 +237,11 @@ BJoints:
         Mean: {X: 0.1, Y: 0.0, Z: 0.0}
         Dof: Bone
         SignConst: {X: Pos, Y: NULL, Z: NULL}
+        Partition: 2
      Orientation:
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
         Dof: Fixed
+        Partition: 2
         
 BPartsColors:
    - {b: 0, g: 0, r: 0}

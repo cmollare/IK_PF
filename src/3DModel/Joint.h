@@ -175,6 +175,8 @@ class Joint
 		
 		Joint* setLimits(const std::vector<std::string>& signConst);
 		
+		Joint* setPartition(int offset, int orientation);
+		
 		bool checkValidity(const Eigen::Vector3d& offset);
 		
 		/*!
@@ -237,6 +239,9 @@ class Joint
 		std::string mOffsetConst; /*!< Constraint on offset */
 		std::vector<std::string> mOffsetSignConst; /*!< Sign constraints */
 		std::string mOrientationConst; /*!< Constraint on orientation */
+		
+		int mOffsetPartition;
+		int mOrientationPartition;
 };
 
 #endif
