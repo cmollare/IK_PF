@@ -23,7 +23,10 @@ class PartFilter : public Filter
 		void resample();
 		
 		Eigen::VectorXf mCurrentWeights;
-		int mMaxWeightIndex;
+		int mMaxWeightIndex; /*!< Index of maximum weighted model */
+		
+		std::vector<std::multimap<int, std::string> > mOffsetPartToName;
+		std::vector<std::multimap<int, std::string> > mOrientPartToName;
 };
 
 #endif

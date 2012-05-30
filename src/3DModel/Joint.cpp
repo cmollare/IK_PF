@@ -47,6 +47,9 @@ Joint::Joint(const Joint& jtCopy)
 	mOffsetSignConst = jtCopy.mOffsetSignConst;
 	mHieraLevel = jtCopy.mHieraLevel;
 	
+	mOffsetPartition = jtCopy.mOffsetPartition;
+	mOrientationPartition = jtCopy.mOrientationPartition;
+	
 	//Dynamics allocations
 	
 	if (jtCopy.mParentJoint == NULL);
@@ -312,6 +315,16 @@ std::string Joint::getOffsetConstraint()
 std::string Joint::getOrientationConstraint()
 {
 	return mOrientationConst;
+}
+
+int Joint::getOffsetPartition()
+{
+	return mOffsetPartition;
+}
+
+int Joint::getOrientationPartition()
+{
+	return mOrientationPartition;
 }
 
 void Joint::setColor(float R, float G, float B, float alpha)

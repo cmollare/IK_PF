@@ -103,6 +103,9 @@ class S3DModel
 		vector<std::string> getConstOffsetVec();
 		vector<std::string> getConstOrientVec();
 		
+		std::multimap<int, std::string> getOffsetPartitionMultimap();
+		std::multimap<int, std::string> getOrientPartitionMultimap();
+		
 		void setColor(float R=1, float G=0, float B=1, float alpha=0.1);
 		
 		void debug()//fonction temporaire
@@ -152,6 +155,7 @@ class S3DModel
 		
 		void createConstraintVecs();
 		void createDefaultVecs();
+		void createPartitionMultimaps();
 		
 		unsigned int mId; /*!< id of the model */
 		Joint *mRootJoint; /*!< pointer on the root Joint */
@@ -161,13 +165,16 @@ class S3DModel
 		std::map<int, Joint*> mIntToJoint; /*!< mapping from Joints index to Joint pointers (for speed) */
 		int mNbJoints; /*!< total number of Joints */
 		
-		vector<Eigen::Quaterniond*, Eigen::aligned_allocator<Eigen::Quaterniond*> > mOrientationVec; /*!< Orientation vector */
-		vector<Eigen::Translation3d*, Eigen::aligned_allocator<Eigen::Translation3d*> > mOffsetVec;
-		vector<Eigen::Quaterniond, Eigen::aligned_allocator<Eigen::Quaterniond> > mDefaultOrientationVec;
-		vector<Eigen::Translation3d, Eigen::aligned_allocator<Eigen::Translation3d> > mDefaultOffsetVec;
-		vector<std::string> mNameVec; /*!< Vector of Joint names */
-		vector<std::string> mConstOffsetVec;
-		vector<std::string> mConstOrientVec;
+		std::vector<Eigen::Quaterniond*, Eigen::aligned_allocator<Eigen::Quaterniond*> > mOrientationVec; /*!< Orientation vector */
+		std::vector<Eigen::Translation3d*, Eigen::aligned_allocator<Eigen::Translation3d*> > mOffsetVec; /*!< Offset vector */
+		std::vector<Eigen::Quaterniond, Eigen::aligned_allocator<Eigen::Quaterniond> > mDefaultOrientationVec; /*!< Default orientation vector */
+		std::vector<Eigen::Translation3d, Eigen::aligned_allocator<Eigen::Translation3d> > mDefaultOffsetVec; /*!< Default offset vector */
+		std::vector<std::string> mNameVec; /*!< Vector of Joint names */
+		std::vector<std::string> mConstOffsetVec; /*!< vector of offset dofs */
+		std::vector<std::string> mConstOrientVec; /*!< vector of orientation dofs */
+		
+		std::multimap<int, std::string> mOffsetPartToName; /*!< offset MultiMap from partition number to Joint name */
+		std::multimap<int, std::string> mOrientPartToName; /*!< orientation MultiMap from partition number to Joint name */
 };
 
 #endif

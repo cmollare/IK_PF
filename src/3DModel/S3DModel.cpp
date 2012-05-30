@@ -18,6 +18,7 @@ S3DModel::S3DModel(const Joint* jt, unsigned int id)
 	createNameVec();
 	createConstraintVecs();
 	createDefaultVecs();
+	createPartitionMultimaps();
 	//std::cout << "S3DModel : model index successfully created !" << std::endl;
 }
 
@@ -32,6 +33,7 @@ S3DModel::S3DModel(const S3DModel& model)
 	createNameVec();
 	createConstraintVecs();
 	createDefaultVecs();
+	createPartitionMultimaps();
 	//std::cout << "S3DModel : model index successfully created !" << std::endl;
 }
 
@@ -109,6 +111,16 @@ vector<std::string> S3DModel::getConstOffsetVec()
 vector<std::string> S3DModel::getConstOrientVec()
 {
 	return mConstOrientVec;
+}
+
+std::multimap<int, std::string> S3DModel::getOffsetPartitionMultimap()
+{
+	return mOffsetPartToName;
+}
+
+std::multimap<int, std::string> S3DModel::getOrientPartitionMultimap()
+{
+	return mOrientPartToName;
 }
 
 void S3DModel::setColor(float R, float G, float B, float alpha)
@@ -192,6 +204,18 @@ void S3DModel::createDefaultVecs()
 		{
 			mDefaultOrientationVec.push_back(mIntToJoint[i]->getDefaultOrientation());
 			mDefaultOffsetVec.push_back(mIntToJoint[i]->getDefaultOffset());
+		}
+	}
+}
+
+void S3DModel::createPartitionMultimaps()
+{
+	if (mNbJoints != -1)
+	{
+		for (int i=0 ; i<=mNbJoints ; i++)
+		{
+			mOffsetPartToName.insert(pair<int, std::string>(mIntToJoint[i]->getOffsetPartition(), mIntToJoint[i]->getName()));
+			mOrientPartToName.insert(pair<int, std::string>(mIntToJoint[i]->getOrientationPartition(), mIntToJoint[i]->getName()));
 		}
 	}
 }

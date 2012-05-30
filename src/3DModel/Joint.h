@@ -217,6 +217,8 @@ class Joint
 		
 		std::string getOffsetConstraint();
 		std::string getOrientationConstraint();
+		int getOffsetPartition();
+		int getOrientationPartition();
 		void setColor(float R=1, float G=1, float B=1, float alpha=0.1);
 		std::vector<float> getColor();
 		
