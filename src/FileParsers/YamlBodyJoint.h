@@ -16,12 +16,14 @@ typedef struct SOffset
 	vector<double> Mean; /*!< Position of the Joint relative to its parent */
 	std::string Dof; /*!< Constraint on the local offset of the Joint */
 	vector<std::string> SignConst;
+	int Partition;
 }SOffset;
 
 typedef struct SOrientation
 {
 	Eigen::Quaterniond Mean; /*!< Local orientation of the Joint */
 	std::string Dof; /*!< Constraint on the local orientation of the Joint */
+	int Partition;
 }SOrientation;
 
 /*!

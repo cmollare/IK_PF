@@ -18,7 +18,7 @@ S3DModel::S3DModel(const Joint* jt, unsigned int id)
 	createNameVec();
 	createConstraintVecs();
 	createDefaultVecs();
-	std::cout << "S3DModel : model index successfully created !" << std::endl;
+	//std::cout << "S3DModel : model index successfully created !" << std::endl;
 }
 
 S3DModel::S3DModel(const S3DModel& model)
@@ -32,7 +32,7 @@ S3DModel::S3DModel(const S3DModel& model)
 	createNameVec();
 	createConstraintVecs();
 	createDefaultVecs();
-	std::cout << "S3DModel : model index successfully created !" << std::endl;
+	//std::cout << "S3DModel : model index successfully created !" << std::endl;
 }
 
 S3DModel::~S3DModel()
