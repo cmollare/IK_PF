@@ -324,7 +324,7 @@ void PFFilter::stepAlt(std::vector<std::vector<double> > frame)
 				Eigen::Vector3d tempo;
 				if (mConstOffsetVec[i][j] == OFFSET_CONST_FREE)
 				{
-					tempo = Eigen::Vector3d(this->randn()*0.01, this->randn()*0.01, this->randn()*0.01) + offs;
+					tempo = Eigen::Vector3d(this->randn()*0.05, this->randn()*0.05, this->randn()*0.05) + offs;
 				}
 				else if (mConstOffsetVec[i][j] == OFFSET_CONST_BONE)
 				{
@@ -415,7 +415,7 @@ void PFFilter::updateWeights()
 	}
 	
 	mCurrentWeights/=sum;
-	mModels[mMaxWeightIndex]->setColor(0,1,1,1);
+	//mModels[mMaxWeightIndex]->setColor(0,1,1,1);
 	//cout << mMaxWeightIndex << endl;
 }
 
@@ -483,12 +483,19 @@ S3DModel* PFFilter::computeMMSE()
 	std::vector<Eigen::Translation3d*, Eigen::aligned_allocator<Eigen::Translation3d*> > offset = mModelMMSE->getOffsetVector();
 	for (int i=0 ; i<mOrientationVec[0].size() ; i++)
 	{
+		std::vector<double> quat(4, 0);
 		Eigen::Vector3d tempo(0, 0, 0);
 		for (int j=0 ; j<mModels.size() ; j++)
 		{
 			Eigen::Vector3d offs = mOffsetVec[j][i]->vector();
 			tempo += mCurrentWeights[j]*offs;
+			quat[0] += mCurrentWeights[j]*mOrientationVec[j][i]->w();
+			quat[1] += mCurrentWeights[j]*mOrientationVec[j][i]->x();
+			quat[2] += mCurrentWeights[j]*mOrientationVec[j][i]->y();
+			quat[3] += mCurrentWeights[j]*mOrientationVec[j][i]->z();
 		}
+		(*orient[i]) = Eigen::Quaterniond(quat[0], quat[1], quat[2], quat[3]);
+		orient[i]->normalize();
 		(*offset[i]) = Eigen::Translation3d(tempo);
 	}
 	

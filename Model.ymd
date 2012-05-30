@@ -11,7 +11,7 @@ BJoints:
         SignConst: {X: NULL, Y: NULL, Z: NULL}
      Orientation: 
         Mean: {W: 1.0, X: 0.0, Y: 0.0, Z: 0.0}
-        Dof: Fixed
+        Dof: Flex
         
    - Joint: ShoulderCenter
      Parent: Spine
@@ -27,7 +27,7 @@ BJoints:
      Parent: ShoulderCenter
      Offset:
         Mean: {X: 0.0, Y: 0.05, Z: 0.0}
-        Dof: Free
+        Dof: PlanarXY
         SignConst: {X: NULL, Y: Pos, Z: NULL}
      Orientation: 
         Mean: {W: 0.707, X: 0.0, Y: 0.0, Z: 0.707}

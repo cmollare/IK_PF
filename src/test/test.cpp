@@ -8,7 +8,7 @@
 #include "../solver/IKSolverPFOrient.h"
 #include "../filter/PFFilter.h"
 
-#define NBMODELS 10
+#define NBMODELS 100
 
 using namespace std;
 
