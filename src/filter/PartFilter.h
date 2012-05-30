@@ -21,7 +21,7 @@ class PartFilter : public Filter
 	protected:
 		virtual void computeDistance();
 		virtual void computeDistance(int partition);
-		void updateWeights();
+		void updateWeights(int partition);
 		void resample();
 		
 		Eigen::VectorXf mCurrentWeights;
@@ -29,6 +29,8 @@ class PartFilter : public Filter
 		
 		std::vector<std::multimap<int, std::string> > mOffsetPartToName;
 		std::vector<std::multimap<int, std::string> > mOrientPartToName;
+		
+		int mPartitionNumber;
 };
 
 #endif

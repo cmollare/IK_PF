@@ -15,8 +15,10 @@ void PartFilter::initFilter()
 	mCurrentDistances.resize(mModels.size(), 1); // Initialisation of distance vector
 	mCurrentLikelihood.resize(mModels.size(), 1); // Initialisation of likelihood vector
 	
+	mPartitionNumber = mModels[0]->getPartitionNumber();
 	for (int i=0 ; i<mModels.size() ; i++)
 	{
+		mModels[i]->setColor(1, 0, 1, 0.1);
 		mOrientationVec.push_back(mModels[i]->getOrientationVec());					// Creation of orientation vector<vector>
 		mOffsetVec.push_back(mModels[i]->getOffsetVector());						// Creation of offset vector<vector>
 		mDefaultOrientationVec.push_back(mModels[i]->getDefaultOrientationVec());	// Creation of default orientation vector<vector>
@@ -217,124 +219,149 @@ void PartFilter::computeLikelihood(int partition)
 
 void PartFilter::step(std::vector<std::vector<double> > frame)
 {
-	mCurrentFrame = frame;
+	mCurrentFrame = frame;// Observation update
 	//cout << mCurrentDistances[mMaxWeightIndex] << endl;
-	for (int i=0 ; i<mModels.size() ; i++)
+	for (int j=1 ; j<=mPartitionNumber ; j++)
 	{
-		mModels[i]->setColor(1,0,1,0.1);
-		for (int j=0 ; j < mOrientationVec[i].size() ; j++)
+		for (int i=0 ; i<mModels.size() ; i++)
 		{
-			double variance; // To delete
-			variance=1;
+			std::multimap<int, std::string>::iterator itOff = mOffsetPartToName[i].find(j);
+			std::multimap<int, std::string>::iterator itOrient = mOrientPartToName[i].find(j);;
+			//mModels[i]->setColor(1,0,1,0.1);
+			
+			for (itOrient = mOrientPartToName[i].equal_range(j).first ; itOrient != mOrientPartToName[i].equal_range(j).second ; ++itOrient)
+			{
+				double variance; // To delete
+				variance=1;
+				
+				int pos = mJointNameToPos[(*itOrient).second];// Retrieve position of the Joint in orientation vectors
 
-			bool invalide = false;
+				bool invalide = false;
 			
-			Eigen::Quaterniond quat = (*mOrientationVec[i][j]); // Mean orientation is the previous orientation
-			Eigen::Vector3d offs;
+				Eigen::Quaterniond quat = (*mOrientationVec[i][pos]); // Mean orientation is the previous orientation
+				
+				do
+				{
+					invalide = false;
+					if (mConstOrientVec[i][pos] == ORIENT_CONST_FREE)
+					{
+						(*mOrientationVec[i][pos])=this->sampleQuTEM(quat, TEMP*variance, 1, 1, 1);//A modifier suivant les contraintes
+					}
+					else if(mConstOrientVec[i][pos] == ORIENT_CONST_TWIST)
+					{
+						(*mOrientationVec[i][pos])=this->sampleQuTEM(quat, TEMP*variance, 0.5, 0.1, 0.05);
+					}
+					else if(mConstOrientVec[i][pos] == ORIENT_CONST_FLEX)
+					{
+						(*mOrientationVec[i][pos])=this->sampleQuTEM(quat, TEMP*variance, 0.1, 1, 0.05);
+					}
+					else if(mConstOrientVec[i][pos] == ORIENT_CONST_TFLEX)
+					{
+						(*mOrientationVec[i][pos])=this->sampleQuTEM(quat, TEMP*variance, 1, 1, 0.1);
+					}
+					else if(mConstOrientVec[i][pos] == ORIENT_CONST_BIFLEX)
+					{
+						(*mOrientationVec[i][pos])=this->sampleQuTEM(quat, TEMP*variance, 0.1, 1, 1);
+					}
+					else if(mConstOrientVec[i][pos] == ORIENT_CONST_FIXED)
+					{
+						(*mOrientationVec[i][pos]) = (*mOrientationVec[i][pos]);
+					}
+					else
+					{
+						(*mOrientationVec[i][pos])=this->sampleQuTEM(quat, TEMP*variance, 1, 1, 1);
+					}
+					mOrientationVec[i][pos]->normalize();
+					
+					invalide |= (mOrientationVec[i][pos]->w() != mOrientationVec[i][pos]->w());
+				}
+				while(invalide);
+			}// End of quaternion sampling
 			
-			if (mConstOffsetVec[i][j] == OFFSET_CONST_FREE)
+			
+			
+			for (itOff = mOffsetPartToName[i].equal_range(j).first ; itOff != mOffsetPartToName[i].equal_range(j).second ; ++itOff)
 			{
-				offs = mOffsetVec[i][j]->vector(); // For Free dof, mean is the previous offset
-			}
-			else
-			{
-				offs = mDefaultOffsetVec[i][j].vector(); // Mean offset for bones and planar DOF is the default offset
-			}
-			do
-			{
-				invalide = false;
-				if (mConstOrientVec[i][j] == ORIENT_CONST_FREE)
+				int pos = mJointNameToPos[(*itOff).second];// Retrieve position of the Joint in offset vectors
+				
+				Eigen::Vector3d offs;
+				if (mConstOffsetVec[i][pos] == OFFSET_CONST_FREE)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP*variance, 1, 1, 1);//A modifier suivant les contraintes
-				}
-				else if(mConstOrientVec[i][j] == ORIENT_CONST_TWIST)
-				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP*variance, 0.5, 0.1, 0.05);
-				}
-				else if(mConstOrientVec[i][j] == ORIENT_CONST_FLEX)
-				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP*variance, 0.1, 1, 0.05);
-				}
-				else if(mConstOrientVec[i][j] == ORIENT_CONST_TFLEX)
-				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP*variance, 1, 1, 0.1);
-				}
-				else if(mConstOrientVec[i][j] == ORIENT_CONST_BIFLEX)
-				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP*variance, 0.1, 1, 1);
-				}
-				else if(mConstOrientVec[i][j] == ORIENT_CONST_FIXED)
-				{
-					(*mOrientationVec[i][j]) = (*mOrientationVec[i][j]);
+					offs = mOffsetVec[i][pos]->vector(); // For Free dof, mean is the previous offset
 				}
 				else
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP*variance, 1, 1, 1);
+					offs = mDefaultOffsetVec[i][pos].vector(); // Mean offset for bones and planar DOF is the default offset
 				}
-				mOrientationVec[i][j]->normalize();
 				
-				Eigen::Vector3d tempo;
-				if (mConstOffsetVec[i][j] == OFFSET_CONST_FREE)
+				bool invalide = false;
+				
+				do
 				{
-					tempo = Eigen::Vector3d(this->randn()*0.05, this->randn()*0.05, this->randn()*0.05) + offs;
-				}
-				else if (mConstOffsetVec[i][j] == OFFSET_CONST_BONE)
-				{
+					invalide = false;
+					
+					Eigen::Vector3d tempo;
+					if (mConstOffsetVec[i][pos] == OFFSET_CONST_FREE)
+					{
+						tempo = Eigen::Vector3d(this->randn()*0.05, this->randn()*0.05, this->randn()*0.05) + offs;
+					}
+					else if (mConstOffsetVec[i][pos] == OFFSET_CONST_BONE)
+					{
 
-					do
-					{
-						tempo = Eigen::Vector3d(this->randn(0.001), 0, 0) + offs;
+						do
+						{
+							tempo = Eigen::Vector3d(this->randn(0.001), 0, 0) + offs;
+						}
+						while(!mModels[i]->getJoint(mNameVec[i][pos])->checkValidity(tempo));
 					}
-					while(!mModels[i]->getJoint(mNameVec[i][j])->checkValidity(tempo));
-				}
-				else if (mConstOffsetVec[i][j] == OFFSET_CONST_PLANARXY)
-				{
-					do
+					else if (mConstOffsetVec[i][pos] == OFFSET_CONST_PLANARXY)
 					{
-						tempo = Eigen::Vector3d(this->randn(0.01), this->randn(0.01), 0) + offs;
+						do
+						{
+							tempo = Eigen::Vector3d(this->randn(0.01), this->randn(0.01), 0) + offs;
+						}
+						while(!mModels[i]->getJoint(mNameVec[i][pos])->checkValidity(tempo));
 					}
-					while(!mModels[i]->getJoint(mNameVec[i][j])->checkValidity(tempo));
-				}
-				else if (mConstOffsetVec[i][j] == OFFSET_CONST_PLANARYZ)
-				{
-					do
+					else if (mConstOffsetVec[i][pos] == OFFSET_CONST_PLANARYZ)
 					{
-						tempo = Eigen::Vector3d(0, this->randn(0.01), this->randn(0.01)) + offs;
+						do
+						{
+							tempo = Eigen::Vector3d(0, this->randn(0.01), this->randn(0.01)) + offs;
+						}
+						while(!mModels[i]->getJoint(mNameVec[i][pos])->checkValidity(tempo));
 					}
-					while(!mModels[i]->getJoint(mNameVec[i][j])->checkValidity(tempo));
-				}
-				else if (mConstOffsetVec[i][j] == OFFSET_CONST_PLANARXZ)
-				{
-					do
+					else if (mConstOffsetVec[i][pos] == OFFSET_CONST_PLANARXZ)
 					{
-						tempo = Eigen::Vector3d(this->randn(0.01), 0, this->randn(0.01)) + offs;
+						do
+						{
+							tempo = Eigen::Vector3d(this->randn(0.01), 0, this->randn(0.01)) + offs;
+						}
+						while(!mModels[i]->getJoint(mNameVec[i][pos])->checkValidity(tempo));
 					}
-					while(!mModels[i]->getJoint(mNameVec[i][j])->checkValidity(tempo));
-				}
-				else if (mConstOffsetVec[i][j] == OFFSET_CONST_FIXED)
-				{
-					tempo = Eigen::Vector3d(0, 0, 0) + offs;
-				}
-				(*mOffsetVec[i][j])=Eigen::Translation3d(tempo);//A modifier suivant les contraintes
+					else if (mConstOffsetVec[i][pos] == OFFSET_CONST_FIXED)
+					{
+						tempo = Eigen::Vector3d(0, 0, 0) + offs;
+					}
+					(*mOffsetVec[i][pos])=Eigen::Translation3d(tempo);//A modifier suivant les contraintes
 
-				//To avoid infinite and NaN cases
-				invalide |= ((mOffsetVec[i][j]->x() == std::numeric_limits<double>::infinity()) || (mOffsetVec[i][j]->y() == std::numeric_limits<double>::infinity()) || (mOffsetVec[i][j]->z() == std::numeric_limits<double>::infinity()));
-				invalide |= ((mOffsetVec[i][j]->x() == -std::numeric_limits<double>::infinity()) || (mOffsetVec[i][j]->y() == -std::numeric_limits<double>::infinity()) || (mOffsetVec[i][j]->z() == -std::numeric_limits<double>::infinity()));
-				invalide |= ((mOffsetVec[i][j]->x() != mOffsetVec[i][j]->x()) || (mOffsetVec[i][j]->y() != mOffsetVec[i][j]->y()) || (mOffsetVec[i][j]->z() != mOffsetVec[i][j]->z()));
-				invalide |= (mOrientationVec[i][j]->w() != mOrientationVec[i][j]->w());
-			}
-			while(invalide);
-			
-			
-		}
-	}
+					//To avoid infinite and NaN cases
+					invalide |= ((mOffsetVec[i][pos]->x() == std::numeric_limits<double>::infinity()) || (mOffsetVec[i][pos]->y() == std::numeric_limits<double>::infinity()) || (mOffsetVec[i][pos]->z() == std::numeric_limits<double>::infinity()));
+					invalide |= ((mOffsetVec[i][pos]->x() == -std::numeric_limits<double>::infinity()) || (mOffsetVec[i][pos]->y() == -std::numeric_limits<double>::infinity()) || (mOffsetVec[i][pos]->z() == -std::numeric_limits<double>::infinity()));
+					invalide |= ((mOffsetVec[i][pos]->x() != mOffsetVec[i][pos]->x()) || (mOffsetVec[i][pos]->y() != mOffsetVec[i][pos]->y()) || (mOffsetVec[i][pos]->z() != mOffsetVec[i][pos]->z()));
+				}
+				while(invalide);
+			}// End of offset sampling
+		}// End of particle loop
+		this->updateWeights(j);
+		this->resample();
+	}// End of partition loop
 	
-	this->updateWeights();
+	//this->updateWeights();
 	this->computeMMSE();
-	double Neff = this->computeNeff();;
+	//double Neff = this->computeNeff();;
 	//cout << Neff << "****" << endl;
 	//if (Neff < 1.5 || Neff < mModels.size()*0.5)
-		this->resample(); // systematic resampling
+		//this->resample(); // systematic resampling
 }
 
 double PartFilter::computeNeff()
@@ -342,11 +369,11 @@ double PartFilter::computeNeff()
 	return 1./(mCurrentWeights.dot(mCurrentWeights));
 }
 
-void PartFilter::updateWeights()
+void PartFilter::updateWeights(int partition)
 {
 	double sum=0;
-	this->computeLikelihood(1);
-	mModels[mMaxWeightIndex]->setColor(1,0,1,0.1);
+	this->computeLikelihood(partition);
+	//mModels[mMaxWeightIndex]->setColor(1,0,1,0.1);
 	
 	for (int i=0 ; i<mCurrentLikelihood.size() ; i++)
 	{
@@ -358,7 +385,7 @@ void PartFilter::updateWeights()
 			mMaxWeightIndex=i;
 		}*/
 	}
-	for (int i=0 ; i<mCurrentLikelihood.size() ; i++)
+	for (int i=0 ; i<mCurrentLikelihood.size() ; i++)//to delete
 	{
 		if(mCurrentWeights[i]>=mCurrentWeights[mMaxWeightIndex])
 		{

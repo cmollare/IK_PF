@@ -5,6 +5,7 @@ S3DModel::S3DModel(int id)
 	mId = id;
 	mRootJoint = NULL;
 	mNbJoints = -1;
+	mPartitionNumber = 0;
 }
 
 S3DModel::S3DModel(const Joint* jt, unsigned int id)
@@ -12,6 +13,7 @@ S3DModel::S3DModel(const Joint* jt, unsigned int id)
 	mRootJoint = new Joint(*jt);
 	mId = id;
 	mNbJoints = -1;
+	mPartitionNumber = 0;
 	createMaps();
 	createOrientationVec();
 	createOffsetVec();
@@ -27,6 +29,7 @@ S3DModel::S3DModel(const S3DModel& model)
 	mRootJoint = new Joint(*(model.mRootJoint));
 	mId = -2;
 	mNbJoints = -1;
+	mPartitionNumber = 0;
 	createMaps();
 	createOrientationVec();
 	createOffsetVec();
@@ -123,6 +126,11 @@ std::multimap<int, std::string> S3DModel::getOrientPartitionMultimap()
 	return mOrientPartToName;
 }
 
+int S3DModel::getPartitionNumber()
+{
+	return mPartitionNumber;
+}
+
 void S3DModel::setColor(float R, float G, float B, float alpha)
 {
 	for(int i=0 ; i<=mNbJoints ; i++)
@@ -214,8 +222,15 @@ void S3DModel::createPartitionMultimaps()
 	{
 		for (int i=0 ; i<=mNbJoints ; i++)
 		{
-			mOffsetPartToName.insert(pair<int, std::string>(mIntToJoint[i]->getOffsetPartition(), mIntToJoint[i]->getName()));
-			mOrientPartToName.insert(pair<int, std::string>(mIntToJoint[i]->getOrientationPartition(), mIntToJoint[i]->getName()));
+			int offsetPart = mIntToJoint[i]->getOffsetPartition();
+			int orientPart = mIntToJoint[i]->getOrientationPartition();
+			mOffsetPartToName.insert(pair<int, std::string>(offsetPart, mIntToJoint[i]->getName()));
+			mOrientPartToName.insert(pair<int, std::string>(orientPart, mIntToJoint[i]->getName()));
+			
+			if(offsetPart > mPartitionNumber)
+				mPartitionNumber = offsetPart;
+			if(orientPart > mPartitionNumber)
+				mPartitionNumber = orientPart;
 		}
 	}
 }
