@@ -10,20 +10,20 @@ PFFilter::PFFilter(std::vector<S3DModel*> mods, std::vector<std::string> posName
 
 void PFFilter::initFilter()
 {
-	mModelMMSE->setColor(0, 1, 0, 1);
-	mCurrentWeights.setConstant(mModels.size(), 1, 1./mModels.size());
-	mCurrentDistances.resize(mModels.size(), 1);
-	mCurrentLikelihood.resize(mModels.size(), 1);
+	mModelMMSE->setColor(0, 1, 0, 1); //Color of the MMSE model
+	mCurrentWeights.setConstant(mModels.size(), 1, 1./mModels.size()); // Initialisation of weight at 1/N
+	mCurrentDistances.resize(mModels.size(), 1); // Initialisation of distance vector
+	mCurrentLikelihood.resize(mModels.size(), 1); // Initialisation of likelihood vector
 	
 	for (int i=0 ; i<mModels.size() ; i++)
 	{
-		mOrientationVec.push_back(mModels[i]->getOrientationVec());
-		mOffsetVec.push_back(mModels[i]->getOffsetVector());
-		mDefaultOrientationVec.push_back(mModels[i]->getDefaultOrientationVec());
-		mDefaultOffsetVec.push_back(mModels[i]->getDefaultOffsetVector());
-		mNameVec.push_back(mModels[i]->getNameVec());
-		mConstOffsetVec.push_back(mModels[i]->getConstOffsetVec());
-		mConstOrientVec.push_back(mModels[i]->getConstOrientVec());
+		mOrientationVec.push_back(mModels[i]->getOrientationVec());					// Creation of orientation vector<vector>
+		mOffsetVec.push_back(mModels[i]->getOffsetVector());						// Creation of offset vector<vector>
+		mDefaultOrientationVec.push_back(mModels[i]->getDefaultOrientationVec());	// Creation of default orientation vector<vector>
+		mDefaultOffsetVec.push_back(mModels[i]->getDefaultOffsetVector());			// Creation of default offset vector<vector>
+		mNameVec.push_back(mModels[i]->getNameVec());								// Creation of Joint name vector<vector>
+		mConstOffsetVec.push_back(mModels[i]->getConstOffsetVec());					// Creation of offset dof vector<vector>
+		mConstOrientVec.push_back(mModels[i]->getConstOrientVec());					// Creation of orientation dof vector<vector>
 		
 	}
 	
@@ -31,12 +31,12 @@ void PFFilter::initFilter()
 	{
 		for (int j=0 ; j < mOrientationVec[i].size() ; j++)
 		{
-			mDefaultOrientationVec[i][j] = (*mOrientationVec[i][j]);
-			mDefaultOffsetVec[i][j] = (*mOffsetVec[i][j]);
+			mDefaultOrientationVec[i][j] = (*mOrientationVec[i][j]); // Base orientation becomes default orientation
+			mDefaultOffsetVec[i][j] = (*mOffsetVec[i][j]);  // Base offset becomes default offset
 			
-			Eigen::Quaterniond quat = mDefaultOrientationVec[i][j];
+			Eigen::Quaterniond quat = mDefaultOrientationVec[i][j]; // Mean of orientations == default orientation
 			bool invalide = false;
-			Eigen::Vector3d offs = mDefaultOffsetVec[i][j].vector();
+			Eigen::Vector3d offs = mDefaultOffsetVec[i][j].vector(); // Mean of offset == default offset
 			do
 			{
 				invalide = false;
@@ -68,7 +68,7 @@ void PFFilter::initFilter()
 				{
 					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP, 1, 1, 1);
 				}
-				mOrientationVec[i][j]->normalize();
+				mOrientationVec[i][j]->normalize(); // NORMALIZATION STEP EXTREMELY IMPORTANT
 				
 				Eigen::Vector3d tempo;
 				if (mConstOffsetVec[i][j] == OFFSET_CONST_FREE)
@@ -124,12 +124,11 @@ void PFFilter::initFilter()
 			while(invalide);
 			
 		}
-	}//*/
+	}
 }
 
 void PFFilter::computeDistance()
-{	
-	//ajouter plus de poids au root ???
+{
 	std::map<std::string, int>::iterator it;
 	for (int i=0 ; i<mModels.size() ; i++)
 	{
@@ -138,22 +137,13 @@ void PFFilter::computeDistance()
 		{
 			if ((*it).second != -1)
 			{
+				// Mahalanobis distance
 				Eigen::Vector3d jtPos = mModels[i]->getJoint((*it).first)->getXYZVect();
 				Eigen::Vector3d jtObs(mCurrentFrame[(*it).second][1], mCurrentFrame[(*it).second][2], mCurrentFrame[(*it).second][3]);
 				Eigen::Vector3d diff = jtPos - jtObs;
 				Eigen::Matrix3d cov;
 				cov.setIdentity();
 				distance += diff.transpose()*(cov*diff);
-				//cout << (*it).first << endl;
-				/*if((*it).first == "Head")
-				{
-					cout << "********" << endl;
-					/*cout << jtPos << endl;
-					cout << "*" << endl;
-					cout << jtObs << endl;//
-					cout << diff.transpose()*(cov*diff) << endl;
-					cout << "********" << endl;
-				}*/
 			}
 		}
 		mCurrentDistances[i] = sqrt(distance);
@@ -181,21 +171,21 @@ void PFFilter::step(std::vector<std::vector<double> > frame)
 		mModels[i]->setColor(1,0,1,0.1);
 		for (int j=0 ; j < mOrientationVec[i].size() ; j++)
 		{
-			double variance;
+			double variance; // To delete
 			variance=1;
 
 			bool invalide = false;
-			//Eigen::Quaterniond quat = mDefaultOrientationVec[i][j];
-			Eigen::Quaterniond quat = (*mOrientationVec[i][j]);
+			
+			Eigen::Quaterniond quat = (*mOrientationVec[i][j]); // Mean orientation is the previous orientation
 			Eigen::Vector3d offs;
 			
 			if (mConstOffsetVec[i][j] == OFFSET_CONST_FREE)
 			{
-				offs = mOffsetVec[i][j]->vector();
+				offs = mOffsetVec[i][j]->vector(); // For Free dof, mean is the previous offset
 			}
 			else
 			{
-				offs = mDefaultOffsetVec[i][j].vector();
+				offs = mDefaultOffsetVec[i][j].vector(); // Mean offset for bones and planar DOF is the default offset
 			}
 			do
 			{
@@ -290,8 +280,8 @@ void PFFilter::step(std::vector<std::vector<double> > frame)
 	this->computeMMSE();
 	double Neff = this->computeNeff();;
 	//cout << Neff << "****" << endl;
-	//if (Neff < 1.5 || Neff < mModels.size()*0.1)
-		this->resample();
+	//if (Neff < 1.5 || Neff < mModels.size()*0.5)
+		this->resample(); // systematic resampling
 }
 
 double PFFilter::computeNeff()
