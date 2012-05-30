@@ -127,7 +127,7 @@ void PFFilter::initFilter()
 	}
 }
 
-void PFFilter::computeDistance()
+/*void PFFilter::computeDistance()
 {
 	std::map<std::string, int>::iterator it;
 	for (int i=0 ; i<mModels.size() ; i++)
@@ -147,6 +147,31 @@ void PFFilter::computeDistance()
 			}
 		}
 		mCurrentDistances[i] = sqrt(distance);
+	}
+}*/
+
+void PFFilter::computeDistance()
+{
+	std::map<std::string, int>::iterator it;
+	for (int i=0 ; i<mModels.size() ; i++)
+	{
+		double distance=0;
+		for (it = mJointNameToPos.begin() ; it != mJointNameToPos.end() ; it++)
+		{
+			if ((*it).second != -1)
+			{
+				double distTemp=0;
+				// Mahalanobis distance
+				Eigen::Vector3d jtPos = mModels[i]->getJoint((*it).first)->getXYZVect();
+				Eigen::Vector3d jtObs(mCurrentFrame[(*it).second][1], mCurrentFrame[(*it).second][2], mCurrentFrame[(*it).second][3]);
+				Eigen::Vector3d diff = jtPos - jtObs;
+				Eigen::Matrix3d cov;
+				cov.setIdentity();
+				distTemp = diff.transpose()*(cov*diff);
+				distance += sqrt(distTemp);
+			}
+		}
+		mCurrentDistances[i] = distance;
 	}
 }
 

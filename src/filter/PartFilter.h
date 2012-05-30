@@ -12,6 +12,7 @@ class PartFilter : public Filter
 		
 		virtual void initFilter();
 		virtual void computeLikelihood();
+		virtual void computeLikelihood(int partition);
 		virtual void step(std::vector<std::vector<double> > frame);
 		double computeNeff();
 		void mapJointToObs(std::map<std::string, std::string> jointNameToPosName);
@@ -19,6 +20,7 @@ class PartFilter : public Filter
 		
 	protected:
 		virtual void computeDistance();
+		virtual void computeDistance(int partition);
 		void updateWeights();
 		void resample();
 		

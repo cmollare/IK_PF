@@ -24,7 +24,8 @@ void PartFilter::initFilter()
 		mNameVec.push_back(mModels[i]->getNameVec());								// Creation of Joint name vector<vector>
 		mConstOffsetVec.push_back(mModels[i]->getConstOffsetVec());					// Creation of offset dof vector<vector>
 		mConstOrientVec.push_back(mModels[i]->getConstOrientVec());					// Creation of orientation dof vector<vector>
-		
+		mOffsetPartToName.push_back(mModels[i]->getOffsetPartitionMultimap());		// Creation of offset partition vector<multimap>
+		mOrientPartToName.push_back(mModels[i]->getOrientPartitionMultimap());		// Creation of orientation partition vector<multimap>
 	}
 	
 	for (int i=0 ; i<mModels.size() ; i++)
@@ -73,7 +74,11 @@ void PartFilter::initFilter()
 				Eigen::Vector3d tempo;
 				if (mConstOffsetVec[i][j] == OFFSET_CONST_FREE)
 				{
-					tempo = Eigen::Vector3d(this->randn()*0.001, this->randn()*0.001, this->randn()*0.001) + offs;
+					do
+					{
+						tempo = Eigen::Vector3d(this->randn()*0.001, this->randn()*0.001, this->randn()*0.001) + offs;
+					}
+					while(!mModels[i]->getJoint(mNameVec[i][j])->checkValidity(tempo));
 				}
 				else if (mConstOffsetVec[i][j] == OFFSET_CONST_BONE)
 				{
@@ -150,6 +155,34 @@ void PartFilter::computeDistance()
 	}
 }
 
+void PartFilter::computeDistance(int partition)
+{
+	std::multimap<int, std::string>::iterator it;
+	for (int i=0 ; i<mModels.size() ; i++)
+	{
+		double distance=0;
+		it = mOffsetPartToName[i].find(partition);
+		for (it = mOffsetPartToName[i].equal_range(partition).first ; it != mOffsetPartToName[i].equal_range(partition).second ; ++it)
+		{
+			if (mJointNameToPos[(*it).second] != -1)
+			{
+				//cout << (*it).second << endl;
+				int pos = mJointNameToPos[(*it).second];
+				double distTemp=0;
+				// Mahalanobis distance
+				Eigen::Vector3d jtPos = mModels[i]->getJoint((*it).second)->getXYZVect();
+				Eigen::Vector3d jtObs(mCurrentFrame[pos][1], mCurrentFrame[pos][2], mCurrentFrame[pos][3]);
+				Eigen::Vector3d diff = jtPos - jtObs;
+				Eigen::Matrix3d cov;
+				cov.setIdentity();
+				distTemp = diff.transpose()*(cov*diff);
+				distance += sqrt(distTemp);
+			}
+		}
+		mCurrentDistances[i] = distance;
+	}
+}
+
 void PartFilter::computeLikelihood()
 {	
 	//contraintes a ajouter
@@ -160,6 +193,26 @@ void PartFilter::computeLikelihood()
 		mCurrentLikelihood[i] = exp(-abs(mCurrentDistances[i]));
 	}
 	//cout << mCurrentLikelihood << "//" << endl;
+}
+
+void PartFilter::computeLikelihood(int partition)
+{
+	if (partition == 1)
+	{
+		this->computeDistance(partition+1);
+		for (int i=0 ; i<mCurrentDistances.size() ; i++)
+		{
+			mCurrentLikelihood[i] = exp(-abs(mCurrentDistances[i]));
+		}
+	}
+	else if (partition > 1)
+	{
+		this->computeDistance(partition);
+		for (int i=0 ; i<mCurrentDistances.size() ; i++)
+		{
+			mCurrentLikelihood[i] *= exp(-abs(mCurrentDistances[i]));
+		}
+	}
 }
 
 void PartFilter::step(std::vector<std::vector<double> > frame)
@@ -292,7 +345,7 @@ double PartFilter::computeNeff()
 void PartFilter::updateWeights()
 {
 	double sum=0;
-	this->computeLikelihood();
+	this->computeLikelihood(1);
 	mModels[mMaxWeightIndex]->setColor(1,0,1,0.1);
 	
 	for (int i=0 ; i<mCurrentLikelihood.size() ; i++)

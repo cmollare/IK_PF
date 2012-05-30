@@ -7,6 +7,7 @@
 #include "../solver/IKSolverPF.h"
 #include "../solver/IKSolverPFOrient.h"
 #include "../filter/PFFilter.h"
+#include "../filter/PartFilter.h"
 
 #define NBMODELS 100
 
@@ -89,7 +90,7 @@ int main()
 	viewer.initObservations(fileParser->getJointNames(), frame);
 	iksol.computeLikelihood();
 	
-	PFFilter filter(mods, fileParser->getJointNames(), frame);
+	PartFilter filter(mods, fileParser->getJointNames(), frame);
 	filter.mapJointToObs(jtsToPos);
 	
 	//******************************************
