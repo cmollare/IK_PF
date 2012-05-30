@@ -29,7 +29,7 @@ class Filter
 		
 		virtual void initFilter()=0;
 		virtual void computeLikelihood()=0;
-		virtual void step()=0;
+		virtual void step(std::vector<std::vector<double> > frame)=0;
 		Eigen::Quaterniond sampleQuTEM(Eigen::Quaterniond mean, double sigma, double sigma1=1, double sigma2=1, double sigma3=1);
 		
 	protected:

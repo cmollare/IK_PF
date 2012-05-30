@@ -14,8 +14,7 @@ class PFFilter : public Filter
 
 		virtual void initFilter();
 		virtual void computeLikelihood();
-		virtual void step();
-		virtual void stepAlt(std::vector<std::vector<double> > frame);
+		virtual void step(std::vector<std::vector<double> > frame);
 		double computeNeff();
 		void mapJointToObs(std::map<std::string, std::string> jointNameToPosName);
 		S3DModel* computeMMSE();

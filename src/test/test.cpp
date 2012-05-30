@@ -143,7 +143,7 @@ int main()
 		else if (step == "Filter")
 		{
 			frame = fileParser->getNextFrame();//Observation update
-			filter.stepAlt(frame);
+			filter.step(frame);
 			viewer.update(mods, frame);
 			continuer = viewer.isRendering();
 		}
