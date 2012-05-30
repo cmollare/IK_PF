@@ -201,7 +201,7 @@ void PartFilter::computeLikelihood(int partition)
 {
 	if (partition == 1)
 	{
-		this->computeDistance(partition+1);
+		this->computeDistance(partition);
 		for (int i=0 ; i<mCurrentDistances.size() ; i++)
 		{
 			mCurrentLikelihood[i] = exp(-abs(mCurrentDistances[i]));
@@ -220,15 +220,15 @@ void PartFilter::computeLikelihood(int partition)
 void PartFilter::step(std::vector<std::vector<double> > frame)
 {
 	mCurrentFrame = frame;// Observation update
-	//cout << mCurrentDistances[mMaxWeightIndex] << endl;
-	for (int j=1 ; j<=mPartitionNumber ; j++)
+
+	for (int j=1 ; j<=mPartitionNumber ; j++)//Partition loop
 	{
-		for (int i=0 ; i<mModels.size() ; i++)
+		for (int i=0 ; i<mModels.size() ; i++)//Particle loop
 		{
 			std::multimap<int, std::string>::iterator itOff = mOffsetPartToName[i].find(j);
 			std::multimap<int, std::string>::iterator itOrient = mOrientPartToName[i].find(j);;
-			//mModels[i]->setColor(1,0,1,0.1);
 			
+			//Quaternion sampling
 			for (itOrient = mOrientPartToName[i].equal_range(j).first ; itOrient != mOrientPartToName[i].equal_range(j).second ; ++itOrient)
 			{
 				double variance; // To delete
@@ -279,7 +279,7 @@ void PartFilter::step(std::vector<std::vector<double> > frame)
 			}// End of quaternion sampling
 			
 			
-			
+			// Offset sampling
 			for (itOff = mOffsetPartToName[i].equal_range(j).first ; itOff != mOffsetPartToName[i].equal_range(j).second ; ++itOff)
 			{
 				int pos = mJointNameToPos[(*itOff).second];// Retrieve position of the Joint in offset vectors
@@ -352,16 +352,15 @@ void PartFilter::step(std::vector<std::vector<double> > frame)
 				while(invalide);
 			}// End of offset sampling
 		}// End of particle loop
+		
 		this->updateWeights(j);
 		this->resample();
+		
 	}// End of partition loop
 	
-	//this->updateWeights();
+
 	this->computeMMSE();
-	//double Neff = this->computeNeff();;
-	//cout << Neff << "****" << endl;
-	//if (Neff < 1.5 || Neff < mModels.size()*0.5)
-		//this->resample(); // systematic resampling
+
 }
 
 double PartFilter::computeNeff()
@@ -373,29 +372,22 @@ void PartFilter::updateWeights(int partition)
 {
 	double sum=0;
 	this->computeLikelihood(partition);
-	//mModels[mMaxWeightIndex]->setColor(1,0,1,0.1);
 	
 	for (int i=0 ; i<mCurrentLikelihood.size() ; i++)
 	{
 		mCurrentWeights[i] = mCurrentWeights[i]*mCurrentLikelihood[i];
 		sum+=mCurrentWeights[i];
-		
-		/*if(mCurrentWeights[i]>=mCurrentWeights[mMaxWeightIndex])
-		{
-			mMaxWeightIndex=i;
-		}*/
 	}
-	for (int i=0 ; i<mCurrentLikelihood.size() ; i++)//to delete
+	/*for (int i=0 ; i<mCurrentLikelihood.size() ; i++)//to delete
 	{
 		if(mCurrentWeights[i]>=mCurrentWeights[mMaxWeightIndex])
 		{
 			mMaxWeightIndex=i;
 		}
-	}
+	}*/
 	
 	mCurrentWeights/=sum;
-	//mModels[mMaxWeightIndex]->setColor(0,1,1,1);
-	//cout << mMaxWeightIndex << endl;
+
 }
 
 void PartFilter::resample()
