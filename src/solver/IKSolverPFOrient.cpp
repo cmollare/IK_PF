@@ -80,7 +80,7 @@ void IKSolverPFOrient::initFilter()
 					std::string parentName = mModels[i]->getJoint(mNameVec[i][j])->getParent()->getName();
 					vector<double> vec = mCurrentFrame[mJointNameToPos[mNameVec[i][j]]];
 					vector<double> vecParent = mCurrentFrame[mJointNameToPos[parentName]];
-					if(mConstOffsetVec[i][j] == OFFSET_CONST_FREE || mConstOffsetVec[i][j] == OFFSET_CONST_PLANARXY || mConstOffsetVec[i][j] == OFFSET_CONST_PLANARYZ || mConstOffsetVec[i][j] == OFFSET_CONST_PLANARXZ)
+					if(mConstOffsetVec[i][j] == OFFSET_CONST_FREE || mConstOffsetVec[i][j] == OFFSET_CONST_PLANARXY || mConstOffsetVec[i][j] == OFFSET_CONST_PLANARYZ || mConstOffsetVec[i][j] == OFFSET_CONST_PLANARXZ || mConstOffsetVec[i][j] == OFFSET_CONST_FIXED)
 					{
 						tempo=Eigen::Vector3d(vec[1]-vecParent[1], vec[2]-vecParent[2], vec[3]-vecParent[3]);
 					}
@@ -453,7 +453,6 @@ double IKSolverPFOrient::stepAlt()
 			
 		}
 	}
-	
 	this->updateWeights();
 	double Neff = this->computeNeff();;
 	//cout << Neff << "****" << endl;

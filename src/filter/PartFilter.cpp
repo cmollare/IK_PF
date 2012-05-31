@@ -168,10 +168,10 @@ void PartFilter::computeDistance(int partition)
 		{
 			if (mJointNameToPos[(*it).second] != -1)
 			{
-				//cout << (*it).second << endl;
 				int pos = mJointNameToPos[(*it).second];
 				double distTemp=0;
 				// Mahalanobis distance
+				//cout << (*it).second << "=>" << mPosNames[pos] << endl;
 				Eigen::Vector3d jtPos = mModels[i]->getJoint((*it).second)->getXYZVect();
 				Eigen::Vector3d jtObs(mCurrentFrame[pos][1], mCurrentFrame[pos][2], mCurrentFrame[pos][3]);
 				Eigen::Vector3d diff = jtPos - jtObs;
@@ -226,18 +226,18 @@ void PartFilter::step(std::vector<std::vector<double> > frame)
 		for (int i=0 ; i<mModels.size() ; i++)//Particle loop
 		{
 			std::multimap<int, std::string>::iterator itOff = mOffsetPartToName[i].find(j);
-			std::multimap<int, std::string>::iterator itOrient = mOrientPartToName[i].find(j);;
+			std::multimap<int, std::string>::iterator itOrient = mOrientPartToName[i].find(j);
 			
 			//Quaternion sampling
 			for (itOrient = mOrientPartToName[i].equal_range(j).first ; itOrient != mOrientPartToName[i].equal_range(j).second ; ++itOrient)
 			{
 				double variance; // To delete
 				variance=1;
+				int pos = mJointNameToInt[(*itOrient).second];// Retrieve position of the Joint in orientation vectors
 				
-				int pos = mJointNameToPos[(*itOrient).second];// Retrieve position of the Joint in orientation vectors
 
 				bool invalide = false;
-			
+				//Eigen::Quaterniond quat = mDefaultOrientationVec[i][pos];
 				Eigen::Quaterniond quat = (*mOrientationVec[i][pos]); // Mean orientation is the previous orientation
 				
 				do
@@ -245,7 +245,7 @@ void PartFilter::step(std::vector<std::vector<double> > frame)
 					invalide = false;
 					if (mConstOrientVec[i][pos] == ORIENT_CONST_FREE)
 					{
-						(*mOrientationVec[i][pos])=this->sampleQuTEM(quat, TEMP*variance, 1, 1, 1);//A modifier suivant les contraintes
+						(*mOrientationVec[i][pos])=this->sampleQuTEM(quat, TEMP*2, 1, 1, 1);//A modifier suivant les contraintes
 					}
 					else if(mConstOrientVec[i][pos] == ORIENT_CONST_TWIST)
 					{
@@ -253,15 +253,15 @@ void PartFilter::step(std::vector<std::vector<double> > frame)
 					}
 					else if(mConstOrientVec[i][pos] == ORIENT_CONST_FLEX)
 					{
-						(*mOrientationVec[i][pos])=this->sampleQuTEM(quat, TEMP*variance, 0.1, 1, 0.05);
+						(*mOrientationVec[i][pos])=this->sampleQuTEM(quat, TEMP, 0.1, 1, 0.05);
 					}
 					else if(mConstOrientVec[i][pos] == ORIENT_CONST_TFLEX)
 					{
-						(*mOrientationVec[i][pos])=this->sampleQuTEM(quat, TEMP*variance, 1, 1, 0.1);
+						(*mOrientationVec[i][pos])=this->sampleQuTEM(quat, TEMP, 1, 1, 0.1);
 					}
 					else if(mConstOrientVec[i][pos] == ORIENT_CONST_BIFLEX)
 					{
-						(*mOrientationVec[i][pos])=this->sampleQuTEM(quat, TEMP*variance, 0.1, 1, 1);
+						(*mOrientationVec[i][pos])=this->sampleQuTEM(quat, TEMP, 0.1, 1, 1);
 					}
 					else if(mConstOrientVec[i][pos] == ORIENT_CONST_FIXED)
 					{
@@ -282,7 +282,8 @@ void PartFilter::step(std::vector<std::vector<double> > frame)
 			// Offset sampling
 			for (itOff = mOffsetPartToName[i].equal_range(j).first ; itOff != mOffsetPartToName[i].equal_range(j).second ; ++itOff)
 			{
-				int pos = mJointNameToPos[(*itOff).second];// Retrieve position of the Joint in offset vectors
+				
+				int pos = mJointNameToInt[(*itOff).second];// Retrieve position of the Joint in offset vectors
 				
 				Eigen::Vector3d offs;
 				if (mConstOffsetVec[i][pos] == OFFSET_CONST_FREE)

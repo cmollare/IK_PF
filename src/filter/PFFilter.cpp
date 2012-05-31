@@ -42,23 +42,23 @@ void PFFilter::initFilter()
 				invalide = false;
 				if (mConstOrientVec[i][j] == ORIENT_CONST_FREE)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP, 1, 1, 1);//A modifier suivant les contraintes
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMPO, 1, 1, 1);//A modifier suivant les contraintes
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_TWIST)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP, 1, 0.1, 0.05);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMPO, 1, 0.1, 0.05);
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_FLEX)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP, 0.1, 1, 0.05);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMPO, 0.1, 1, 0.05);
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_TFLEX)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP, 1, 1, 0.1);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMPO, 1, 1, 0.1);
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_BIFLEX)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP, 0.1, 1, 1);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMPO, 0.1, 1, 1);
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_FIXED)
 				{
@@ -66,7 +66,7 @@ void PFFilter::initFilter()
 				}
 				else
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP, 1, 1, 1);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMPO, 1, 1, 1);
 				}
 				mOrientationVec[i][j]->normalize(); // NORMALIZATION STEP EXTREMELY IMPORTANT
 				
@@ -217,23 +217,23 @@ void PFFilter::step(std::vector<std::vector<double> > frame)
 				invalide = false;
 				if (mConstOrientVec[i][j] == ORIENT_CONST_FREE)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP*variance, 1, 1, 1);//A modifier suivant les contraintes
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMPO*variance, 1, 1, 1);//A modifier suivant les contraintes
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_TWIST)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP*variance, 0.5, 0.1, 0.05);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMPO*variance, 0.5, 0.1, 0.05);
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_FLEX)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP*variance, 0.1, 1, 0.05);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMPO*variance, 0.1, 1, 0.05);
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_TFLEX)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP*variance, 1, 1, 0.1);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMPO*variance, 1, 1, 0.1);
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_BIFLEX)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP*variance, 0.1, 1, 1);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMPO*variance, 0.1, 1, 1);
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_FIXED)
 				{
@@ -241,7 +241,7 @@ void PFFilter::step(std::vector<std::vector<double> > frame)
 				}
 				else
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP*variance, 1, 1, 1);
+					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMPO*variance, 1, 1, 1);
 				}
 				mOrientationVec[i][j]->normalize();
 				

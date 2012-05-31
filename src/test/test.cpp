@@ -15,7 +15,7 @@ using namespace std;
 
 int main()
 {
-	YamlBodyJoint ymlBJ("../Model.ymd");//Yaml parser
+	YamlBodyJoint ymlBJ("../Model_simple.ymd");//Yaml parser
 	ymlBJ.createModel();
 	
 	FileParser *fileParser = new FileParser("../skel/", "skel_", 795);//Animation file parser
@@ -59,7 +59,7 @@ int main()
 	jtsToPos["FootLeft"] = "FootLeft";
 	jtsToPos["FootRight"] = "FootRight";//*/
 	
-	//*	
+	/*	
 	jtsToPos["Spine"] = "Spine";
 	jtsToPos["Head"] = "Head";
 	jtsToPos["ShoulderCenter"] = "ShoulderCenter";
@@ -80,6 +80,24 @@ int main()
 	jtsToPos["AnkleRight"] = "AnkleRight";
 	jtsToPos["FootLeft"] = "FootLeft";
 	jtsToPos["FootRight"] = "FootRight";//*/
+	
+	//*	
+	jtsToPos["Spine"] = "Spine";
+	jtsToPos["Head"] = "Head";
+	jtsToPos["ShoulderCenter"] = "ShoulderCenter";
+	jtsToPos["ShoulderLeft"] = "ShoulderLeft";
+	jtsToPos["ShoulderRight"] = "ShoulderRight";
+	jtsToPos["ElbowLeft"] = "ElbowLeft";
+	jtsToPos["ElbowRight"] = "ElbowRight";
+	jtsToPos["WristLeft"] = "WristLeft";
+	jtsToPos["WristRight"] = "WristRight";
+	jtsToPos["HipCenter"] = "HipCenter";
+	jtsToPos["HipLeft"] = "HipLeft";
+	jtsToPos["HipRight"] = "HipRight";
+	jtsToPos["KneeLeft"] = "KneeLeft";
+	jtsToPos["KneeRight"] = "KneeRight";
+	jtsToPos["AnkleLeft"] = "AnkleLeft";
+	jtsToPos["AnkleRight"] = "AnkleRight";//*/
 	
 	
 	IKSolverPFOrient iksol(mods, fileParser->getJointNames(), frame);//Declaration of solver
@@ -126,7 +144,7 @@ int main()
 		//frame = fileParser->getNextFrame();//Observation update
 		if (step == "IK")
 		{
-			if (iksol.stepAlt() < 0.90)
+			if (iksol.stepAlt() < 0.60)
 			{
 				iksol.save();
 				step = "InitFilter";

@@ -3,7 +3,7 @@
 
 #include "Filter.h"
 
-#define TEMP 0.2
+#define TEMPO 0.2
 
 using namespace std;
 
