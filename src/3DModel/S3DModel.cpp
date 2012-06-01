@@ -6,6 +6,7 @@ S3DModel::S3DModel(int id)
 	mRootJoint = NULL;
 	mNbJoints = -1;
 	mPartitionNumber = 0;
+	mIsVisible = true;
 }
 
 S3DModel::S3DModel(const Joint* jt, unsigned int id)
@@ -14,6 +15,7 @@ S3DModel::S3DModel(const Joint* jt, unsigned int id)
 	mId = id;
 	mNbJoints = -1;
 	mPartitionNumber = 0;
+	mIsVisible = true;
 	createMaps();
 	createOrientationVec();
 	createOffsetVec();
@@ -30,6 +32,7 @@ S3DModel::S3DModel(const S3DModel& model)
 	mId = -2;
 	mNbJoints = -1;
 	mPartitionNumber = 0;
+	mIsVisible = model.mIsVisible;
 	createMaps();
 	createOrientationVec();
 	createOffsetVec();
@@ -137,6 +140,15 @@ void S3DModel::setColor(float R, float G, float B, float alpha)
 	{
 		mIntToJoint[i]->setColor(R, G, B, alpha);
 	}
+}
+void S3DModel::setVisible(bool visible)
+{
+	mIsVisible = visible;
+}
+
+bool S3DModel::isVisible()
+{
+	return mIsVisible;
 }
 
 void S3DModel::createMaps(vector<Joint*>& jts)

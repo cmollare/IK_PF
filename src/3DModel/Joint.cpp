@@ -34,7 +34,6 @@ Joint::Joint(const Joint& jtCopy)
 {
 	mName = jtCopy.mName;
 	mColors = jtCopy.mColors;
-	mIsPrincipal = jtCopy.mIsPrincipal;
 
 	mQDefault = jtCopy.mQDefault;
 	mQLocal = jtCopy.mQLocal;

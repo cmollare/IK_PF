@@ -110,6 +110,9 @@ class S3DModel
 		
 		void setColor(float R=1, float G=0, float B=1, float alpha=0.1);
 		
+		void setVisible(bool visible);
+		bool isVisible();
+		
 		void debug()//fonction temporaire
 		{
 			for (int i=0 ; i<mOrientationVec.size() ; i++)
@@ -178,6 +181,8 @@ class S3DModel
 		std::multimap<int, std::string> mOffsetPartToName; /*!< offset MultiMap from partition number to Joint name */
 		std::multimap<int, std::string> mOrientPartToName; /*!< orientation MultiMap from partition number to Joint name */
 		int mPartitionNumber;
+		
+		bool mIsVisible;
 };
 
 #endif

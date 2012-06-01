@@ -228,7 +228,6 @@ class Joint
 		Joint *mParentJoint; /*!< parent Joint, NULL if root */
 		std::vector<Joint*> mChildrenJoint; /*!< vector of child Joints */
 		std::vector<float> mColors; /*!< Color of the Joint */
-		bool mIsPrincipal;
 		int mHieraLevel; /*!< index of hierarchy level : 1 for the root */
 		
 		Eigen::Quaterniond mQDefault;
