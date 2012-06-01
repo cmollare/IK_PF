@@ -19,6 +19,7 @@ void PartFilter::initFilter()
 	for (int i=0 ; i<mModels.size() ; i++)
 	{
 		mModels[i]->setColor(1, 0, 1, 0.1);
+		mModels[i]->setVisible(false);
 		mOrientationVec.push_back(mModels[i]->getOrientationVec());					// Creation of orientation vector<vector>
 		mOffsetVec.push_back(mModels[i]->getOffsetVector());						// Creation of offset vector<vector>
 		mDefaultOrientationVec.push_back(mModels[i]->getDefaultOrientationVec());	// Creation of default orientation vector<vector>
@@ -209,7 +210,7 @@ void PartFilter::computeLikelihood(int partition)
 		this->computeDistance(i);
 		for (int i=0 ; i<mCurrentDistances.size() ; i++)
 		{
-			mCurrentLikelihood[i] *= exp(-abs(mCurrentDistances[i])*10);
+			mCurrentLikelihood[i] *= exp(-abs(mCurrentDistances[i])*20);
 		}
 	}
 }
@@ -373,27 +374,11 @@ void PartFilter::updateWeights(int partition)
 	
 	for (int i=0 ; i<mCurrentLikelihood.size() ; i++)
 	{
-		cout << mCurrentLikelihood[i] << endl;
 		mCurrentWeights[i] = mCurrentWeights[i]*mCurrentLikelihood[i];
 		sum+=mCurrentWeights[i];
 	}
-	/*for (int i=0 ; i<mCurrentLikelihood.size() ; i++)//to delete
-	{
-		if(mCurrentWeights[i]>=mCurrentWeights[mMaxWeightIndex])
-		{
-			mMaxWeightIndex=i;
-		}
-	}*/
 	
 	mCurrentWeights/=sum;
-	
-	/*for (int i=0 ; i<mModels.size() ; i++)
-	{
-		cout << mCurrentWeights[i] << endl;
-		mModels[i]->setColor(1-mCurrentWeights[i], mCurrentWeights[i], 0, 0.5);
-		//mCurrentWeights[i] = mCurrentWeights[i]*mCurrentLikelihood[i];
-		//sum+=mCurrentWeights[i];
-	}*/
 
 }
 

@@ -140,7 +140,8 @@ void S3DViewer::initModels(std::vector<S3DModel*>& models)
 		{
 			std::map<std::string, std::string> snNames;
 			Joint* jt = models[i]->getRootJoint();
-			ostringstream oss;
+			ostringstream oss, ossMod;
+			ossMod << "Model_" << i;
 			oss << jt->getName() << "_" << i;
 			
 			//Orientation of Joint
@@ -152,7 +153,9 @@ void S3DViewer::initModels(std::vector<S3DModel*>& models)
 			Vector3 offset(vOff.x(), vOff.y(), vOff.z());
 			
 			//Creation of sceneNode with orientation and offset
-			SceneNode *node = mSceneMgr->getSceneNode("Particles")->createChildSceneNode(oss.str());
+			SceneNode *modelNode = mSceneMgr->getSceneNode("Particles")->createChildSceneNode(ossMod.str());
+			
+			SceneNode *node = modelNode->createChildSceneNode(oss.str());
 			node->setPosition(offset);
 			node->setOrientation(quat);
 			node->_updateBounds();
@@ -173,6 +176,8 @@ void S3DViewer::initModels(std::vector<S3DModel*>& models)
 				initModels(jt->getChildren(), node, i, snNames);//Recursivity
 			}
 			mModelSNNames.push_back(snNames);
+			
+			modelNode->setVisible(models[i]->isVisible());
 		}
 	}
 	
@@ -219,18 +224,26 @@ void S3DViewer::update(std::vector<S3DModel*>& models, std::vector<std::vector<d
 {
 	for (int i=0 ; i < models.size() ; i++)
 	{
-		std::vector<std::string> nameVec = models[i]->getNameVec();
-		for (int j=0 ; j<nameVec.size() ; j++)
+		ostringstream oss;
+		oss << "Model_" << i;
+		Ogre::SceneNode *modelNode = mSceneMgr->getSceneNode(oss.str());
+		modelNode->setVisible(models[i]->isVisible());
+		
+		if (models[i]->isVisible())
 		{
-			Eigen::Quaterniond vQuat = *(models[i]->getJoint(nameVec[j])->getOrientation());
-			Ogre::Quaternion quat((double)vQuat.w(), (double)vQuat.x(), (double)vQuat.y(), (double)vQuat.z());
-			Eigen::Translation3d vOff = *(models[i]->getJoint(nameVec[j])->getOffset());
-			
-			Vector3 offset(vOff.x(), vOff.y(), vOff.z());
+			std::vector<std::string> nameVec = models[i]->getNameVec();
+			for (int j=0 ; j<nameVec.size() ; j++)
+			{
+				Eigen::Quaterniond vQuat = *(models[i]->getJoint(nameVec[j])->getOrientation());
+				Ogre::Quaternion quat((double)vQuat.w(), (double)vQuat.x(), (double)vQuat.y(), (double)vQuat.z());
+				Eigen::Translation3d vOff = *(models[i]->getJoint(nameVec[j])->getOffset());
+				
+				Vector3 offset(vOff.x(), vOff.y(), vOff.z());
 
-			Ogre::SceneNode *node = mSceneMgr->getSceneNode(mModelSNNames[i][nameVec[j]]);
-			node->setOrientation(quat);
-			node->setPosition(offset);
+				Ogre::SceneNode *node = mSceneMgr->getSceneNode(mModelSNNames[i][nameVec[j]]);
+				node->setOrientation(quat);
+				node->setPosition(offset);
+			}
 		}
 	}
 	this->updateLine3D();

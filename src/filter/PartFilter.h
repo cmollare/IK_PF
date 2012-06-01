@@ -3,7 +3,7 @@
 
 #include "Filter.h"
 
-#define TEMP 0.5
+#define TEMP 0.2
 
 class PartFilter : public Filter
 {

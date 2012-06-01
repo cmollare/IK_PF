@@ -9,7 +9,7 @@
 #include "../filter/PFFilter.h"
 #include "../filter/PartFilter.h"
 
-#define NBMODELS 500
+#define NBMODELS 100
 
 using namespace std;
 
