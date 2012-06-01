@@ -9,7 +9,7 @@
 #include "../filter/PFFilter.h"
 #include "../filter/PartFilter.h"
 
-#define NBMODELS 100
+#define NBMODELS 500
 
 using namespace std;
 
@@ -164,6 +164,7 @@ int main()
 			frame = fileParser->getNextFrame();//Observation update
 			filter.step(frame);
 			viewer.update(mods, frame);
+			cin;
 			continuer = viewer.isRendering();
 		}
 		else

@@ -165,13 +165,14 @@ void PFFilter::computeDistance()
 				Eigen::Vector3d jtPos = mModels[i]->getJoint((*it).first)->getXYZVect();
 				Eigen::Vector3d jtObs(mCurrentFrame[(*it).second][1], mCurrentFrame[(*it).second][2], mCurrentFrame[(*it).second][3]);
 				Eigen::Vector3d diff = jtPos - jtObs;
-				Eigen::Matrix3d cov;
-				cov.setIdentity();
-				distTemp = diff.transpose()*(cov*diff);
-				distance += sqrt(distTemp);
+				//Eigen::Matrix3d cov;
+				//cov.setIdentity();
+				//distTemp = diff.transpose()*(cov*diff);
+				distTemp = diff.norm();
+				distance += distTemp;
 			}
 		}
-		mCurrentDistances[i] = distance;
+		mCurrentDistances[i] = sqrt(distance);
 	}
 }
 
@@ -339,6 +340,13 @@ void PFFilter::updateWeights()
 	}
 	
 	mCurrentWeights/=sum;
+	
+	/*for (int i=0 ; i<mModels.size() ; i++)
+	{
+		mModels[i]->setColor(1-mCurrentWeights[i]/mCurrentWeights[mMaxWeightIndex], mCurrentWeights[i]/mCurrentWeights[mMaxWeightIndex], 0, 1);
+		//mCurrentWeights[i] = mCurrentWeights[i]*mCurrentLikelihood[i];
+		//sum+=mCurrentWeights[i];
+	}*/
 	//mModels[mMaxWeightIndex]->setColor(0,1,1,1);
 	//cout << mMaxWeightIndex << endl;
 }

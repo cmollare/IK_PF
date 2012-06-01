@@ -178,7 +178,7 @@ void PartFilter::computeDistance(int partition)
 				Eigen::Matrix3d cov;
 				cov.setIdentity();
 				distTemp = diff.transpose()*(cov*diff);
-				distance += sqrt(distTemp);
+				distance += distTemp;
 			}
 		}
 		mCurrentDistances[i] = distance;
@@ -199,20 +199,17 @@ void PartFilter::computeLikelihood()
 
 void PartFilter::computeLikelihood(int partition)
 {
-	if (partition == 1)
+	for (int i=0 ; i<mCurrentDistances.size() ; i++)
 	{
-		this->computeDistance(partition);
-		for (int i=0 ; i<mCurrentDistances.size() ; i++)
-		{
-			mCurrentLikelihood[i] = exp(-abs(mCurrentDistances[i]));
-		}
+			mCurrentLikelihood[i] = 1;
 	}
-	else if (partition > 1)
+	
+	for (int i=1 ; i<=partition ; i++)
 	{
-		this->computeDistance(partition);
+		this->computeDistance(i);
 		for (int i=0 ; i<mCurrentDistances.size() ; i++)
 		{
-			mCurrentLikelihood[i] *= exp(-abs(mCurrentDistances[i]));
+			mCurrentLikelihood[i] *= exp(-abs(mCurrentDistances[i])*10);
 		}
 	}
 }
@@ -376,6 +373,7 @@ void PartFilter::updateWeights(int partition)
 	
 	for (int i=0 ; i<mCurrentLikelihood.size() ; i++)
 	{
+		cout << mCurrentLikelihood[i] << endl;
 		mCurrentWeights[i] = mCurrentWeights[i]*mCurrentLikelihood[i];
 		sum+=mCurrentWeights[i];
 	}
@@ -388,6 +386,14 @@ void PartFilter::updateWeights(int partition)
 	}*/
 	
 	mCurrentWeights/=sum;
+	
+	/*for (int i=0 ; i<mModels.size() ; i++)
+	{
+		cout << mCurrentWeights[i] << endl;
+		mModels[i]->setColor(1-mCurrentWeights[i], mCurrentWeights[i], 0, 0.5);
+		//mCurrentWeights[i] = mCurrentWeights[i]*mCurrentLikelihood[i];
+		//sum+=mCurrentWeights[i];
+	}*/
 
 }
 
