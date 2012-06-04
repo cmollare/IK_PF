@@ -18,6 +18,8 @@ Filter::Filter(std::vector<S3DModel*> mods)
 	mGaussCDFInv = new double [mNbEchantillonsUnite];
 	mGaussPDF = new double[mNbEchantillons];
 	mGaussCDF = new double[mNbEchantillons];
+	mDimQMCVec = mModels[0]->getNumberJoint()*6;
+	mVectorQMC = new float[mDimQMCVec];
 	
 	initQMC();
 }
@@ -27,6 +29,7 @@ Filter::~Filter()
 	delete[] mGaussCDFInv;
 	delete[] mGaussPDF;
 	delete[] mGaussCDF;
+	delete[] mVectorQMC;
 }
 
 Eigen::Quaterniond Filter::sampleQuTEM(Eigen::Quaterniond mean, double sigma, double sigma1, double sigma2, double sigma3)
@@ -57,6 +60,11 @@ Eigen::Quaterniond Filter::sampleQuTEM(Eigen::Quaterniond mean, double sigma, do
 	quat = mean*quat;
 	
 	return quat;
+}
+
+void Filter::sampleQRS()
+{
+	i4_sobol(mDimQMCVec,&mSeedQMC,mVectorQMC);
 }
 
 double Filter::randn(double sigma)
