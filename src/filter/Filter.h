@@ -15,6 +15,7 @@
 #include <map>
 #include <string>
 #include "../3DModel/S3DModel.h"
+#include "sobol.h"
 
 using namespace std;
 
@@ -26,6 +27,7 @@ class Filter
 {
 	public:
 		Filter(std::vector<S3DModel*> mods);
+		~Filter();
 		
 		virtual void initFilter()=0;
 		virtual void computeLikelihood()=0;
@@ -43,6 +45,7 @@ class Filter
 		 */
 		double randn(double sigma=1);
 		double randUnif(double sup=1.0);
+		void initQMC();
 		
 		std::map<std::string, std::string> mJointNameToPosName; /*!< Map between Joint Names file and animation file */
 		std::map<std::string, int> mJointNameToPos; /*!< Name of the Joint to its position in the observation vector, -1 if there is no observation associated */
@@ -62,6 +65,18 @@ class Filter
 		std::vector<std::vector<double> > mCurrentFrame;
 		Eigen::VectorXf mCurrentDistances;
 		Eigen::VectorXf mCurrentLikelihood;
+		
+		//Quasi MonteCarlo
+		int mSeedQMC;
+		int mNbEchantillonsUnite;
+		int mNbEchantillons;
+		double *mGaussCDFInv;
+		double *mGaussPDF;
+		double *mGaussCDF;
+		double mBorneMin;
+		double mBorneMax;
+		double mPasUnite;
+		double mPas;
 };
 
 #endif
