@@ -10,27 +10,41 @@
 #include <fstream>
 #include <string>
 
-
+/*!
+ * \struct SOffset
+ * \brief Structure reprensenting the offset of the Joint
+ * 
+ * This structure contains all information on offset.
+ * 
+ */
 typedef struct SOffset
 {
 	vector<double> Mean; /*!< Position of the Joint relative to its parent */
 	std::string Dof; /*!< Constraint on the local offset of the Joint */
-	vector<std::string> SignConst;
-	int Partition;
+	vector<std::string> SignConst; /*!< Constraint on offset sign */
+	int Partition; /*!< Partition number of offset */
 }SOffset;
 
+
+/*!
+ * \struct SOrientation
+ * \brief Structure reprensenting the orientation of the Joint
+ * 
+ * This structure contains all information on orientation.
+ * 
+ */
 typedef struct SOrientation
 {
 	Eigen::Quaterniond Mean; /*!< Local orientation of the Joint */
 	std::string Dof; /*!< Constraint on the local orientation of the Joint */
-	int Partition;
+	int Partition; /*!< Partition number of orientation */
 }SOrientation;
 
 /*!
  * \struct SBJoints
  * \brief Structure reprensenting a Joint
  * 
- * This structure contains all the informations for a Joint extracted from the ymd file.
+ * This structure contains all information for a Joint extracted from the .ymd file.
  * 
  */
 typedef struct SBJoints
@@ -38,8 +52,8 @@ typedef struct SBJoints
 	EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 	std::string Joint; /*!< Name of the Joint */
 	std::string Parent; /*!< Name of the parent = "_Root" if this Joint is the root */ 
-	SOffset Offset;
-	SOrientation Orientation;
+	SOffset Offset; /*!< Associated offset structure */
+	SOrientation Orientation; /*!< Associated orientation structure */
 }SBJoints;
 			
 /*!
@@ -125,8 +139,21 @@ void operator>> (const YAML::Node& node, SYmdFile& YmdFile);
  */
 void operator>> (const YAML::Node& node, vector<SBJoints, Eigen::aligned_allocator<SBJoints> >& BJoints);
 
+
+/*!
+ * \fn void operator>> (const YAML::Node& node, SOffset& Offset)
+ * \brief Extract SOffset structure from the corresponding node
+ * \param node Node to extract from.
+ * \param Offset SOffset structure.
+ */
 void operator>> (const YAML::Node& node, SOffset& Offset);
 
+/*!
+ * \fn void operator>> (const YAML::Node& node, SOrientation& Orientation)
+ * \brief Extract SOrientation structure from the corresponding node
+ * \param node Node to extract from.
+ * \param Orientation SOrientation structure.
+ */
 void operator>> (const YAML::Node& node, SOrientation& Orientation);
 
 /*!
@@ -145,6 +172,13 @@ void operator>> (const YAML::Node& node, Eigen::Quaterniond& quat);
  */
 void operator>> (const YAML::Node& node, vector<double>& Offset);
 
+
+/*!
+ * \fn void operator>> (const YAML::Node& node, vector<std::string>& SignConst)
+ * \brief Extract a vector of sign constraints from the corresponding node.
+ * \param node Node to extract from.
+ * \param SignConst Vector of sign constraints.
+ */
 void operator>> (const YAML::Node& node, vector<std::string>& SignConst);
 
 #endif
