@@ -57,6 +57,7 @@ class PartQRSFilter : public Filter
 		/*!
 		 * \fn double computeNeff()
 		 * \brief Compute Neff
+		 * \return Neff result.
 		 */
 		double computeNeff();
 		

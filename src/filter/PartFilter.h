@@ -1,6 +1,10 @@
 #ifndef PARTFILTER_H
 #define PARTFILTER_H
 
+/*!
+ * \file PartFilter.h
+ */
+
 #include "Filter.h"
 
 #define TEMP 0.2
@@ -53,6 +57,7 @@ class PartFilter : public Filter
 		/*!
 		 * \fn double computeNeff()
 		 * \brief Compute Neff
+		 * \return Neff result.
 		 */
 		double computeNeff();
 		
