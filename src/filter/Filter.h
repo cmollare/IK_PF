@@ -17,8 +17,6 @@
 #include "../3DModel/S3DModel.h"
 #include "sobol.h"
 
-using namespace std;
-
 /*!
  * \class Filter
  * \brief Abstract class for the posture filter
