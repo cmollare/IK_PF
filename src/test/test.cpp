@@ -9,7 +9,7 @@
 #include "../filter/PartFilter.h"
 #include "../filter/PartQRSFilter.h"
 
-#define NBMODELS 100
+#define NBMODELS 1000
 
 using namespace std;
 

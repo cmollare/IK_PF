@@ -16,6 +16,7 @@
 #include <string>
 #include "../3DModel/S3DModel.h"
 #include "sobol.h"
+#include "../FileParsers/ResultParser.h"
 
 /*!
  * \class Filter
@@ -142,6 +143,18 @@ class Filter
 		 */
 		void initQMC();
 		
+		/*!
+		 * \fn void saveMMSE()
+		 * \brief Save MMSE caracteristics.
+		 */
+		void saveMMSE();
+		
+		/*!
+		 * \fn void saveObservations()
+		 * \brief Save observations caracteristics.
+		 */
+		void saveObservations();
+		
 		std::map<std::string, std::string> mJointNameToPosName; /*!< Map between Joint Names file and animation file */
 		std::map<std::string, int> mJointNameToPos; /*!< Name of the Joint to its position in the observation vector, -1 if there is no observation associated */
 		std::map<std::string, int> mJointNameToInt; /*!< Name of the Joint to its position in the orientation vector */
@@ -176,6 +189,8 @@ class Filter
 		float *mVectorQMC; /*!< Current Sobol's sequence */
 		int mDimQMCVec; /*!< Dimension of Sobol's sequence */
 		int mIndexQMC; /*!< Current Sobol's suequence dimension used */
+		
+		ResultParser *mResParser; /*!< Instance of ResultParser */
 };
 
 #endif

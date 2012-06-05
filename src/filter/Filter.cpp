@@ -2,6 +2,8 @@
 
 Filter::Filter(std::vector<S3DModel*> mods)
 {
+	mResParser = new ResultParser("../output/");
+	
 	srand (time(NULL));
 	mSeedQMC = ((int)time(NULL))%2000000;//Initialisation of randon numbers
 	mModels = mods;
@@ -30,6 +32,8 @@ Filter::~Filter()
 	delete[] mGaussPDF;
 	delete[] mGaussCDF;
 	delete[] mVectorQMC;
+	
+	delete mResParser;
 }
 
 Eigen::Quaterniond Filter::sampleQuTEM(Eigen::Quaterniond mean, double sigma, double sigma1, double sigma2, double sigma3)
@@ -187,6 +191,28 @@ void Filter::initQMC()
 		//std::cout << y << "\t: " << gaussCDFInv[i] << "\n";
 	}
 
+}
+
+void Filter::saveMMSE()
+{
+	std::map<std::string, int>::iterator it;
+	
+	std::vector<Eigen::Quaterniond*, Eigen::aligned_allocator<Eigen::Quaterniond*> > orient = mModelMMSE->getOrientationVec();
+	std::vector<Eigen::Translation3d*, Eigen::aligned_allocator<Eigen::Translation3d*> > offset = mModelMMSE->getOffsetVector();
+	
+	for (it=mJointNameToInt.begin() ; it!=mJointNameToInt.end() ; it++)
+	{
+		Eigen::Vector3d pos = mModelMMSE->getJoint((*it).first)->getXYZVect();
+		mResParser->saveJoint("Joint_" + (*it).first, pos, *offset[(*it).second], *orient[(*it).second]);
+	}
+}
+
+void Filter::saveObservations()
+{
+	for (int i=0 ; i<mPosNames.size() ; i++)
+	{
+		mResParser->saveObs("Obs_" + mPosNames[i], mCurrentFrame[i]);
+	}
 }
 
 bool Filter::isPositive(double num)
