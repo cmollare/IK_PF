@@ -33,6 +33,7 @@ void PartQRSFilter::initFilter()
 	
 	for (int i=0 ; i<mModels.size() ; i++)
 	{
+		this->sampleQRS();
 		for (int j=0 ; j < mOrientationVec[i].size() ; j++)
 		{
 			mDefaultOrientationVec[i][j] = (*mOrientationVec[i][j]); // Base orientation becomes default orientation
@@ -46,23 +47,23 @@ void PartQRSFilter::initFilter()
 				invalide = false;
 				if (mConstOrientVec[i][j] == ORIENT_CONST_FREE)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP3, 1, 1, 1);//A modifier suivant les contraintes
+					(*mOrientationVec[i][j])=this->sampleQuasiQuTEM(quat, TEMP3, 1, 1, 1);//A modifier suivant les contraintes
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_TWIST)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP3, 1, 0.1, 0.05);
+					(*mOrientationVec[i][j])=this->sampleQuasiQuTEM(quat, TEMP3, 1, 0.1, 0.05);
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_FLEX)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP3, 0.1, 1, 0.05);
+					(*mOrientationVec[i][j])=this->sampleQuasiQuTEM(quat, TEMP3, 0.1, 1, 0.05);
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_TFLEX)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP3, 1, 1, 0.1);
+					(*mOrientationVec[i][j])=this->sampleQuasiQuTEM(quat, TEMP3, 1, 1, 0.1);
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_BIFLEX)
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP3, 0.1, 1, 1);
+					(*mOrientationVec[i][j])=this->sampleQuasiQuTEM(quat, TEMP3, 0.1, 1, 1);
 				}
 				else if(mConstOrientVec[i][j] == ORIENT_CONST_FIXED)
 				{
@@ -70,7 +71,7 @@ void PartQRSFilter::initFilter()
 				}
 				else
 				{
-					(*mOrientationVec[i][j])=this->sampleQuTEM(quat, TEMP3, 1, 1, 1);
+					(*mOrientationVec[i][j])=this->sampleQuasiQuTEM(quat, TEMP3, 1, 1, 1);
 				}
 				mOrientationVec[i][j]->normalize(); // NORMALIZATION STEP EXTREMELY IMPORTANT
 				
@@ -223,6 +224,7 @@ void PartQRSFilter::step(std::vector<std::vector<double> > frame)
 	{
 		for (int i=0 ; i<mModels.size() ; i++)//Particle loop
 		{
+			this->sampleQRS();
 			std::multimap<int, std::string>::iterator itOff = mOffsetPartToName[i].find(j);
 			std::multimap<int, std::string>::iterator itOrient = mOrientPartToName[i].find(j);
 			
@@ -243,23 +245,23 @@ void PartQRSFilter::step(std::vector<std::vector<double> > frame)
 					invalide = false;
 					if (mConstOrientVec[i][pos] == ORIENT_CONST_FREE)
 					{
-						(*mOrientationVec[i][pos])=this->sampleQuTEM(quat, TEMP3*2, 1, 1, 1);//A modifier suivant les contraintes
+						(*mOrientationVec[i][pos])=this->sampleQuasiQuTEM(quat, TEMP3*2, 1, 1, 1);//A modifier suivant les contraintes
 					}
 					else if(mConstOrientVec[i][pos] == ORIENT_CONST_TWIST)
 					{
-						(*mOrientationVec[i][pos])=this->sampleQuTEM(quat, TEMP3*variance, 0.5, 0.1, 0.05);
+						(*mOrientationVec[i][pos])=this->sampleQuasiQuTEM(quat, TEMP3*variance, 0.5, 0.1, 0.05);
 					}
 					else if(mConstOrientVec[i][pos] == ORIENT_CONST_FLEX)
 					{
-						(*mOrientationVec[i][pos])=this->sampleQuTEM(quat, TEMP3, 0.1, 1, 0.05);
+						(*mOrientationVec[i][pos])=this->sampleQuasiQuTEM(quat, TEMP3, 0.1, 1, 0.05);
 					}
 					else if(mConstOrientVec[i][pos] == ORIENT_CONST_TFLEX)
 					{
-						(*mOrientationVec[i][pos])=this->sampleQuTEM(quat, TEMP3, 1, 1, 0.1);
+						(*mOrientationVec[i][pos])=this->sampleQuasiQuTEM(quat, TEMP3, 1, 1, 0.1);
 					}
 					else if(mConstOrientVec[i][pos] == ORIENT_CONST_BIFLEX)
 					{
-						(*mOrientationVec[i][pos])=this->sampleQuTEM(quat, TEMP3, 0.1, 1, 1);
+						(*mOrientationVec[i][pos])=this->sampleQuasiQuTEM(quat, TEMP3, 0.1, 1, 1);
 					}
 					else if(mConstOrientVec[i][pos] == ORIENT_CONST_FIXED)
 					{
@@ -267,7 +269,7 @@ void PartQRSFilter::step(std::vector<std::vector<double> > frame)
 					}
 					else
 					{
-						(*mOrientationVec[i][pos])=this->sampleQuTEM(quat, TEMP3*variance, 1, 1, 1);
+						(*mOrientationVec[i][pos])=this->sampleQuasiQuTEM(quat, TEMP3*variance, 1, 1, 1);
 					}
 					mOrientationVec[i][pos]->normalize();
 					

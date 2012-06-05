@@ -78,10 +78,11 @@ Eigen::Quaterniond Filter::sampleQuasiQuTEM(Eigen::Quaterniond mean, double sigm
 	{
 		n[i] = (int)floor(mVectorQMC[mIndexQMC+i]/mPasUnite);
 		
-		if (n[i]==0 || n[i]==mNbEchantillons-2)
+		/*if (n[i]==0 || n[i]==mNbEchantillons-2)
 		{
 			cout << "Error in function sampleQuasiQuTEM" << endl;
-		}
+			cout << n[i] << endl;
+		}*/
 		
 		x[i] = mGaussCDFInv[n[i]] + ( (mGaussCDFInv[n[i]+1] - mGaussCDFInv[n[i]]) * (mVectorQMC[mIndexQMC+i] - ((double)n[i]*mPasUnite)) / mPasUnite  );
 	}
