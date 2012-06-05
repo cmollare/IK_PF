@@ -2,7 +2,7 @@
 #define FILTER_H
 
 /*!
- * \file IKSolver.h
+ * \file Filter.h
  */
 
 #include <iostream>
@@ -34,6 +34,7 @@ class Filter
 		virtual void step(std::vector<std::vector<double> > frame)=0;
 		Eigen::Quaterniond sampleQuTEM(Eigen::Quaterniond mean, double sigma, double sigma1=1, double sigma2=1, double sigma3=1);
 		void sampleQRS();
+		Eigen::Quaterniond sampleQuasiQuTEM(Eigen::Quaterniond mean, double sigma, double sigma1=1, double sigma2=1, double sigma3=1);
 		
 	protected:
 		virtual void computeDistance()=0;
@@ -81,6 +82,7 @@ class Filter
 		
 		float *mVectorQMC;
 		int mDimQMCVec;
+		int mIndexQMC;
 };
 
 #endif

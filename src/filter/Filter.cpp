@@ -65,6 +65,48 @@ Eigen::Quaterniond Filter::sampleQuTEM(Eigen::Quaterniond mean, double sigma, do
 void Filter::sampleQRS()
 {
 	i4_sobol(mDimQMCVec,&mSeedQMC,mVectorQMC);
+	mIndexQMC=0;
+}
+
+Eigen::Quaterniond Filter::sampleQuasiQuTEM(Eigen::Quaterniond mean, double sigma, double sigma1, double sigma2, double sigma3)
+{
+	int n[4];
+	double x[4];
+	
+	//Quasi Gaussian law
+	for(int i=0 ; i<4 ; i++)
+	{
+		n[i] = (int)floor(mVectorQMC[mIndexQMC+i]/mPasUnite);
+		
+		if (n[i]==0 || n[i]==mNbEchantillons-2)
+		{
+			cout << "Error in function sampleQuasiQuTEM" << endl;
+		}
+		
+		x[i] = mGaussCDFInv[n[i]] + ( (mGaussCDFInv[n[i]+1] - mGaussCDFInv[n[i]]) * (mVectorQMC[mIndexQMC+i] - ((double)n[i]*mPasUnite)) / mPasUnite  );
+	}
+	mIndexQMC += 4;
+	
+	Eigen::Vector4d axis(0, x[1], x[2], x[3]);
+	
+	//N
+	axis.normalize();
+	axis[1]=axis[1]*sigma1;
+	axis[2]=axis[2]*sigma2;
+	axis[3]=axis[3]*sigma3;
+	
+	//theta
+	double theta = x[0]*sigma;
+	
+	//exp(N*theta)
+	axis=axis*(double)sin(theta);
+	axis[0]=(double)cos(theta);
+	
+	//to quaternion
+	Eigen::Quaterniond quat(axis[0], axis[1], axis[2], axis[3]);
+	quat = mean*quat;
+	
+	return quat;
 }
 
 double Filter::randn(double sigma)
