@@ -25,6 +25,7 @@ class S3DModel
 		EIGEN_MAKE_ALIGNED_OPERATOR_NEW	//For Eigen3
 		
 		/*!
+		 * \fn S3DModel(int id)
 		 * \brief S3DModel constructor
 		 * 
 		 * This constructor create a single empty Joint.
@@ -34,6 +35,7 @@ class S3DModel
 		S3DModel(int id);
 		
 		/*!
+		 * \fn S3DModel(const Joint* jt, unsigned int id=0)
 		 * \brief S3DModel constructor
 		 * 
 		 * This constructor takes a complete hierarchy as paramater, and map the model.
@@ -44,6 +46,7 @@ class S3DModel
 		S3DModel(const Joint* jt, unsigned int id=0);
 		
 		/*!
+		 * \fn S3DModel(const S3DModel& model)
 		 * \brief S3DModel copy constructor
 		 * 
 		 * \param model S3DModel to be copied.
@@ -51,6 +54,7 @@ class S3DModel
 		S3DModel(const S3DModel& model);
 		
 		/*!
+		 * \fn ~S3DModel()
 		 * \brief S3DModel destructor
 		 * 
 		 * Delete all the Joint, you don't have to do it yourself.
@@ -59,38 +63,73 @@ class S3DModel
 		~S3DModel();
 		
 		/*!
+		 * \fn Joint* getRootJoint()
 		 * \brief Get the root Joint
 		 * \return Return a pointer on the model root Joint.
 		 */
 		Joint* getRootJoint();
 		
 		/*!
+		 * \fn void createMaps()
 		 * \brief Map the model
 		 */
 		void createMaps();
 		
 		/*!
+		 * \fn int getNumberJoint()
 		 * \brief Get the number of Joints
 		 * \return Return the number of Joints int the model
 		 */
 		int getNumberJoint();
 		
-		Joint* getJoint(std::string);
+		/*!
+		 * \fn Joint* getJoint(std::string)
+		 * \brief get Joint from name
+		 * \param str Name of the Joint.
+		 * \return Pointer on Joint class.
+		 */
+		Joint* getJoint(std::string str);
 		
 		/*!
+		 * \fn vector<Eigen::Quaterniond*, Eigen::aligned_allocator<Eigen::Quaterniond*> > getOrientationVec()
 		 * \brief Get the orientation vector
 		 * 
 		 * Return the local orientation of each Joints in a vector.
 		 * Warning : If you modify the orientation, it will be modified in the corresponding Joint.
 		 * 
-		 * \return A vector of Eigen::quaternionf
+		 * \return A vector of Eigen::quaterniond*
 		 */
 		vector<Eigen::Quaterniond*, Eigen::aligned_allocator<Eigen::Quaterniond*> > getOrientationVec();
 		
+		/*!
+		 * \fn vector<Eigen::Translation3d*, Eigen::aligned_allocator<Eigen::Translation3d*> > getOffsetVector()
+		 * \brief Get the offset vector
+		 * 
+		 * Return the local offset of each Joints in a vector.
+		 * Warning : If you modify the offset, it will be modified in the corresponding Joint.
+		 * 
+		 * \return A vector of Eigen::Translation3d*
+		 */
 		vector<Eigen::Translation3d*, Eigen::aligned_allocator<Eigen::Translation3d*> > getOffsetVector();
 		
+		/*!
+		 * \fn vector<Eigen::Quaterniond, Eigen::aligned_allocator<Eigen::Quaterniond> > getDefaultOrientationVec()
+		 * \brief Get the default orientation vector
+		 * 
+		 * Return the default local orientation of each Joints in a vector.
+		 * 
+		 * \return A vector of Eigen::Quaterniond
+		 */
 		vector<Eigen::Quaterniond, Eigen::aligned_allocator<Eigen::Quaterniond> > getDefaultOrientationVec();
 		
+		/*!
+		 * \fn vector<Eigen::Translation3d, Eigen::aligned_allocator<Eigen::Translation3d> > getDefaultOffsetVector()
+		 * \brief Get the default offset vector
+		 * 
+		 * Return the default local offset of each Joints in a vector.
+		 * 
+		 * \return A vector of Eigen::Translation3d
+		 */
 		vector<Eigen::Translation3d, Eigen::aligned_allocator<Eigen::Translation3d> > getDefaultOffsetVector();
 		
 		/*!
@@ -100,17 +139,69 @@ class S3DModel
 		 */
 		vector<std::string> getNameVec();
 		
+		/*!
+		 * \fn vector<std::string> getConstOffsetVec()
+		 * \brief get a Vector of dof offset type on each Joint
+		 * 
+		 * The different types are defined in the Joint.h file.
+		 * 
+		 * \return Vector of std::string.
+		 */
 		vector<std::string> getConstOffsetVec();
+		
+		/*!
+		 * \fn vector<std::string> getConstOffsetVec()
+		 * \brief get a Vector of dof orientation type on each Joint
+		 * 
+		 * The different types are defined in the Joint.h file.
+		 * 
+		 * \return Vector of std::string.
+		 */
 		vector<std::string> getConstOrientVec();
 		
+		/*!
+		 * \fn std::multimap<int, std::string> getOffsetPartitionMultimap()
+		 * \brief get the partition associated with the offset of each Joint
+		 * \return A multimap between partitions and Joint names.
+		 */
 		std::multimap<int, std::string> getOffsetPartitionMultimap();
+		
+		/*!
+		 * \fn std::multimap<int, std::string> getOrientPartitionMultimap()
+		 * \brief get the partition associated with the orientation of each Joint
+		 * \return A multimap between partitions and Joint names.
+		 */
 		std::multimap<int, std::string> getOrientPartitionMultimap();
 		
+		/*!
+		 * \fn int getPartitionNumber()
+		 * \brief get the number of partitions (useful for PartFilter only)
+		 * \return The number of partitions.
+		 */
 		int getPartitionNumber();
 		
+		/*!
+		 * \fn void setColor(float R=1, float G=0, float B=1, float alpha=0.1)
+		 * \brief Change the color of a model.
+		 * \param R Red component.
+		 * \param G Green component.
+		 * \param B Blue component.
+		 * \param alpha Transparency component.
+		 */
 		void setColor(float R=1, float G=0, float B=1, float alpha=0.1);
 		
+		/*!
+		 * \fn void setVisible(bool visible)
+		 * \brief Make a model visible or unsvisible.
+		 * \param visible True if the model has to be visible.
+		 */
 		void setVisible(bool visible);
+		
+		/*!
+		 * \fn bool isVisible()
+		 * \brief Is the model visible ?
+		 * \return True if the model is visible.
+		 */
 		bool isVisible();
 		
 		void debug()//fonction temporaire
@@ -126,6 +217,7 @@ class S3DModel
 	private:
 	
 		/*!
+		 * \fn void createMaps(vector<Joint*>& jts)
 		 * \brief map recursively
 		 * 
 		 * For recursivity of createMaps public function.
@@ -158,8 +250,31 @@ class S3DModel
 		 */
 		void createNameVec();
 		
+		/*!
+		 * \fn void createConstraintVecs()
+		 * \brief Create the dof vectors.
+		 * 
+		 * For mapping only.
+		 * 
+		 */
 		void createConstraintVecs();
+		
+		/*!
+		 * \fn void createDefaultVecs()
+		 * \brief Create default offset and orientation vectors.
+		 * 
+		 * For mapping only.
+		 * 
+		 */
 		void createDefaultVecs();
+		
+		/*!
+		 * \fn void createPartitionMultimaps()
+		 * \brief Create multimaps for partitionned filter.
+		 * 
+		 * For mapping only.
+		 * 
+		 */
 		void createPartitionMultimaps();
 		
 		unsigned int mId; /*!< id of the model */
@@ -180,9 +295,9 @@ class S3DModel
 		
 		std::multimap<int, std::string> mOffsetPartToName; /*!< offset MultiMap from partition number to Joint name */
 		std::multimap<int, std::string> mOrientPartToName; /*!< orientation MultiMap from partition number to Joint name */
-		int mPartitionNumber;
+		int mPartitionNumber; /*!< Number of partitions */
 		
-		bool mIsVisible;
+		bool mIsVisible; /*!< Is the model visible ? True if yes */
 };
 
 #endif
