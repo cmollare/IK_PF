@@ -462,5 +462,8 @@ S3DModel* PartFilter::computeMMSE()
 		(*offset[i]) = Eigen::Translation3d(tempo);
 	}
 	
+	this->saveMMSE();
+	this->saveObservations();
+	
 	return mModelMMSE;
 }

@@ -9,7 +9,7 @@
 #include "../filter/PartFilter.h"
 #include "../filter/PartQRSFilter.h"
 
-#define NBMODELS 1000
+#define NBMODELS 100
 
 using namespace std;
 
@@ -108,7 +108,7 @@ int main()
 	viewer.initObservations(fileParser->getJointNames(), frame);
 	iksol.computeLikelihood();
 	
-	PartQRSFilter filter(mods, fileParser->getJointNames(), frame);
+	PartFilter filter(mods, fileParser->getJointNames(), frame);
 	filter.mapJointToObs(jtsToPos);
 	
 	//******************************************
