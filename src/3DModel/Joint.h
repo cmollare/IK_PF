@@ -3,7 +3,7 @@
 
 /*!
  * \file Joint.h
- * 
+ * \brief Contains definitions of DOF and constraints.
  */
 
 #include <cstdlib> 
