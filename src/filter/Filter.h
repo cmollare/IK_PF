@@ -46,6 +46,7 @@ class Filter
 		 * \return A float sampled following a normal distribution.
 		 */
 		double randn(double sigma=1);
+		double quasiRandn(double sigma=1);
 		double randUnif(double sup=1.0);
 		void initQMC();
 		

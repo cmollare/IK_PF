@@ -131,6 +131,14 @@ double Filter::randn(double sigma)
 	return X;
 }
 
+double Filter::quasiRandn(double sigma)
+{
+	int n = (int)floor(mVectorQMC[mIndexQMC]/mPasUnite);
+	double x = mGaussCDFInv[n] + ( (mGaussCDFInv[n+1] - mGaussCDFInv[n]) * (mVectorQMC[mIndexQMC] - ((double)n*mPasUnite)) / mPasUnite);
+	mIndexQMC++;
+	return x*sigma;
+}
+
 double Filter::randUnif(double sup)
 {
 	int Uint = rand()%10001;

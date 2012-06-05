@@ -3,7 +3,7 @@
 
 #include "Filter.h"
 
-#define TEMP3 0.2
+#define TEMP3 0.1
 
 class PartQRSFilter : public Filter
 {
