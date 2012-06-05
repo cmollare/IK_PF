@@ -29,16 +29,19 @@ class S3DViewer
 public:
 
 	/*!
+	 * \fn S3DViewer()
 	 * \brief S3DViewer constructor
 	 */
     S3DViewer();
     
     /*!
+     * \fn ~S3DViewer()
      * \brief S3DViewer destructor
      */
     ~S3DViewer();
     
     /*!
+     * \fn void createFrameListener()
      * \brief Setup the FrameListener
      * 
      * The frameListener allow us to catch keyboard and mouse events.
@@ -47,18 +50,28 @@ public:
 	void createFrameListener();
 	
 	/*!
+	 * \fn bool init()
 	 * \brief Setup the Ogre3D environment
+	 * \return True if initiation worked properly.
 	 */
 	bool init();
 	
 	/*!
+	 * \fn bool start()
 	 * \brief Start the infinite loop for realTime rendering
+	 * \return True while the infinite loop run properly.
 	 */
     bool start();
     
+    /*!
+	 * \fn bool isRendering()
+	 * \brief Test if rendering is ok, for custom rendering infinite loop.
+	 * \return True if rendering run properly.
+	 */
     bool isRendering();
     
     /*!
+     * \fn void setOptions(bool displayJoint=true, bool displayAxis=true, bool displayBone=true)
      * \brief Set the viewer options
      * 
      * \param displayJoint If true, display a sphere at the Joint position.
@@ -68,6 +81,7 @@ public:
     void setOptions(bool displayJoint=true, bool displayAxis=true, bool displayBone=true);
     
     /*!
+     * \fn void initModels(std::vector<S3DModel*>& models)
      * \brief Initiate the model following Ogre3D hierarchy.
      * 
      * This function has to be called before the start function.
@@ -76,8 +90,20 @@ public:
      */
     void initModels(std::vector<S3DModel*>& models);
     
+    /*!
+     * \fn void initObservations(std::vector<std::string> jtNames, std::vector<std::vector<double> > frame)
+     * \brief Initiate display of observations.
+     * \param jtNames Joint names.
+     * \param frame First frame.
+     */
     void initObservations(std::vector<std::string> jtNames, std::vector<std::vector<double> > frame);
     
+    /*!
+     * \fn void update(std::vector<S3DModel*>& models, std::vector<std::vector<double> >& frame)
+     * \brief Update diplaying.
+     * \param models Updated models.
+     * \param frame New frame.
+     */
     void update(std::vector<S3DModel*>& models, std::vector<std::vector<double> >& frame);
     
     //debug functions
@@ -93,23 +119,27 @@ public:
     
     //Drawing functions
     /*!
+     * \fn void defineMaterials()
      * \brief define Materials used by Ogre::ManualObject
      */
     void defineMaterials();
     
     /*!
+     * \fn ManualObject* createAxis(const std::string& strName, float scale=0.05)
      * \brief create an Axis
      * 
      * [Will be replaced by a class].
      * 
      * \param strName Name of the axis.
      * \param scale Scale of the axis : minimum 1.
+     * \return Pointer on ManualObject.
      */
     ManualObject* createAxis(const std::string& strName, float scale=0.05);
 
 private:
 
 	/*!
+	 * \fn void initModels(std::vector<Joint*>& jts, SceneNode *node, int modelNum, std::map<std::string, std::string>& snNames)
 	 * \brief initModels recursively
 	 * 
 	 * This function is called by initModels public function.
@@ -117,9 +147,21 @@ private:
 	 * \param jts Children Joints.
 	 * \param node Parent Ogre::SceneNode.
 	 * \param modelNum Index of the S3DModel.
+	 * \param snNames Map between Joint names and SceneNode names.
 	 */
 	void initModels(std::vector<Joint*>& jts, SceneNode *node, int modelNum, std::map<std::string, std::string>& snNames);
+	
+	/*!
+	 * \fn void updateLine3D()
+	 * \brief Update positions of 3DLines.
+	 */
 	void updateLine3D();
+	
+	/*!
+	 * \fn void updateObs(std::vector<std::vector<double> >& frame)
+	 * \brief Update observations.
+	 * \param frame Nw frame.
+	 */
 	void updateObs(std::vector<std::vector<double> >& frame);
 	
     Ogre::Root *mRoot; /*!< Ogre::Root */
@@ -137,9 +179,9 @@ private:
 	//End mapping
 	
 	//For observations
-	std::map<std::string, int> mObsMap;
-	std::vector<std::string> mObsNameVec;
-	std::vector<std::vector<double> > mObsCurrentFrame;
+	std::map<std::string, int> mObsMap; /*!< Map between observation names on their positions in the vector */
+	std::vector<std::string> mObsNameVec; /*!< Observation name vector */
+	std::vector<std::vector<double> > mObsCurrentFrame; /*!< Current frame */
 	
 	//Display options
 	bool mDisplayJoint; /*!< set/clear in setOptions function */
