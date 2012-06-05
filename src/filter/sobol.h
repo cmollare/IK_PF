@@ -1,3 +1,8 @@
+/*!
+ * \file sobol.h
+ * \brief Functions for QRS, extracted from Mathias Fontmarty's thesis.
+ */
+
 int i4_bit_hi1 ( int n );
 int i4_bit_lo0 ( int n );
 int i4_max ( int i1, int i2 );
