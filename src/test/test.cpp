@@ -6,8 +6,8 @@
 #include "../viewer/S3DViewer.h"
 #include "../solver/IKSolverPF.h"
 #include "../solver/IKSolverPFOrient.h"
-#include "../filter/PFFilter.h"
 #include "../filter/PartFilter.h"
+#include "../filter/PartQRSFilter.h"
 
 #define NBMODELS 100
 
@@ -108,7 +108,7 @@ int main()
 	viewer.initObservations(fileParser->getJointNames(), frame);
 	iksol.computeLikelihood();
 	
-	PartFilter filter(mods, fileParser->getJointNames(), frame);
+	PartQRSFilter filter(mods, fileParser->getJointNames(), frame);
 	filter.mapJointToObs(jtsToPos);
 	
 	//******************************************

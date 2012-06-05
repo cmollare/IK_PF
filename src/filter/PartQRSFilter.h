@@ -1,0 +1,36 @@
+#ifndef PARTQRSFILTER_H
+#define PARTQRSFILTER_H
+
+#include "Filter.h"
+
+#define TEMP3 0.2
+
+class PartQRSFilter : public Filter
+{
+	public:
+		PartQRSFilter(std::vector<S3DModel*> mods, std::vector<std::string> posNames, std::vector<std::vector<double> > jointsXYZPositions);
+		
+		virtual void initFilter();
+		virtual void computeLikelihood();
+		virtual void computeLikelihood(int partition);
+		virtual void step(std::vector<std::vector<double> > frame);
+		double computeNeff();
+		void mapJointToObs(std::map<std::string, std::string> jointNameToPosName);
+		S3DModel* computeMMSE();
+		
+	protected:
+		virtual void computeDistance();
+		virtual void computeDistance(int partition);
+		void updateWeights(int partition);
+		void resample();
+		
+		Eigen::VectorXf mCurrentWeights;
+		int mMaxWeightIndex; /*!< Index of maximum weighted model */
+		
+		std::vector<std::multimap<int, std::string> > mOffsetPartToName;
+		std::vector<std::multimap<int, std::string> > mOrientPartToName;
+		
+		int mPartitionNumber;
+};
+
+#endif
